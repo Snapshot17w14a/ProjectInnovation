@@ -7,6 +7,8 @@ public class BlowDetector : MonoBehaviour
     [SerializeField] private int sampleCount = 128;
     private float[] samples;
 
+    public static float RMSVolumeValue { get; set; }
+
     // Initialize the MicrophoneService
     private void Awake()
     {
@@ -29,7 +31,9 @@ public class BlowDetector : MonoBehaviour
     // Print the RMSVolume of the clip
     void Update()
     {
-        Debug.Log(RMSVolume());
+        float val = RMSVolume();
+        Debug.Log(val);
+        RMSVolumeValue = val;
     }
 
     private float RMSVolume()
