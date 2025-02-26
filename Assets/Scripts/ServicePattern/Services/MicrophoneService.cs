@@ -21,7 +21,7 @@ public class MicrophoneService : Service
         Debug.Assert(Application.HasUserAuthorization(UserAuthorization.Microphone), "Microphone usage privlage.");
     }
 
-    public AudioClip StartRecording()
+    public AudioClip StartRecording(int sampleCount = 128)
     {
         if (isRecording)
         {
@@ -29,7 +29,7 @@ public class MicrophoneService : Service
             return null;
         }
 
-        recording = AudioClip.Create("MicrophoneRecording", 128, 1, 44100, false);
+        recording = AudioClip.Create("MicrophoneRecording", sampleCount, 1, 44100, false);
         recording = Microphone.Start(Microphone.devices[0], true, 1, 44100);
         if (recording == null) throw new System.Exception("Microphone recording failed to start.");
         isRecording = true;
