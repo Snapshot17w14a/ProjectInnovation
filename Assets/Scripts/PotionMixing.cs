@@ -13,8 +13,14 @@ public class PotionMixing : MonoBehaviour
     private int successThreshold = 900;
     private Vector3 lastAcceleration;
     private int currentNumber;
+
+    private MeshRenderer renderer;
+
+    [SerializeField]
+    private List<Material> materials;
     void Start()
     {
+        renderer = GetComponent<MeshRenderer>();
         lastAcceleration = Input.acceleration;
     }
 
@@ -32,13 +38,12 @@ public class PotionMixing : MonoBehaviour
 
         if (currentNumber >= successThreshold && currentNumber < failThreshold)
         {
-            Debug.LogError("Potion Succeed!");
-
+            renderer.material = materials[0];
         }
         
         if (currentNumber >= failThreshold)
         {
-            Debug.LogError("Potion Failed!");
+            renderer.material = materials[1];
         }
     }
 }
