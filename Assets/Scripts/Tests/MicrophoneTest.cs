@@ -8,6 +8,7 @@ public class MicrophoneTest : MonoBehaviour
     [SerializeField] private float volumeThreshold;
     [SerializeField] private ParticleSystem fireParticle;
     ParticleSystem.EmissionModule emissionModule;
+    [SerializeField] private BlowDetector blowDetector;
     
 
     // Start is called before the first frame update
@@ -20,8 +21,8 @@ public class MicrophoneTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        emissionModule.rateOverTime = BlowDetector.RMSVolumeValue > volumeThreshold ? BlowDetector.RMSVolumeValue * 10 * 80 : 30;
-        image.rectTransform.sizeDelta = new Vector2(image.rectTransform.sizeDelta.x, multiplier * BlowDetector.RMSVolumeValue);
-        image.color = BlowDetector.RMSVolumeValue > volumeThreshold ? Color.red : Color.white; 
+        emissionModule.rateOverTime = blowDetector.RMSVolumeValue > volumeThreshold ? blowDetector.RMSVolumeValue * 10 * 80 : 30;
+        image.rectTransform.sizeDelta = new Vector2(image.rectTransform.sizeDelta.x, multiplier * blowDetector.RMSVolumeValue);
+        image.color = blowDetector.RMSVolumeValue > volumeThreshold ? Color.red : Color.white; 
     }
 }

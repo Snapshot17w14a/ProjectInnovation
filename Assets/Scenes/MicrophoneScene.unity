@@ -223,9 +223,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2113594412}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -541.02, y: 17.59}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 60, y: 17.590088}
   m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &638875535
@@ -243,6 +243,7 @@ MonoBehaviour:
   multiplier: 500
   volumeThreshold: 0.1
   fireParticle: {fileID: 1668179046}
+  blowDetector: {fileID: 751900370}
 --- !u!114 &638875536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,6 +294,7 @@ GameObject:
   - component: {fileID: 751900371}
   - component: {fileID: 751900370}
   - component: {fileID: 751900373}
+  - component: {fileID: 751900374}
   m_Layer: 0
   m_Name: MicrophneDetector
   m_TagString: Untagged
@@ -437,6 +439,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85214f9c02b52f04091441558908ed3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &751900374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751900369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e7f77f44ebd494f9272b1b1eeeaefa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blowDetector: {fileID: 751900370}
+  microphoneThreshold: 0.1
+  increaseAmount: 2
+  decreaseAmount: 1
 --- !u!1 &1148464535
 GameObject:
   m_ObjectHideFlags: 0
