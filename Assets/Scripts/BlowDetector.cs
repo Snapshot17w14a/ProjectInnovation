@@ -12,7 +12,6 @@ public class BlowDetector : MonoBehaviour
     // Initialize the MicrophoneService
     private void Awake()
     {
-        ServiceLocator.RegisterService<MicrophoneService>(new MicrophoneService());
         samples = new float[sampleCount];
     }
 

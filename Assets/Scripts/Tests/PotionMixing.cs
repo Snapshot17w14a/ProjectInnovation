@@ -14,13 +14,13 @@ public class PotionMixing : MonoBehaviour
     private Vector3 lastAcceleration;
     private int currentNumber;
 
-    private MeshRenderer renderer;
+    private MeshRenderer meshRenderer;
 
     [SerializeField]
     private List<Material> materials;
     void Start()
     {
-        renderer = GetComponent<MeshRenderer>();
+        meshRenderer = GetComponent<MeshRenderer>();
         lastAcceleration = Input.acceleration;
     }
 
@@ -38,12 +38,12 @@ public class PotionMixing : MonoBehaviour
 
         if (currentNumber >= successThreshold && currentNumber < failThreshold)
         {
-            renderer.material = materials[0];
+            meshRenderer.material = materials[0];
         }
         
         if (currentNumber >= failThreshold)
         {
-            renderer.material = materials[1];
+            meshRenderer.material = materials[1];
         }
     }
 }

@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CompassService : Service
 {
     private float degrees;
-    public CompassService()
+    public void Awake()
     {
         StartCompass();
     }
