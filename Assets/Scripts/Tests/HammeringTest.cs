@@ -20,15 +20,15 @@ public class HammeringTest : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
+
             CheckHit(mousePosition);
         }
     }
@@ -36,7 +36,7 @@ public class HammeringTest : MonoBehaviour
     private void CheckHit(Vector2 mousePosition)
     {
         float closestDistance = float.MaxValue;
-        Vector2 closestPoint = Vector2.zero;
+        Transform closestEdge = null;
 
 
         for (int i = 0; i < edgePoints.Count - 1; i++)
@@ -47,25 +47,37 @@ public class HammeringTest : MonoBehaviour
             Vector2 closest = ClosestPointOnLineSegment(point1, point2, mousePosition);
             float distance = Vector2.Distance(mousePosition, closest);
 
-            if(distance < closestDistance)
+            if (distance < closestDistance)
             {
                 closestDistance = distance;
-                closestPoint = closest;
+
+                closestEdge = (Vector2.Distance(closest, point1) < Vector2.Distance(closest, point2))? edgePoints[i]: edgePoints[i + 1];
             }
         }
 
-        if(closestDistance <= successThreshold)
+        if (closestDistance <= successThreshold)
         {
-            Debug.Log($"Successful hit at: {closestPoint}");
-        } else
+            ChangeMaterial(closestEdge);
+        }
+        else
         {
             currentAttempts++;
             Debug.Log($"Miss! Attempts Left: {maxAttempts - currentAttempts}");
         }
 
-        if(currentAttempts >= maxAttempts)
+        if (currentAttempts >= maxAttempts)
         {
             Debug.LogError("Out of Attempts!");
+        }
+    }
+
+    private void ChangeMaterial(Transform target)
+    {
+        Renderer renderer = target.GetComponent<Renderer>();
+
+        if (renderer != null)
+        {
+            renderer.material = material;
         }
     }
 
@@ -74,7 +86,7 @@ public class HammeringTest : MonoBehaviour
         Vector2 AB = B - A;
         Vector2 AMP = mousePosition - A;
 
-        float LenghtAB = AB.sqrMagnitude;
+        float LenghtAB = AB.magnitude;
         float ABdotAMP = Vector2.Dot(AMP, AB);
         float distance = ABdotAMP / LenghtAB;
 
