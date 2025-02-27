@@ -18,7 +18,7 @@ public class ForgeHandler : MonoBehaviour
         float micVolume = blowDetector.RMSVolumeValue;
         if (micVolume > microphoneThreshold) fireIntensity += Time.deltaTime;
         else fireIntensity = Mathf.Max(0, fireIntensity - Time.deltaTime);
-        score += Time.deltaTime * ((fireIntensity >= 3 && fireIntensity <= 4) ? increaseAmount : -decreaseAmount);
+        score += Time.deltaTime * ((micVolume > microphoneThreshold) ? increaseAmount : -decreaseAmount);
         score = Mathf.Clamp(score, 0, maxScore);
         Debug.Log($"intensity: {fireIntensity}, score: {score}");
         progressDisplay.SetNeedleProgress(score / maxScore);
