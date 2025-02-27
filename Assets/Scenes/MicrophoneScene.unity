@@ -528,8 +528,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blowDetector: {fileID: 751900370}
   microphoneThreshold: 0.1
-  increaseAmount: 2
-  decreaseAmount: 1
+  increaseAmount: 1
+  decreaseAmount: 0.5
   maxScore: 5
   progressDisplay: {fileID: 1738873814}
 --- !u!1 &946885998
