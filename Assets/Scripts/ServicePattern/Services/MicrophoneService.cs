@@ -10,6 +10,7 @@ public class MicrophoneService : Service
 
     public void Awake()
     {
+        ServiceLocator.RegisterService<MicrophoneService>(this);
         StartCoroutine(CheckForAuthorization());
     }
 
