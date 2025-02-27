@@ -8,9 +8,9 @@ public class MicrophoneService : Service
 
     public ref AudioClip RecordingClip => ref recording;
 
-    public MicrophoneService()
+    public void Awake()
     {
-        CheckForAuthorization();
+        StartCoroutine(CheckForAuthorization());
     }
 
     private IEnumerator CheckForAuthorization()

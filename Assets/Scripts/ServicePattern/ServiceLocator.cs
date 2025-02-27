@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public abstract class Service
+public abstract class Service : MonoBehaviour
 {
     // Base class for all services
 }
@@ -19,6 +19,7 @@ public static class ServiceLocator
     /// <returns>Return true if service registration was successful.</returns>
     public static bool RegisterService<T>(T service) where T : Service
     {
+        Debug.Log($"Registering service: {typeof(T)}");
         if (services.ContainsKey(service.GetType())) return false;
         services[service.GetType()] = service;
         return true;
