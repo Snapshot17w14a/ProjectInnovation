@@ -527,9 +527,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a174a4e70c2cb04a87ba6777aeb26bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pouringAngle: 30
   maxPourSpeed: 50
   pourRate: 1
+  pourGoal: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

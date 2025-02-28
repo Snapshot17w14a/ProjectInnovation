@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class MeltingScript : MonoBehaviour
@@ -8,14 +9,16 @@ public class MeltingScript : MonoBehaviour
     Quaternion gyroscopeRotation;
     Quaternion ninetydegx = Quaternion.Euler(-90, 0, 0);
 
-    [SerializeField]
-    private float pouringAngle = 30f;
+    
+    private float pouringAngle = 140f;
     [SerializeField]
     private float maxPourSpeed = 50f;
     [SerializeField]
     private float pourRate = 1f;
     private float lastTiltAngle = 0f;
     private float pourAmount = 0f;
+    [SerializeField]
+    private float pourGoal = 30f;
 
     private bool isPouring = false;
 
@@ -47,7 +50,7 @@ public class MeltingScript : MonoBehaviour
         float tiltAngle = NormalizeAngle(euler.z); // Normalize to -180 to 180
 
         // Check if tilt is beyond the pouring threshold
-        if (tiltAngle > pouringAngle)
+        if (tiltAngle <= pouringAngle && !IsCompleted())
         {
             if (!isPouring)
             {
@@ -58,7 +61,7 @@ public class MeltingScript : MonoBehaviour
             // Calculate pour speed (change in angle per second)
             float pourSpeed = Mathf.Abs(tiltAngle - lastTiltAngle) / Time.deltaTime;
 
-            if (pourSpeed < maxPourSpeed)
+            if (pourSpeed < maxPourSpeed && tiltAngle <= pouringAngle)
             {
                 pourAmount += pourRate * Time.deltaTime;
                 Debug.Log("Pouring Metal: " + pourAmount);
@@ -73,6 +76,9 @@ public class MeltingScript : MonoBehaviour
         {
             isPouring = false;
             Debug.Log("Stopped Pouring.");
+        } else if (IsCompleted())
+        {
+            Debug.Log("Casting Completed!");
         }
 
         lastTiltAngle = tiltAngle;
@@ -81,5 +87,10 @@ public class MeltingScript : MonoBehaviour
     private float NormalizeAngle(float angle)
     {
         return (angle > 180) ? angle - 360 : angle;
+    }
+
+    private bool IsCompleted()
+    {
+        return pourAmount >= pourGoal;
     }
 }
