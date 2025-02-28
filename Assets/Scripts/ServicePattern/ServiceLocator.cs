@@ -19,7 +19,7 @@ public static class ServiceLocator
     /// <returns>Return true if service registration was successful.</returns>
     public static bool RegisterService<T>(T service) where T : Service
     {
-        Debug.Log($"Registering service: {typeof(T)}");
+        Debug.Log($"Registering Service: {typeof(T)}");
         if (services.ContainsKey(service.GetType())) return false;
         services[service.GetType()] = service;
         return true;

@@ -13,7 +13,7 @@ public class AssemblyManager : MonoBehaviour
 
     private Dictionary<string, List<AssemblyItem>> typeInstancePair = new();
 
-    private string[] tempAssemblyOrder = { "Grips", "Guards", "Caps"};
+    private string[] tempAssemblyOrder = { "Grips" };
 
     private void Awake()
     {
@@ -39,7 +39,7 @@ public class AssemblyManager : MonoBehaviour
             assemblySnapPoints[i] = snapObject.GetChild(i).gameObject;
         }
 
-        PopulateContent(tempAssemblyOrder[currentSnapIndex]);
+        PopulateContent(currentSnapIndex);
     }
 
     // Update is called once per frame
@@ -75,18 +75,19 @@ public class AssemblyManager : MonoBehaviour
         itemObject.transform.position = assemblySnapPoints[currentSnapIndex].transform.position;
         itemObject.transform.SetParent(weapon.transform, true);
         itemObject.GetComponent<RectTransform>().sizeDelta = assemblySnapPoints[currentSnapIndex].GetComponent<RectTransform>().sizeDelta;
-        PopulateContent(tempAssemblyOrder[++currentSnapIndex]);
+        PopulateContent(++currentSnapIndex);
     }
 
-    private void PopulateContent(string type)
+    private void PopulateContent(int typeIndex)
     {
+        if (typeIndex == tempAssemblyOrder.Length) return;
         int contentChildCount = scrollView.content.childCount;
         for(int i = contentChildCount - 1; i >= 0 ; i--)
         {
             DestroyImmediate(scrollView.content.GetChild(i).gameObject);
         }
 
-        foreach (var item in typeInstancePair[type])
+        foreach (var item in typeInstancePair[tempAssemblyOrder[typeIndex]])
         {
             CreateButtonForItem(item);
         }
