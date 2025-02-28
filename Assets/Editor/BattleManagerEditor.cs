@@ -7,12 +7,7 @@ public class BattleManagerEditor : Editor
     {
         serializedObject.Update();
 
-        var wavesArray = serializedObject.FindProperty("enemyWaves");
-
-        for (int i = 0; i < wavesArray.arraySize; i++) 
-        {
-            EditorGUILayout.PropertyField(wavesArray.GetArrayElementAtIndex(i));
-        }
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("enemyWaves"));
 
         serializedObject.ApplyModifiedProperties();
     }

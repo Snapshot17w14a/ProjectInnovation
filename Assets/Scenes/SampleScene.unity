@@ -901,9 +901,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faff072b157b3e847b083f220254e849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1766445728}
-  audioSource: {fileID: 1645000095}
-  phone: {fileID: 1509691662}
 --- !u!4 &1645000094
 Transform:
   m_ObjectHideFlags: 0
