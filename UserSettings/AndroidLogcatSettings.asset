@@ -1,9 +1,9 @@
 {
-    "m_SelectedDeviceId": "R58MB5WVKNX",
+    "m_SelectedDeviceId": "R5CR11ZYRMX",
     "m_SelectedProcess": {
-        "deviceId": "R58MB5WVKNX",
-        "name": "com.UnityTechnologies.com.unity.template.urpblank",
-        "processId": 3600,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -54,6 +54,18 @@
             "deviceId": "R58MB5WVKNX",
             "name": "com.UnityTechnologies.com.unity.template.urpblank",
             "processId": 3600,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CR11ZYRMX",
+            "name": "com.UnityTechnologies.com.unity.template.urpblank",
+            "processId": 3323,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CR11ZYRMX",
+            "name": "com.UnityTechnologies.com.unity.template.urpblank",
+            "processId": 10616,
             "exited": false
         }
     ],
@@ -111,7 +123,7 @@
         "AutoCapture": true
     },
     "m_FilterOptions": {
-        "m_Filter": "",
+        "m_Filter": "score",
         "m_UseRegularExpressions": true,
         "m_MatchCase": true
     },
