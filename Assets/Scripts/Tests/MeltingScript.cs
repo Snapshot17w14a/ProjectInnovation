@@ -9,7 +9,7 @@ public class MeltingScript : MonoBehaviour
     Quaternion gyroscopeRotation;
     Quaternion ninetydegx = Quaternion.Euler(-90, 0, 0);
 
-    
+
     private float pouringAngle = 140f;
     [SerializeField]
     private float maxPourSpeed = 50f;
@@ -19,8 +19,6 @@ public class MeltingScript : MonoBehaviour
     private float pourAmount = 0f;
     [SerializeField]
     private float pourGoal = 30f;
-
-    private bool isPouring = false;
 
     void Start()
     {
@@ -47,21 +45,16 @@ public class MeltingScript : MonoBehaviour
     private void CheckPouring(Quaternion rotation)
     {
         Vector3 euler = rotation.eulerAngles;
-        float tiltAngle = NormalizeAngle(euler.z); // Normalize to -180 to 180
+        float tiltAngle = NormalizeAngle(euler.z); // Normalize to 180 to -180
 
         // Check if tilt is beyond the pouring threshold
         if (tiltAngle <= pouringAngle && !IsCompleted())
         {
-            if (!isPouring)
-            {
-                isPouring = true;
-                Debug.Log("Started Pouring!");
-            }
 
-            // Calculate pour speed (change in angle per second)
-            float pourSpeed = Mathf.Abs(tiltAngle - lastTiltAngle) / Time.deltaTime;
+            float pourSpeed = tiltAngle - lastTiltAngle;
+            float AbsoluteTiltAngle = Mathf.Abs(tiltAngle);
 
-            if (pourSpeed < maxPourSpeed && tiltAngle <= pouringAngle)
+            if (pourSpeed > -maxPourSpeed && AbsoluteTiltAngle <= pouringAngle)
             {
                 pourAmount += pourRate * Time.deltaTime;
                 Debug.Log("Pouring Metal: " + pourAmount);
@@ -72,11 +65,7 @@ public class MeltingScript : MonoBehaviour
                 Debug.Log("Pouring too fast! Quality decreased.");
             }
         }
-        else if (isPouring)
-        {
-            isPouring = false;
-            Debug.Log("Stopped Pouring.");
-        } else if (IsCompleted())
+        else if (IsCompleted())
         {
             Debug.Log("Casting Completed!");
         }
@@ -86,7 +75,7 @@ public class MeltingScript : MonoBehaviour
 
     private float NormalizeAngle(float angle)
     {
-        return (angle > 180) ? angle - 360 : angle;
+        return (angle > 180) ? Mathf.Abs(angle - 360) : angle;
     }
 
     private bool IsCompleted()

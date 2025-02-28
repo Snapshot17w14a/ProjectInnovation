@@ -529,7 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxPourSpeed: 50
   pourRate: 1
-  pourGoal: 10
+  pourGoal: 100
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
