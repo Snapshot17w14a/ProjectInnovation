@@ -3,8 +3,13 @@ using UnityEngine;
 public class CompassService : Service
 {
     private float degrees;
-    public void Awake()
+    protected override void Awake()
     {
+        if (ServiceLocator.DoesServiceExist<CompassService>()) DestroyImmediate(gameObject);
+
+        ServiceLocator.RegisterService(this);
+
+        base.Awake();
         StartCompass();
     }
 

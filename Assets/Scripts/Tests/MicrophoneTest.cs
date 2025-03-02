@@ -21,6 +21,7 @@ public class MicrophoneTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (blowDetector == null) return;
         emissionModule.rateOverTime = blowDetector.RMSVolumeValue > volumeThreshold ? blowDetector.RMSVolumeValue * 10 * 80 : 30;
         image.rectTransform.sizeDelta = new Vector2(image.rectTransform.sizeDelta.x, multiplier * blowDetector.RMSVolumeValue);
         image.color = blowDetector.RMSVolumeValue > volumeThreshold ? Color.red : Color.white; 

@@ -1,32 +1,109 @@
-using UnityEngine;
-using System.Text.Json;
 using System.Collections.Generic;
+using System.Text.Json;
+using UnityEngine;
+using System.IO;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : Service
 {
-    Dictionary<int, ItemData> idItemPair = new();
+    //Store created items, and store amout of each AssemblyItem
+    private readonly List<Item> items = new();
+    private Dictionary<string, int> assemblyItemCount = new();
 
-    // Start is called before the first frame update
-    void Start()
+    //All AssemblyItems loaded from Resources/Grips
+    private List<AssemblyItem> assemblyItems;
+
+    protected override void Awake()
     {
-        idItemPair.Add(2, new ItemData("asdsad", 2));
-        idItemPair.Add(1, new ItemData("feaf", 1));
-        idItemPair.Add(4, new ItemData("ttsdf", 4));
-        idItemPair.Add(3, new ItemData("rthgd", 3));
+        if (ServiceLocator.DoesServiceExist<InventoryManager>() && !ServiceLocator.CompareService(this))
+        {
+            DestroyImmediate(gameObject);
+            return;
+        }
 
-        Debug.Log(JsonSerializer.Serialize(idItemPair));
+        ServiceLocator.RegisterService(this);
+        DontDestroyOnLoad(this);
+
+        base.Awake();
+
+        AssemblyItem[] loadedAssemblyItems = Resources.LoadAll<AssemblyItem>("Grips");
+        assemblyItems = new(loadedAssemblyItems);
+
+        //items.AddRange(new Item[] { new(damage: 10, critChance: 35, armorPenetration: 1), new(damage: 1, critChance: 95, critDamage: 10) });
+        //SaveItems();
+        LoadItems();
+
+        //assemblyItemCount.Add("Grip1", 2);
+        //assemblyItemCount.Add("Grip23", 1);
+        //assemblyItemCount.Add("Grip69", 64);
+        //SaveAssemblyItems();
+        LoadAssemblyItems();
     }
 
+    public void SaveItems()
+    {
+        ItemData[] itemDatas = new ItemData[items.Count];
+        for(int i = 0; i < items.Count; i++) itemDatas[i] = new ItemData(items[i]);
+        File.WriteAllText(Application.persistentDataPath + "/savedItems.json", JsonSerializer.Serialize(itemDatas));
+    }
+
+    public Item[] LoadItems()
+    {
+        ItemData[] readData = JsonSerializer.Deserialize<ItemData[]>(File.ReadAllText(Application.persistentDataPath + "/savedItems.json"));
+        Item[] loadedItems = new Item[readData.Length];
+        for(int i = 0; i < readData.Length; i++) loadedItems[i] = new Item().LoadFromStruct(readData[i]);
+        try { ItemData.StaticId = readData[^1].Id; }
+        catch (System.IndexOutOfRangeException) { ItemData.StaticId = 0; }
+        return loadedItems;
+    }
+
+    public void SaveAssemblyItems()
+    {
+        File.WriteAllText(Application.persistentDataPath + "/savedAssemblyItems.json", JsonSerializer.Serialize(assemblyItemCount));
+    }
+
+    public void LoadAssemblyItems()
+    {
+        assemblyItemCount = JsonSerializer.Deserialize<Dictionary<string, int>>(File.ReadAllText(Application.persistentDataPath + "/savedAssemblyItems.json"));
+    }
+
+    public void AddItemToInventory(Item item) => items.Add(item);
+    public void RemoveItemFromInventory(Item item) => items.Remove(item);
+
+    public int GetAssemblyItemCount(AssemblyItem assemblyItem)
+    {
+        assemblyItemCount.TryGetValue(assemblyItem.itemName, out int count);
+        return count;
+    }
+
+    public void AddAssemblyItem(AssemblyItem assemblyItem, int amountToAdd)
+    {
+        bool isKeyFound = assemblyItemCount.TryGetValue(assemblyItem.itemName, out int count);
+        if (!isKeyFound) assemblyItemCount.Add(assemblyItem.itemName, amountToAdd);
+        else assemblyItemCount[assemblyItem.itemName] = count + amountToAdd;
+    }
 }
 
 public struct ItemData
 {
-    public string name;
-    public int id;
+    public static int StaticId { get; set; } = 0;
+    public int Id { get; set; }
+    public Item.Material ItemMaterial { get; set; }
+    public AssemblyItem Grip { get; set; }
+    public int Damage { get; set; }
+    public int AttackSpeed { get; set; }
+    public int CritChance { get; set; }
+    public int CriticalDamage { get; set; }
+    public int ArmorPenetration { get; set; }
 
-    public ItemData(string name, int id)
+    public ItemData(Item item)
     {
-        this.name = name;
-        this.id = id;
+        Id = ++StaticId;
+        ItemMaterial = item.ItemMaterial;
+        Grip = item.Grip;
+        Damage = item.Damage;
+        AttackSpeed = item.AttackSpeed;
+        CritChance = item.CritChance;
+        CriticalDamage = item.CriticalDamage;
+        ArmorPenetration = item.ArmorPenetration;
     }
 }
