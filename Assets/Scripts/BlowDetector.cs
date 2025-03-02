@@ -1,13 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(AudioSource), typeof(MicrophoneService))]
 public class BlowDetector : MonoBehaviour
 {
     [SerializeField] private AudioSource microponeSource;
     [SerializeField] private int sampleCount = 128;
     private float[] samples;
 
-    public float RMSVolumeValue { get; set; }
+    public float RMSVolumeValue => RMSVolume();
 
     // Initialize the MicrophoneService
     private void Awake()
@@ -27,16 +27,25 @@ public class BlowDetector : MonoBehaviour
         microponeSource.Play();
     }
 
+    private void OnDestroy()
+    {
+        var microphoneService = ServiceLocator.GetService<MicrophoneService>();
+        microphoneService.StopRecording();
+        ServiceLocator.UnregisterService<MicrophoneService>(microphoneService);
+    }
+
     // Print the RMSVolume of the clip
     void Update()
     {
-        float val = RMSVolume();
-        RMSVolumeValue = val;
+         
     }
 
     private float RMSVolume()
     {
-        microponeSource.clip.GetData(samples, 0);
+        int startPos = ServiceLocator.GetService<MicrophoneService>().MicrophoneOffset - sampleCount; 
+        if (startPos < 0) startPos += sampleCount;
+
+        microponeSource.clip.GetData(samples, startPos);
         float sum = 0;
 
         foreach (float value in samples) 

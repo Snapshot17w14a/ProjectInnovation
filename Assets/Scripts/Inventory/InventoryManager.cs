@@ -12,20 +12,30 @@ public class InventoryManager : Service
     //All AssemblyItems loaded from Resources/Grips
     private List<AssemblyItem> assemblyItems;
 
-    void Awake()
+    protected override void Awake()
     {
-        ServiceLocator.RegisterService<InventoryManager>(this);
+        if (ServiceLocator.DoesServiceExist<InventoryManager>() && !ServiceLocator.CompareService(this))
+        {
+            DestroyImmediate(gameObject);
+            return;
+        }
+
+        ServiceLocator.RegisterService(this);
+        DontDestroyOnLoad(this);
+
+        base.Awake();
+
         AssemblyItem[] loadedAssemblyItems = Resources.LoadAll<AssemblyItem>("Grips");
         assemblyItems = new(loadedAssemblyItems);
 
-        items.AddRange(new Item[] { new(damage: 10, critChance: 35, armorPenetration: 1), new(damage: 1, critChance: 95, critDamage: 10) });
-        SaveItems();
+        //items.AddRange(new Item[] { new(damage: 10, critChance: 35, armorPenetration: 1), new(damage: 1, critChance: 95, critDamage: 10) });
+        //SaveItems();
         LoadItems();
 
-        assemblyItemCount.Add("Grip1", 2);
-        assemblyItemCount.Add("Grip23", 1);
-        assemblyItemCount.Add("Grip69", 64);
-        SaveAssemblyItems();
+        //assemblyItemCount.Add("Grip1", 2);
+        //assemblyItemCount.Add("Grip23", 1);
+        //assemblyItemCount.Add("Grip69", 64);
+        //SaveAssemblyItems();
         LoadAssemblyItems();
     }
 
@@ -41,7 +51,8 @@ public class InventoryManager : Service
         ItemData[] readData = JsonSerializer.Deserialize<ItemData[]>(File.ReadAllText(Application.persistentDataPath + "/savedItems.json"));
         Item[] loadedItems = new Item[readData.Length];
         for(int i = 0; i < readData.Length; i++) loadedItems[i] = new Item().LoadFromStruct(readData[i]);
-        ItemData.StaticId = readData[^1].Id;
+        try { ItemData.StaticId = readData[^1].Id; }
+        catch (System.IndexOutOfRangeException) { ItemData.StaticId = 0; }
         return loadedItems;
     }
 
