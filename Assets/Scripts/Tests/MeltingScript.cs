@@ -20,6 +20,8 @@ public class MeltingScript : MonoBehaviour
     [SerializeField]
     private float pourGoal = 30f;
 
+    [SerializeField] private Transform meter;
+
     void Start()
     {
         gyroscope = Input.gyro;
@@ -45,7 +47,7 @@ public class MeltingScript : MonoBehaviour
     private void CheckPouring(Quaternion rotation)
     {
         Vector3 euler = rotation.eulerAngles;
-        float tiltAngle = NormalizeAngle(euler.z); // Normalize to 180 to -180
+        float tiltAngle = NormalizeAngle(euler.z); // Normalize to 180
 
         // Check if tilt is beyond the pouring threshold
         if (tiltAngle <= pouringAngle && !IsCompleted())
@@ -56,6 +58,7 @@ public class MeltingScript : MonoBehaviour
 
             if (pourSpeed > -maxPourSpeed && AbsoluteTiltAngle <= pouringAngle)
             {
+                meter.transform.position += new Vector3(-pourSpeed, 0 , 0) * Time.deltaTime;
                 pourAmount += pourRate * Time.deltaTime;
                 Debug.Log("Pouring Metal: " + pourAmount);
 
