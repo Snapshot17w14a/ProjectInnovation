@@ -7,10 +7,16 @@ public class MicrophoneService : Service
     private bool isRecording = false;
 
     public ref AudioClip RecordingClip => ref recording;
+    public int MicrophoneOffset => Microphone.GetPosition(null);
 
-    public void Awake()
+    protected override void Awake()
     {
-        ServiceLocator.RegisterService<MicrophoneService>(this);
+        if (ServiceLocator.DoesServiceExist<MicrophoneService>() && !ServiceLocator.CompareService(this)) DestroyImmediate(gameObject);
+
+        ServiceLocator.RegisterService(this);
+
+        base.Awake();
+
         StartCoroutine(CheckForAuthorization());
     }
 

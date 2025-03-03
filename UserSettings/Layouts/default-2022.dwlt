@@ -52,8 +52,8 @@ MonoBehaviour:
     y: 0
     width: 401
     height: 673
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -370,8 +370,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 >>>>>>> origin/main
   m_Name: ProjectBrowser
+=======
+  m_Name: ConsoleWindow
+>>>>>>> origin/main
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -396,16 +400,16 @@ MonoBehaviour:
     y: 673
     width: 1510
     height: 314
-  m_MinSize: {x: 231, y: 271}
-  m_MaxSize: {x: 10001, y: 10021}
-  m_ActualView: {fileID: 18}
+  m_MinSize: {x: 101, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
+  m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 18}
   - {fileID: 19}
   - {fileID: 15}
   - {fileID: 14}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &12
 >>>>>>> origin/main
 MonoBehaviour:
@@ -486,7 +490,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 1}
-  m_TargetSize: {x: 1080, y: 2340}
+  m_TargetSize: {x: 1080, y: 2256}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -502,11 +506,11 @@ MonoBehaviour:
     - UnityEditor.DeviceSimulation.ApplicationSettingsPlugin
     pluginStates:
     - '{}'
-    scale: 25
+    scale: 26
     fitToScreenEnabled: 1
     rotationDegree: 0
     highlightSafeAreaEnabled: 0
-    friendlyName: Google Pixel 5
+    friendlyName: vivo NEX 3 5G
     screenIndex: 0
     networkReachability: 1
     systemLanguage: 10
@@ -804,7 +808,7 @@ MonoBehaviour:
 =======
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -44394
+  m_LastSelectedObjectID: -13010
 --- !u!114 &16
 >>>>>>> origin/main
 MonoBehaviour:
@@ -1171,6 +1175,7 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_Position:
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_Target: {x: -6.883206, y: -7.5448503, z: -5.957674}
     speed: 2
     m_Value: {x: -6.883206, y: -7.5448503, z: -5.957674}
@@ -1178,6 +1183,11 @@ MonoBehaviour:
     m_Target: {x: 323.06256, y: 675.3493, z: 3.866485}
     speed: 2
     m_Value: {x: 323.06256, y: 675.3493, z: 3.866485}
+>>>>>>> origin/main
+=======
+    m_Target: {x: 449.85663, y: 1522.5592, z: 3.866485}
+    speed: 2
+    m_Value: {x: 449.85663, y: 1522.5592, z: 3.866485}
 >>>>>>> origin/main
   m_RenderMode: 0
   m_CameraMode:
@@ -1321,7 +1331,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 9af8ffff2afbffff
+      m_ExpandedIDs: 7ea9ffffcad6ffff72d7ffff44d8ffff0ae3ffff78f2ffff92720000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1404,7 +1414,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Tests/Items
+    - Assets/Scripts/Inventory
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1412,16 +1422,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 61
   m_LastFolders:
-  - Assets/Prefabs/Tests/Items
+  - Assets/Scripts/Inventory
   m_LastFoldersGridSize: 61
   m_LastProjectPath: C:\Users\Kevin\Documents\LocalUnityProjects\ProjectInnovation
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 626c0000
-    m_LastClickedID: 27746
-    m_ExpandedIDs: 00000000266c0000326c0000646c000000ca9a3bffffff7f
+    m_SelectedIDs: 02750000
+    m_LastClickedID: 29954
+    m_ExpandedIDs: 00000000dc6c00005a6e00005e6e00008c6e000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1449,7 +1459,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000266c0000
+    m_ExpandedIDs: 00000000dc6c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1474,9 +1484,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: dca8ffff
+    m_LastClickedInstanceID: -22308
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000f870000000000000285d0000e61b0400902004001e200400
     m_RenameOverlay:
       m_UserAcceptedRename: 0

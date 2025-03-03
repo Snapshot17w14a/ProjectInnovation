@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LocationTest.unity
     guid: 894efdae3d4153c4aa093e4cc597f12a
+  - enabled: 1
+    path: Assets/Scenes/MicrophoneScene.unity
+    guid: 8db72e5e33272ec41bfe07c55a60a687
   m_configObjects: {}

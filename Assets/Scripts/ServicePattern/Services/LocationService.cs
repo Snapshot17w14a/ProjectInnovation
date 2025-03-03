@@ -6,9 +6,14 @@ public class LocationService : Service
 {
     public LocationInfo GetLocationInfo => Input.location.lastData;
 
-    private void Awake()
+    protected override void Awake()
     {
-        ServiceLocator.RegisterService<LocationService>(this);
+        if (ServiceLocator.DoesServiceExist<LocationService>()) DestroyImmediate(gameObject);
+
+        ServiceLocator.RegisterService(this);
+
+        base.Awake();
+
         if (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
         {
             Permission.RequestUserPermission(Permission.FineLocation);

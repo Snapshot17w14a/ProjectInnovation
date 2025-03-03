@@ -5,11 +5,20 @@ using System;
 public abstract class Service : MonoBehaviour
 {
     // Base class for all services
+    protected virtual void Awake()
+    {
+    }
+
+    public void DestroyServiceObject()
+    {
+        DestroyImmediate(gameObject);
+    }
 }
 
+#nullable enable
 public static class ServiceLocator
 {
-    public static Dictionary<Type, object> services = new();
+    private static Dictionary<Type, Service> services = new();
 
     /// <summary>
     /// Register a service, the service will be held and can be accessed anywhere with <see cref="GetService{T}(T)"/>
@@ -19,7 +28,7 @@ public static class ServiceLocator
     /// <returns>Return true if service registration was successful.</returns>
     public static bool RegisterService<T>(T service) where T : Service
     {
-        Debug.Log($"Registering service: {typeof(T)}");
+        Debug.Log($"Registering Service: {typeof(T)}");
         if (services.ContainsKey(service.GetType())) return false;
         services[service.GetType()] = service;
         return true;
@@ -34,7 +43,15 @@ public static class ServiceLocator
     public static bool UnregisterService<T>(T service) where T : Service
     {
         if (!services.ContainsKey(service.GetType())) return false;
-        services[service.GetType()] = null;
+        services.Remove(service.GetType());
+        //service.DestroyServiceObject();
+        return true;
+    }
+
+    public static bool UnregisterService<T>() where T : Service
+    {
+        if (!services.ContainsKey(typeof(T))) return false;
+        services.Remove(typeof(T));
         return true;
     }
 
@@ -43,12 +60,19 @@ public static class ServiceLocator
     /// </summary>
     /// <typeparam name="T">The type of the service to be requested</typeparam>
     /// <returns>The reference to the service of type T. Returns null if the service could not be located.</returns>
-    public static T GetService<T>() where T : Service
+    public static T? GetService<T>() where T : Service
     {
-        if (services.TryGetValue(typeof(T), out var service))
-        {
-            return (T)service;
-        }
+        if (services.TryGetValue(typeof(T), out var service)) return (T)service;
         return null;
+    }
+
+    public static bool DoesServiceExist<T>() where T : Service
+    {
+        return services.ContainsKey(typeof(T));
+    }
+
+    public static bool CompareService<T>(T service) where T : Service
+    {
+        return services[typeof(T)] == service;
     }
 }

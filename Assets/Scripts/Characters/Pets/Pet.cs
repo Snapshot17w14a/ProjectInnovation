@@ -8,7 +8,7 @@ public class Pet : Character
 
     protected virtual IEnumerator SkillRouting()
     {
-        while (isBattleing)
+        while (isBattling)
         {
             yield return new WaitUntil(() => IsEnemyInRange);
             stats.skill.UseSkill();
@@ -29,7 +29,7 @@ public class Pet : Character
     protected override void Start()
     {
         base.Start();
-        isBattleing = true;
+        isBattling = true;
         StartCoroutine(AttackRoutine());
     }
 }
