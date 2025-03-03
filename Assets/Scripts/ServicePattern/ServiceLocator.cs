@@ -15,6 +15,7 @@ public abstract class Service : MonoBehaviour
     }
 }
 
+#nullable enable
 public static class ServiceLocator
 {
     private static Dictionary<Type, Service> services = new();
@@ -59,7 +60,7 @@ public static class ServiceLocator
     /// </summary>
     /// <typeparam name="T">The type of the service to be requested</typeparam>
     /// <returns>The reference to the service of type T. Returns null if the service could not be located.</returns>
-    public static T GetService<T>() where T : Service
+    public static T? GetService<T>() where T : Service
     {
         if (services.TryGetValue(typeof(T), out var service)) return (T)service;
         return null;

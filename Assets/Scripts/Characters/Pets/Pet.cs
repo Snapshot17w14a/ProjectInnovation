@@ -4,11 +4,13 @@ using UnityEngine;
 public class Pet : Character
 {
     [SerializeField] private bool test;
+    [SerializeField] private GameObject damageNumberPrefab;
+    [SerializeField] private HealthDisplay healthDisplay;
     protected override bool IsEnemyInRange => test;
 
-    protected virtual IEnumerator SkillRouting()
+    protected virtual IEnumerator SkillRoutine()
     {
-        while (isBattleing)
+        while (isBattling)
         {
             yield return new WaitUntil(() => IsEnemyInRange);
             stats.skill.UseSkill();
@@ -24,12 +26,14 @@ public class Pet : Character
     protected override void Attack()
     {
         Debug.Log("Attacked emeny, dmg: " + stats.Damage);
+        Instantiate(damageNumberPrefab, transform.position, Quaternion.identity, transform).GetComponent<DamageDisplay>().Damage = Random.Range(0, 120);
+        healthDisplay.Percentage = Random.Range(0, 100) / 100f;
     }
 
     protected override void Start()
     {
         base.Start();
-        isBattleing = true;
+        isBattling = true;
         StartCoroutine(AttackRoutine());
     }
 }

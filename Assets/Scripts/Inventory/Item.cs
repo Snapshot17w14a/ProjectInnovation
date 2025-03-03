@@ -24,7 +24,7 @@ public class Item
     public Item LoadFromStruct(ItemData data)
     {
         ItemMaterial = data.ItemMaterial;
-        Grip = data.Grip;
+        Grip = ServiceLocator.GetService<InventoryManager>().NameToAssemblyItem(data.Grip);
         Damage = data.Damage;
         AttackSpeed = data.AttackSpeed;
         CritChance = data.CritChance;
@@ -46,6 +46,11 @@ public class Item
     public void SetHammerResult(int score)
     {
         CritChance += -10 + (score - 1) * 5;
+    }
+
+    public void SetGrip(AssemblyItem grip)
+    {
+        Grip = grip;
     }
 
     public enum Material

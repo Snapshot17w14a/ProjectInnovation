@@ -6,13 +6,13 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected CharacterPresets preset;
 
     protected CharacterStats stats;
-    protected bool isBattleing;
+    protected bool isBattling;
 
     protected abstract bool IsEnemyInRange { get; }
 
     protected virtual IEnumerator AttackRoutine()
     {
-        while (isBattleing)
+        while (isBattling)
         {
             yield return new WaitUntil(() => IsEnemyInRange);
             Attack();

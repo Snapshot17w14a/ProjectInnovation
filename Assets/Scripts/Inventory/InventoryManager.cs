@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using UnityEngine;
+using System.Linq;
 using System.IO;
 
 public class InventoryManager : Service
@@ -10,7 +11,7 @@ public class InventoryManager : Service
     private Dictionary<string, int> assemblyItemCount = new();
 
     //All AssemblyItems loaded from Resources/Grips
-    private List<AssemblyItem> assemblyItems;
+    [HideInInspector] public List<AssemblyItem> assemblyItems;
 
     protected override void Awake()
     {
@@ -29,13 +30,13 @@ public class InventoryManager : Service
         assemblyItems = new(loadedAssemblyItems);
 
         //items.AddRange(new Item[] { new(damage: 10, critChance: 35, armorPenetration: 1), new(damage: 1, critChance: 95, critDamage: 10) });
-        //SaveItems();
+        SaveItems();
         LoadItems();
 
-        //assemblyItemCount.Add("Grip1", 2);
-        //assemblyItemCount.Add("Grip23", 1);
-        //assemblyItemCount.Add("Grip69", 64);
-        //SaveAssemblyItems();
+        assemblyItemCount.Add("Insane Grip", 2);
+        assemblyItemCount.Add("Crazy Grip", 1);
+        assemblyItemCount.Add("Ultimate Grip", 64);
+        SaveAssemblyItems();
         LoadAssemblyItems();
     }
 
@@ -71,8 +72,8 @@ public class InventoryManager : Service
 
     public int GetAssemblyItemCount(AssemblyItem assemblyItem)
     {
-        assemblyItemCount.TryGetValue(assemblyItem.itemName, out int count);
-        return count;
+        var wasValueRead = assemblyItemCount.TryGetValue(assemblyItem.itemName, out int count);
+        return wasValueRead ? count : 0;
     }
 
     public void AddAssemblyItem(AssemblyItem assemblyItem, int amountToAdd)
@@ -81,6 +82,8 @@ public class InventoryManager : Service
         if (!isKeyFound) assemblyItemCount.Add(assemblyItem.itemName, amountToAdd);
         else assemblyItemCount[assemblyItem.itemName] = count + amountToAdd;
     }
+
+    public AssemblyItem NameToAssemblyItem(string itemName) => assemblyItems.Where(item => item.itemName == itemName).FirstOrDefault();
 }
 
 public struct ItemData
@@ -88,7 +91,7 @@ public struct ItemData
     public static int StaticId { get; set; } = 0;
     public int Id { get; set; }
     public Item.Material ItemMaterial { get; set; }
-    public AssemblyItem Grip { get; set; }
+    public string Grip { get; set; }
     public int Damage { get; set; }
     public int AttackSpeed { get; set; }
     public int CritChance { get; set; }
@@ -99,7 +102,7 @@ public struct ItemData
     {
         Id = ++StaticId;
         ItemMaterial = item.ItemMaterial;
-        Grip = item.Grip;
+        Grip = item.Grip.itemName;
         Damage = item.Damage;
         AttackSpeed = item.AttackSpeed;
         CritChance = item.CritChance;
