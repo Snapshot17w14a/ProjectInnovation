@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
 
-public class MeltingScript : MonoBehaviour
+public class PouringMetal : MonoBehaviour
 {
     Gyroscope gyroscope;
     Quaternion gyroscopeRotation;
@@ -20,7 +20,10 @@ public class MeltingScript : MonoBehaviour
     [SerializeField]
     private float pourGoal = 30f;
 
-    [SerializeField] private Transform meter;
+    private float lastAbsoluteTiltAngle;
+
+    [SerializeField] private Transform meterBall;
+    [SerializeField] private Transform startingPoint;
 
     void Start()
     {
@@ -55,25 +58,33 @@ public class MeltingScript : MonoBehaviour
 
             float pourSpeed = tiltAngle - lastTiltAngle;
             float AbsoluteTiltAngle = Mathf.Abs(tiltAngle);
+            //Debug.Log(" " + pourSpeed);
 
             if (pourSpeed > -maxPourSpeed && AbsoluteTiltAngle <= pouringAngle)
             {
-                meter.transform.position += new Vector3(-pourSpeed, 0 , 0) * Time.deltaTime;
+                if (AbsoluteTiltAngle <= lastAbsoluteTiltAngle)
+                {
+                    meterBall.transform.position += new Vector3(pourSpeed, 0, 0) * Time.deltaTime;
+                }
                 pourAmount += pourRate * Time.deltaTime;
-                Debug.Log("Pouring Metal: " + pourAmount);
+                //Debug.Log("Pouring Metal: " + pourAmount);
 
             }
             else
             {
                 Debug.Log("Pouring too fast! Quality decreased.");
             }
+            lastAbsoluteTiltAngle = AbsoluteTiltAngle;
         }
         else if (IsCompleted())
         {
-            Debug.Log("Casting Completed!");
+            //Debug.Log("Casting Completed!");
         }
 
         lastTiltAngle = tiltAngle;
+        float ballToStartingPoint = startingPoint.position.x - meterBall.position.x;
+        meterBall.transform.position += new Vector3(ballToStartingPoint, 0, 0) * Time.deltaTime;
+
     }
 
     private float NormalizeAngle(float angle)
