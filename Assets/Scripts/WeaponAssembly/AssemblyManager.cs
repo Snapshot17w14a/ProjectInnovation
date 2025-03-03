@@ -1,31 +1,29 @@
-using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-using System.IO;
 
-public class AssemblyManager : MonoBehaviour
+public class AssemblyManager : CraftingProcess, ICraftingProcess
 {
-    private GameObject[] assemblySnapPoints;
+    private GameObject assemblySnapPoint;
     private GameObject weapon;
-    int currentSnapIndex = 0;
     [SerializeField] private ScrollRect scrollView;
     [SerializeField][Range(1,5)] private int gridDimension;
 
-    private Dictionary<string, List<AssemblyItem>> typeInstancePair = new();
+    private Item assemblyItem;
 
-    private string[] tempAssemblyOrder = { "Grips" };
+    private bool isAssemblyDone;
+    public bool IsProcessDone => isAssemblyDone;
 
     private void Awake()
     {
         CalculateMaxCellSize();
 
-        string[] itemTypes = Directory.GetDirectories("Assets/Resources/");
-        foreach(var type in itemTypes)
-        {
-            string strippedType = type.Replace("Assets/Resources/", "");
-            var allItems = Resources.LoadAll<AssemblyItem>(strippedType);
-            typeInstancePair.Add(strippedType, new List<AssemblyItem>(allItems));
-        }
+        //string[] itemTypes = Directory.GetDirectories("Assets/Resources/");
+        //foreach(var type in itemTypes)
+        //{
+        //    string strippedType = type.Replace("Assets/Resources/", "");
+        //    var allItems = Resources.LoadAll<AssemblyItem>(strippedType);
+        //    typeInstancePair.Add(strippedType, new List<AssemblyItem>(allItems));
+        //}
     }
 
     // Start is called before the first frame update
@@ -33,19 +31,13 @@ public class AssemblyManager : MonoBehaviour
     {
         weapon = transform.Find("Weapon").gameObject;
         var snapObject = weapon.transform.Find("Snappoints");
-        assemblySnapPoints = new GameObject[snapObject.childCount];
-        for (int i = 0; i < assemblySnapPoints.Length; i++) 
-        {
-            assemblySnapPoints[i] = snapObject.GetChild(i).gameObject;
-        }
-
-        PopulateContent(currentSnapIndex);
+        assemblySnapPoint = snapObject.GetChild(0).gameObject;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartProcess(ref Item item)
     {
-        
+        assemblyItem = item;
+        PopulateContent();
     }
 
     private void CalculateMaxCellSize()
@@ -70,26 +62,29 @@ public class AssemblyManager : MonoBehaviour
 
     public void AddItem(AssemblyItem item)
     {
+        ServiceLocator.GetService<InventoryManager>().AddAssemblyItem(item, -1);
         var itemObject = new GameObject(item.itemName, typeof(CanvasRenderer), typeof(Image));
         itemObject.GetComponent<Image>().sprite = item.sprite;
-        itemObject.transform.position = assemblySnapPoints[currentSnapIndex].transform.position;
+        itemObject.transform.position = assemblySnapPoint.transform.position;
         itemObject.transform.SetParent(weapon.transform, true);
-        itemObject.GetComponent<RectTransform>().sizeDelta = assemblySnapPoints[currentSnapIndex].GetComponent<RectTransform>().sizeDelta;
-        PopulateContent(++currentSnapIndex);
+        itemObject.GetComponent<RectTransform>().sizeDelta = assemblySnapPoint.GetComponent<RectTransform>().sizeDelta;
+        itemObject.GetComponent<RectTransform>().localRotation = assemblySnapPoint.GetComponent<RectTransform>().localRotation;
+        assemblyItem.SetGrip(item);
+        isAssemblyDone = true;
     }
 
-    private void PopulateContent(int typeIndex)
+    private void PopulateContent()
     {
-        if (typeIndex == tempAssemblyOrder.Length) return;
         int contentChildCount = scrollView.content.childCount;
         for(int i = contentChildCount - 1; i >= 0 ; i--)
         {
             DestroyImmediate(scrollView.content.GetChild(i).gameObject);
         }
 
-        foreach (var item in typeInstancePair[tempAssemblyOrder[typeIndex]])
+        var inventoryManager = ServiceLocator.GetService<InventoryManager>();
+        foreach (var item in inventoryManager.assemblyItems)
         {
-            CreateButtonForItem(item);
+            if(inventoryManager.GetAssemblyItemCount(item) > 0) CreateButtonForItem(item);
         }
     }
 }

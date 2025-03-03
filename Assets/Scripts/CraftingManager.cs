@@ -51,7 +51,7 @@ public class CraftingManager : Service
         while(craftingSceneIndex < craftingScenes.Length - 1)
         {
             yield return SceneManager.LoadSceneAsync(craftingScenes[++craftingSceneIndex]);
-            var currentCraftingProcess = FindAnyObjectByType<ForgeHandler>();
+            var currentCraftingProcess = FindAnyObjectByType<CraftingProcess>().GetComponent<ICraftingProcess>();
             currentCraftingProcess.StartProcess(ref craftingItem);
             yield return new WaitUntil(() => currentCraftingProcess.IsProcessDone);
         }
@@ -60,3 +60,5 @@ public class CraftingManager : Service
         yield return null;
     }
 }
+
+public abstract class CraftingProcess : MonoBehaviour { }
