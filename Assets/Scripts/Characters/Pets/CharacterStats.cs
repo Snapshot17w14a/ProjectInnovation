@@ -18,4 +18,3 @@
         SkillCooldown = preset.SkillCooldown;
     }
 }
-
