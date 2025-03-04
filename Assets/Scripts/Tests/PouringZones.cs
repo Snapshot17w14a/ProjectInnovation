@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class PouringZones : MonoBehaviour
 {
-    private bool isPouring = false;
-
-    private float accumulatedMetal = 0f;
-
     [SerializeField] private Transform meter;
+    [SerializeField] private float scaleMultiplier = 0.01f;
+    private float accumulatedMetal;
 
-    [SerializeField] private PouringMetal pouringMeter;
-    public void PourMetal(float amount)
+    private void OnTriggerEnter(Collider other)
+    {
+        CollectMetal(1f);
+        Destroy(other.gameObject);
+    }
+    public void CollectMetal(float amount)
     {
         accumulatedMetal += amount;
 
-        if (pouringMeter.isLiquidEmpty())
+        if(meter != null)
         {
-            var transformLocalScale = meter.transform.localScale;
-            transformLocalScale.y += 0.001f;
-            meter.transform.localScale = transformLocalScale;
+            Vector3 newScale = meter.localScale;
+            newScale.y += amount * scaleMultiplier;
+            meter.localScale = newScale;
         }
     }
 }

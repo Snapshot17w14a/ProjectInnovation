@@ -2,7 +2,7 @@
 {
     public int MaxHealth;
     public int Health;
-    public float Armor;
+    //public float Armor;
     public int Damage;
     public float AttackCooldown;
     public int Defense;
@@ -16,7 +16,7 @@
         MaxHealth = preset.Health;
         Health = preset.Health;
         Damage = preset.Damage;
-        Armor = preset.Armor;
+        //Armor = preset.Armor;
         AttackCooldown = preset.AttackCooldown;
         Defense = preset.Defense;
         skill = preset.Skill;
