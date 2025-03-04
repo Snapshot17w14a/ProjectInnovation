@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PouringMetal : MonoBehaviour
 {
@@ -79,7 +81,6 @@ public class PouringMetal : MonoBehaviour
         if (other.TryGetComponent<PouringZones>(out PouringZones zone))
         {
             pouringZones.Add(zone);
-            Debug.Log("Zone Enter");
         }
     }
 
@@ -88,7 +89,6 @@ public class PouringMetal : MonoBehaviour
         if (other.TryGetComponent<PouringZones>(out PouringZones zone))
         {
             pouringZones.Remove(zone);
-            Debug.Log("Zone Exit");
         }
     }
 
@@ -113,10 +113,13 @@ public class PouringMetal : MonoBehaviour
                 }
 
                 totalLiquid -= pourRate * Time.deltaTime;
-                pourAmount += pourRate * Time.deltaTime;
 
-                //temporary
-                Instantiate(liquid, new Vector3(transform.position.x, transform.position.y - 0.2f, transform.position.z), Quaternion.identity);
+                if (totalLiquid >= 0)
+                {
+                    pourAmount += pourRate * Time.deltaTime;
+                    //temporary
+                    Instantiate(liquid, new Vector3(transform.position.x, transform.position.y - 0.2f, transform.position.z), Quaternion.identity);
+                }
 
                 if (pouringZones.Count > 0)
                 {

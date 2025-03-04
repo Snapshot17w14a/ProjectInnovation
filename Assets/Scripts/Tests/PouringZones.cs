@@ -12,7 +12,6 @@ public class PouringZones : MonoBehaviour
     public void PourMetal(float amount)
     {
         accumulatedMetal += amount;
-        Debug.Log($"Accumulated metal: {accumulatedMetal}");
 
         var transformLocalScale = meter.transform.localScale;
         transformLocalScale.y += 0.001f;
