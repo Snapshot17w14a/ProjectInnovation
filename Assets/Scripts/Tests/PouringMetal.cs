@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -46,10 +47,17 @@ public class PouringMetal : MonoBehaviour
 
     [SerializeField] private GameObject liquid;
 
+    [SerializeField] private TMP_Text amountText;
+
+    //Make the pouring a bit crazy when its tilted too much suddenly
+    // make it pour quicker based on the angle that it is being poured
+
     void Start()
     {
         gyroscope = Input.gyro;
         gyroscope.enabled = true;
+
+        amountText.text = $" {totalLiquid.ToString("F1")}";
     }
 
     private void Update()
@@ -107,14 +115,16 @@ public class PouringMetal : MonoBehaviour
 
             if (pourSpeed > -maxPourSpeed && absoluteTiltAngle <= pouringAngle)
             {
+                pourRate = 1;
                 if (absoluteTiltAngle <= lastAbsoluteTiltAngle)
                 {
-                    meterBall.transform.position += new Vector3(pourSpeed, 0, 0) * Time.deltaTime;
+                    meterBall.transform.position += new Vector3(pourSpeed / 0.25f, 0, 0) * Time.deltaTime;
                 }
 
                 totalLiquid -= pourRate * Time.deltaTime;
+                amountText.text = $" {totalLiquid.ToString("F1")}";
 
-                if (totalLiquid >= 0)
+                if (isLiquidEmpty())
                 {
                     pourAmount += pourRate * Time.deltaTime;
                     //temporary
@@ -134,6 +144,13 @@ public class PouringMetal : MonoBehaviour
             else
             {
                 Debug.LogError("Pouring too fast! Quality decreased.");
+                pourRate = 2;
+
+                if (isLiquidEmpty())
+                {
+                    pourAmount += pourRate * Time.deltaTime;
+
+                }
             }
             lastAbsoluteTiltAngle = absoluteTiltAngle;
         }
@@ -177,6 +194,11 @@ public class PouringMetal : MonoBehaviour
     private bool IsCompleted()
     {
         return pourAmount >= pourGoal;
+    }
+
+    public bool isLiquidEmpty()
+    {
+        return totalLiquid >= 0;
     }
 
     public void StartMoveLeft() => moveLeft = true;
