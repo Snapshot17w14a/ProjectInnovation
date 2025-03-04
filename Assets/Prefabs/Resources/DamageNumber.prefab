@@ -153,6 +153,7 @@ MonoBehaviour:
   minTextSize: 50
   maxTextSize: 150
   movementDistance: 100
+  sizeDelta: 30
   damageGradient:
     serializedVersion: 2
     key0: {r: 0.5566038, g: 0.20216268, b: 0.20216268, a: 1}

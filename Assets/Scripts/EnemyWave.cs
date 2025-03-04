@@ -1,10 +1,11 @@
+using UnityEngine;
+
 [System.Serializable]
-public class EnemyWave
+public class EnemyWave : ScriptableObject
 {
-    public Enemy[] waveEnemies;
+    [SerializeField] private Enemy[] waveEnemies;
     private int maxEnemyCount;
     public int RemainingEnemies => maxEnemyCount - waveEnemies.Length;
-
 
     public void Initialize()
     {

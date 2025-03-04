@@ -1,4 +1,6 @@
 using UnityEditor;
+using static UnityEditor.EditorGUILayout;
+
 [CustomEditor(typeof(EnemyWave))]
 public class WaveEditor : Editor
 {
@@ -8,10 +10,19 @@ public class WaveEditor : Editor
 
         var enemyWaveArray = serializedObject.FindProperty("waveEnemies");
 
+        BeginHorizontal();
+        LabelField("Array size");
+        enemyWaveArray.arraySize = IntSlider(enemyWaveArray.arraySize, 0, 3);
+        EndHorizontal();
+
+        EditorGUI.indentLevel++;
+
         for (int i = 0; i < enemyWaveArray.arraySize; i++) 
         {
-            EditorGUILayout.PropertyField(enemyWaveArray.GetArrayElementAtIndex(i));
+            PropertyField(enemyWaveArray.GetArrayElementAtIndex(i));
         }
+
+        EditorGUI.indentLevel--;
 
         serializedObject.ApplyModifiedProperties();
     }
