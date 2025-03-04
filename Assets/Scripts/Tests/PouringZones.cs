@@ -8,9 +8,14 @@ public class PouringZones : MonoBehaviour
 
     private float accumulatedMetal = 0f;
 
+    [SerializeField] private Transform meter;
     public void PourMetal(float amount)
     {
         accumulatedMetal += amount;
         Debug.Log($"Accumulated metal: {accumulatedMetal}");
+
+        var transformLocalScale = meter.transform.localScale;
+        transformLocalScale.y += 0.001f;
+        meter.transform.localScale = transformLocalScale;
     }
 }

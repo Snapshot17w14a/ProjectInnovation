@@ -17,6 +17,7 @@ public class PouringMetal : MonoBehaviour
     private float pourRate = 1f;
     private float lastTiltAngle = 0f;
     private float pourAmount = 0f;
+    [SerializeField] private float totalLiquid = 30;
     [SerializeField]
     private float pourGoal = 30f;
 
@@ -40,6 +41,8 @@ public class PouringMetal : MonoBehaviour
     private bool usingButtonsToMove = false;
 
     [SerializeField] private List<PouringZones> pouringZones;
+
+    [SerializeField] private GameObject liquid;
 
     void Start()
     {
@@ -108,7 +111,12 @@ public class PouringMetal : MonoBehaviour
                 {
                     meterBall.transform.position += new Vector3(pourSpeed, 0, 0) * Time.deltaTime;
                 }
+
+                totalLiquid -= pourRate * Time.deltaTime;
                 pourAmount += pourRate * Time.deltaTime;
+
+                //temporary
+                Instantiate(liquid, new Vector3(transform.position.x, transform.position.y - 0.2f, transform.position.z), Quaternion.identity);
 
                 if (pouringZones.Count > 0)
                 {
@@ -122,7 +130,7 @@ public class PouringMetal : MonoBehaviour
             }
             else
             {
-               // Debug.LogError("Pouring too fast! Quality decreased.");
+                Debug.LogError("Pouring too fast! Quality decreased.");
             }
             lastAbsoluteTiltAngle = absoluteTiltAngle;
         }
