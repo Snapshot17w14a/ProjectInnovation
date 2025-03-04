@@ -1,6 +1,7 @@
 ﻿public struct CharacterStats
 {
     public int Health;
+    public float Armor;
     public int Damage;
     public float AttackCooldown;
 
@@ -12,10 +13,10 @@
     {
         Health = preset.Health;
         Damage = preset.Damage;
+        Armor = preset.Armor;
         AttackCooldown = preset.AttackCooldown;
         skill = preset.Skill;
         SkillDamage = preset.SkillDamage;
         SkillCooldown = preset.SkillCooldown;
     }
 }
-

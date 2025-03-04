@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
     "m_SelectedDeviceId": "R5CR11ZYRMX",
+=======
+    "m_SelectedDeviceId": "",
+>>>>>>> origin/main
     "m_SelectedProcess": {
         "deviceId": "",
         "name": "",
@@ -7,6 +11,7 @@
         "exited": false
     },
     "m_SelectedPriority": 0,
+<<<<<<< HEAD
     "m_KnownProcessesForSerialization": [
         {
             "deviceId": "R58MB5WVKNX",
@@ -69,6 +74,9 @@
             "exited": false
         }
     ],
+=======
+    "m_KnownProcessesForSerialization": [],
+>>>>>>> origin/main
     "m_Tags": {
         "m_Entries": [
             {
@@ -106,6 +114,7 @@
         "Height": 0.0
     },
     "m_MemoryViewerState": {
+<<<<<<< HEAD
         "MemoryWindowWidth": 170.0,
         "MemoryTypeEnabled": [
             true,
@@ -119,13 +128,23 @@
             true,
             true
         ],
+=======
+        "MemoryWindowWidth": 0.0,
+        "MemoryTypeEnabled": [],
+>>>>>>> origin/main
         "MemoryGroup": 2,
         "AutoCapture": true
     },
     "m_FilterOptions": {
+<<<<<<< HEAD
         "m_Filter": "score",
         "m_UseRegularExpressions": true,
         "m_MatchCase": true
+=======
+        "m_Filter": "",
+        "m_UseRegularExpressions": false,
+        "m_MatchCase": false
+>>>>>>> origin/main
     },
     "m_SymbolPaths": [],
     "m_CaptureVideoSettings": {
@@ -142,8 +161,13 @@
     "m_ScreenCaptureSettings": {
         "Mode": 0,
         "m_LastSaveLocation": [
+<<<<<<< HEAD
             "X:\\unityprojects\\ProjectInnovation",
             "X:\\unityprojects\\ProjectInnovation"
+=======
+            "D:\\Projects\\Project Innovation\\ProjectInnovation",
+            "D:\\Projects\\Project Innovation\\ProjectInnovation"
+>>>>>>> origin/main
         ]
     },
     "m_QueryLayoutSettings": {

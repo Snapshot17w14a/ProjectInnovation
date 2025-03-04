@@ -4,6 +4,7 @@ using UnityEngine;
 public class CharacterPresets : ScriptableObject
 {
     public int Health;
+    public float Armor;
     public int Damage;
     public float AttackCooldown;
 

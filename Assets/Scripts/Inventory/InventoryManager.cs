@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using UnityEngine;
-using System.IO;
 using System.Linq;
+using System.IO;
 
 public class InventoryManager : Service
 {
@@ -30,7 +30,7 @@ public class InventoryManager : Service
         assemblyItems = new(loadedAssemblyItems);
 
         //items.AddRange(new Item[] { new(damage: 10, critChance: 35, armorPenetration: 1), new(damage: 1, critChance: 95, critDamage: 10) });
-        //SaveItems();
+        SaveItems();
         LoadItems();
 
         assemblyItemCount.Add("Insane Grip", 2);
