@@ -22,8 +22,24 @@ public class PouringMetal : MonoBehaviour
 
     private float lastAbsoluteTiltAngle;
 
+    // Temporary 
     [SerializeField] private Transform meterBall;
     [SerializeField] private Transform startingPoint;
+
+    //---------
+
+    [SerializeField] private float speed = 5f;
+
+    [SerializeField] private Transform pointA;
+    [SerializeField] private Transform pointB;
+
+    public float moveSpeed = 5f;
+    private bool moveLeft = false;
+    private bool moveRight = false;
+
+    private bool usingButtonsToMove = false;
+
+    [SerializeField] private List<PouringZones> pouringZones;
 
     void Start()
     {
@@ -39,12 +55,38 @@ public class PouringMetal : MonoBehaviour
         float xRotation = gyroscopeRotation.eulerAngles.x;
         transform.rotation = ninetydegx * Quaternion.Euler(xRotation, yRotation, zRotation);
 
+        if (usingButtonsToMove)
+        {
+            MoveButton();
+        }
+        else
+        {
+            MoveAccelerometer();
+        }
         CheckPouring(transform.rotation);
     }
 
-    private static Quaternion GyroToUnity(Quaternion q)
+    private Quaternion GyroToUnity(Quaternion q)
     {
         return new Quaternion(q.x, -q.y, q.z, -q.w);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<PouringZones>(out PouringZones zone))
+        {
+            pouringZones.Add(zone);
+            Debug.Log("Zone Enter");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent<PouringZones>(out PouringZones zone))
+        {
+            pouringZones.Remove(zone);
+            Debug.Log("Zone Exit");
+        }
     }
 
     private void CheckPouring(Quaternion rotation)
@@ -57,24 +99,32 @@ public class PouringMetal : MonoBehaviour
         {
 
             float pourSpeed = tiltAngle - lastTiltAngle;
-            float AbsoluteTiltAngle = Mathf.Abs(tiltAngle);
+            float absoluteTiltAngle = Mathf.Abs(tiltAngle);
             //Debug.Log(" " + pourSpeed);
 
-            if (pourSpeed > -maxPourSpeed && AbsoluteTiltAngle <= pouringAngle)
+            if (pourSpeed > -maxPourSpeed && absoluteTiltAngle <= pouringAngle)
             {
-                if (AbsoluteTiltAngle <= lastAbsoluteTiltAngle)
+                if (absoluteTiltAngle <= lastAbsoluteTiltAngle)
                 {
                     meterBall.transform.position += new Vector3(pourSpeed, 0, 0) * Time.deltaTime;
                 }
                 pourAmount += pourRate * Time.deltaTime;
-                //Debug.Log("Pouring Metal: " + pourAmount);
 
+                if (pouringZones.Count > 0)
+                {
+                    float distributedAmount = pourRate * Time.deltaTime / pouringZones.Count;
+
+                    foreach (PouringZones zone in pouringZones)
+                    {
+                        zone.PourMetal(distributedAmount);
+                    }
+                }
             }
             else
             {
-                Debug.Log("Pouring too fast! Quality decreased.");
+               // Debug.LogError("Pouring too fast! Quality decreased.");
             }
-            lastAbsoluteTiltAngle = AbsoluteTiltAngle;
+            lastAbsoluteTiltAngle = absoluteTiltAngle;
         }
         else if (IsCompleted())
         {
@@ -82,9 +132,30 @@ public class PouringMetal : MonoBehaviour
         }
 
         lastTiltAngle = tiltAngle;
+        
+        // Temporary
         float ballToStartingPoint = startingPoint.position.x - meterBall.position.x;
         meterBall.transform.position += new Vector3(ballToStartingPoint, 0, 0) * Time.deltaTime;
 
+    }
+
+    private void MoveAccelerometer()
+    {
+        float move = (Input.acceleration.x / speed) * Time.deltaTime;
+        float newX = transform.position.x + move;
+
+        newX = Mathf.Clamp(newX, pointA.position.x, pointB.position.x);
+        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+    }
+
+    private void MoveButton()
+    {
+        Vector3 deviceRight = Camera.main.transform.right;
+
+        if (moveLeft)
+            transform.Translate(-deviceRight * moveSpeed * Time.deltaTime, Space.World);
+        else if (moveRight)
+            transform.Translate(deviceRight * moveSpeed * Time.deltaTime, Space.World);
     }
 
     private float NormalizeAngle(float angle)
@@ -96,4 +167,10 @@ public class PouringMetal : MonoBehaviour
     {
         return pourAmount >= pourGoal;
     }
+
+    public void StartMoveLeft() => moveLeft = true;
+    public void StopMoveLeft() => moveLeft = false;
+    public void StartMoveRight() => moveRight = true;
+    public void StopMoveRight() => moveRight = false;
+    public void Toggle() => usingButtonsToMove = !usingButtonsToMove;
 }
