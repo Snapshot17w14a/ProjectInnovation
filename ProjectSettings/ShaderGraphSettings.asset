@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shaderVariantLimit: 2048
   customInterpolatorErrorThreshold: 32
-  customInterpolatorWarningThreshold: 16
+  customInterpolatorWarningThreshold: 32

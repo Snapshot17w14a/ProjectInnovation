@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PouringMetal : MonoBehaviour
 {
@@ -17,6 +20,7 @@ public class PouringMetal : MonoBehaviour
     private float pourRate = 1f;
     private float lastTiltAngle = 0f;
     private float pourAmount = 0f;
+    [SerializeField] private float totalLiquid = 30;
     [SerializeField]
     private float pourGoal = 30f;
 
@@ -41,10 +45,19 @@ public class PouringMetal : MonoBehaviour
 
     [SerializeField] private List<PouringZones> pouringZones;
 
+    [SerializeField] private GameObject liquid;
+
+    [SerializeField] private TMP_Text amountText;
+
+    //Make the pouring a bit crazy when its tilted too much suddenly
+    // make it pour quicker based on the angle that it is being poured
+
     void Start()
     {
         gyroscope = Input.gyro;
         gyroscope.enabled = true;
+
+        amountText.text = $" {totalLiquid.ToString("F1")}";
     }
 
     private void Update()
@@ -76,7 +89,6 @@ public class PouringMetal : MonoBehaviour
         if (other.TryGetComponent<PouringZones>(out PouringZones zone))
         {
             pouringZones.Add(zone);
-            Debug.Log("Zone Enter");
         }
     }
 
@@ -85,7 +97,6 @@ public class PouringMetal : MonoBehaviour
         if (other.TryGetComponent<PouringZones>(out PouringZones zone))
         {
             pouringZones.Remove(zone);
-            Debug.Log("Zone Exit");
         }
     }
 
@@ -104,11 +115,21 @@ public class PouringMetal : MonoBehaviour
 
             if (pourSpeed > -maxPourSpeed && absoluteTiltAngle <= pouringAngle)
             {
+                pourRate = 1;
                 if (absoluteTiltAngle <= lastAbsoluteTiltAngle)
                 {
-                    meterBall.transform.position += new Vector3(pourSpeed, 0, 0) * Time.deltaTime;
+                    meterBall.transform.position += new Vector3(pourSpeed / 0.25f, 0, 0) * Time.deltaTime;
                 }
-                pourAmount += pourRate * Time.deltaTime;
+
+                totalLiquid -= pourRate * Time.deltaTime;
+                amountText.text = $" {totalLiquid.ToString("F1")}";
+
+                if (isLiquidEmpty())
+                {
+                    pourAmount += pourRate * Time.deltaTime;
+                    //temporary
+                    Instantiate(liquid, new Vector3(transform.position.x, transform.position.y - 0.2f, transform.position.z), Quaternion.identity);
+                }
 
                 if (pouringZones.Count > 0)
                 {
@@ -122,7 +143,14 @@ public class PouringMetal : MonoBehaviour
             }
             else
             {
-               // Debug.LogError("Pouring too fast! Quality decreased.");
+                Debug.LogError("Pouring too fast! Quality decreased.");
+                pourRate = 2;
+
+                if (isLiquidEmpty())
+                {
+                    pourAmount += pourRate * Time.deltaTime;
+
+                }
             }
             lastAbsoluteTiltAngle = absoluteTiltAngle;
         }
@@ -166,6 +194,11 @@ public class PouringMetal : MonoBehaviour
     private bool IsCompleted()
     {
         return pourAmount >= pourGoal;
+    }
+
+    public bool isLiquidEmpty()
+    {
+        return totalLiquid >= 0;
     }
 
     public void StartMoveLeft() => moveLeft = true;

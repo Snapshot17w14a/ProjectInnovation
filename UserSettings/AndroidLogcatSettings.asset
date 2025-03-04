@@ -1,0 +1,189 @@
+{
+<<<<<<< HEAD
+    "m_SelectedDeviceId": "R5CR11ZYRMX",
+=======
+    "m_SelectedDeviceId": "",
+>>>>>>> origin/main
+    "m_SelectedProcess": {
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
+        "exited": false
+    },
+    "m_SelectedPriority": 0,
+<<<<<<< HEAD
+    "m_KnownProcessesForSerialization": [
+        {
+            "deviceId": "R58MB5WVKNX",
+            "name": "com.UnityTechnologies.com.unity.template.urpblank",
+            "processId": 27929,
+            "exited": false
+        },
+        {
+            "deviceId": "R58MB5WVKNX",
+            "name": "com.UnityTechnologies.com.unity.template.urpblank",
+            "processId": 29064,
+            "exited": false
+        },
+        {
+            "deviceId": "R58MB5WVKNX",
+            "name": "com.UnityTechnologies.com.unity.template.urpblank",
+            "processId": 32529,
+            "exited": false
+        },
+        {
+            "deviceId": "R58MB5WVKNX",
+            "name": "com.UnityTechnologies.com.unity.template.urpblank",
+            "processId": 32565,
+            "exited": false
+        },
+        {
+            "deviceId": "R58MB5WVKNX",
+            "name": "com.UnityTechnologies.com.unity.template.urpblank",
+            "processId": 717,
+            "exited": false
+        },
+        {
+            "deviceId": "R58MB5WVKNX",
+            "name": "com.UnityTechnologies.com.unity.template.urpblank",
+            "processId": 1999,
+            "exited": false
+        },
+        {
+            "deviceId": "R58MB5WVKNX",
+            "name": "com.UnityTechnologies.com.unity.template.urpblank",
+            "processId": 3388,
+            "exited": false
+        },
+        {
+            "deviceId": "R58MB5WVKNX",
+            "name": "com.UnityTechnologies.com.unity.template.urpblank",
+            "processId": 3600,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CR11ZYRMX",
+            "name": "com.UnityTechnologies.com.unity.template.urpblank",
+            "processId": 3323,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CR11ZYRMX",
+            "name": "com.UnityTechnologies.com.unity.template.urpblank",
+            "processId": 10616,
+            "exited": false
+        }
+    ],
+=======
+    "m_KnownProcessesForSerialization": [],
+>>>>>>> origin/main
+    "m_Tags": {
+        "m_Entries": [
+            {
+                "m_Name": "Filter by all listed tags",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "No Filter",
+                "m_Selected": true
+            },
+            {
+                "m_Name": "",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "Tag Control...",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "Unity",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "CRASH",
+                "m_Selected": false
+            }
+        ]
+    },
+    "m_ExtraWindowState": {
+        "Type": 0,
+        "Height": 0.0
+    },
+    "m_MemoryViewerState": {
+<<<<<<< HEAD
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
+=======
+        "MemoryWindowWidth": 0.0,
+        "MemoryTypeEnabled": [],
+>>>>>>> origin/main
+        "MemoryGroup": 2,
+        "AutoCapture": true
+    },
+    "m_FilterOptions": {
+<<<<<<< HEAD
+        "m_Filter": "score",
+        "m_UseRegularExpressions": true,
+        "m_MatchCase": true
+=======
+        "m_Filter": "",
+        "m_UseRegularExpressions": false,
+        "m_MatchCase": false
+>>>>>>> origin/main
+    },
+    "m_SymbolPaths": [],
+    "m_CaptureVideoSettings": {
+        "TimeLimitEnabled": false,
+        "TimeLimit": 180,
+        "VideoSizeEnabled": false,
+        "VideoSizeX": 1280,
+        "VideoSizeY": 720,
+        "BitRateEnabled": false,
+        "BitRateK": 20000,
+        "DisplayIdEnabled": false,
+        "DisplayId": ""
+    },
+    "m_ScreenCaptureSettings": {
+        "Mode": 0,
+        "m_LastSaveLocation": [
+<<<<<<< HEAD
+            "X:\\unityprojects\\ProjectInnovation",
+            "X:\\unityprojects\\ProjectInnovation"
+=======
+            "D:\\Projects\\Project Innovation\\ProjectInnovation",
+            "D:\\Projects\\Project Innovation\\ProjectInnovation"
+>>>>>>> origin/main
+        ]
+    },
+    "m_QueryLayoutSettings": {
+        "LastLayoutSaveLocation": "",
+        "LastScreenshotSaveLocation": ""
+    },
+    "m_InputSettings": {
+        "ShiftModifier": false,
+        "SendText": "",
+        "PosixKillSignal": 0,
+        "TargetProcess": {
+            "deviceId": "",
+            "name": "",
+            "processId": 0,
+            "exited": false
+        }
+    },
+    "m_AutoScroll": 2
+}
