@@ -102,7 +102,7 @@ public struct ItemData
     {
         Id = ++StaticId;
         ItemMaterial = item.ItemMaterial;
-        Grip = item.Grip.itemName;
+        Grip = item.Grip == null ? "null" : item.Grip.itemName;
         Damage = item.Damage;
         AttackSpeed = item.AttackSpeed;
         CritChance = item.CritChance;

@@ -55,5 +55,20 @@ public abstract class Character : MonoBehaviour
         if (stats.Health <= 0) Destroy(gameObject);
     }
 
-    public void SetManager(BattleManager battleManager) => this.battleManager = battleManager;
+    public void SetManager(BattleManager battleManager)
+    {
+        this.battleManager = battleManager;
+        battleManager.OnBattleEnd += EndBattle;
+    }
+
+    private void EndBattle()
+    {
+        isBattling = false;
+        StopAllCoroutines();
+    }
+
+    private void OnDestroy()
+    {
+        battleManager.OnBattleEnd -= EndBattle;
+    }
 }

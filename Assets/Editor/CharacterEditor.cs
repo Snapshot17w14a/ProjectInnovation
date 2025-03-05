@@ -1,10 +1,11 @@
 using UnityEditor;
+using UnityEngine;
 using static UnityEditor.EditorGUILayout;
 
 [CustomEditor(typeof(Character), true)]
 public class CharacterEditor : Editor
 {
-    private bool isFoldedOut = true;
+    private bool isCharacterFoldedOut = true;
     private Editor presetObjectEditor;
 
     public override void OnInspectorGUI()
@@ -16,12 +17,12 @@ public class CharacterEditor : Editor
 
         if(presetObject.objectReferenceValue != null)
         {
-            isFoldedOut = Foldout(isFoldedOut, "Preset Object Settings");
-            if (isFoldedOut)
+            isCharacterFoldedOut = Foldout(isCharacterFoldedOut, "Preset Object Settings");
+            if (isCharacterFoldedOut)
             {
                 if (presetObjectEditor == null || presetObjectEditor.target != presetObject.objectReferenceValue)
                 {
-                    CreateCachedEditor(presetObject.objectReferenceValue, null, ref presetObjectEditor);
+                    CreateCachedEditor(presetObject.objectReferenceValue, typeof(CharacterPresetEditor), ref presetObjectEditor);
                 }
 
                 if (presetObjectEditor != null)
@@ -33,6 +34,18 @@ public class CharacterEditor : Editor
                     EditorGUI.indentLevel--;
                 }
             }
+        }
+
+        else if (GUILayout.Button("Create Preset Object"))
+        {
+            CharacterPreset createdPreset = CreateInstance<CharacterPreset>();
+            createdPreset.name = "WaveObject";
+
+            presetObject.objectReferenceValue = createdPreset;
+
+            AssetDatabase.CreateAsset(createdPreset, $"Assets/Scriptables/Presets/preset - ({createdPreset.GetInstanceID()}).asset");
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
 
         serializedObject.ApplyModifiedProperties();

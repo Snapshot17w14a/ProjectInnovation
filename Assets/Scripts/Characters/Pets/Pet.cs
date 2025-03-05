@@ -20,7 +20,6 @@ public class Pet : Character
 
     protected override void Attack()
     {
-        Debug.Log("Attacked emeny, dmg: " + stats.Damage);
         var target = battleManager.GetTargetCharacter(CharacterType.Pet);
         target.TakeDamage(stats.Damage);
         characterAnimator.SetTrigger("Attack");

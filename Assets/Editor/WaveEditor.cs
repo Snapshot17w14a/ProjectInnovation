@@ -12,7 +12,7 @@ public class WaveEditor : Editor
 
         BeginHorizontal();
         LabelField("Array size");
-        enemyWaveArray.arraySize = IntSlider(enemyWaveArray.arraySize, 0, 3);
+        enemyWaveArray.arraySize = IntSlider(enemyWaveArray.arraySize, 0, 5);
         EndHorizontal();
 
         EditorGUI.indentLevel++;

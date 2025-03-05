@@ -4,6 +4,9 @@ using static UnityEditor.EditorGUILayout;
 [CustomEditor(typeof(CharacterPreset))]
 public class CharacterPresetEditor : Editor
 {
+    private bool isSkillFoldedOut = true;
+    private Editor skillEditor;
+
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
@@ -11,7 +14,7 @@ public class CharacterPresetEditor : Editor
         BeginHorizontal();
 
             serializedObject.FindProperty("Health").intValue = IntField("Health", serializedObject.FindProperty("Health").intValue);
-            serializedObject.FindProperty("Health").intValue = IntField("Defense", serializedObject.FindProperty("Health").intValue);
+            serializedObject.FindProperty("Defense").intValue = IntField("Defense", serializedObject.FindProperty("Defense").intValue);
 
         EndHorizontal();
 
@@ -22,16 +25,28 @@ public class CharacterPresetEditor : Editor
 
         EndHorizontal();
 
-        PropertyField(serializedObject.FindProperty("Skill"));
+        var skillField = serializedObject.FindProperty("Skill");
+        PropertyField(skillField);
 
-        if (serializedObject.FindProperty("Skill").objectReferenceValue != null)
+        if (skillField.objectReferenceValue != null)
         {
-            BeginHorizontal();
+            EditorGUI.indentLevel++;
 
-                serializedObject.FindProperty("SkillDamage").intValue = IntField("Skill Damage", serializedObject.FindProperty("SkillDamage").intValue);
-                serializedObject.FindProperty("SkillCooldown").floatValue = FloatField("SkillCooldown", serializedObject.FindProperty("SkillCooldown").floatValue);
+            isSkillFoldedOut = Foldout(isSkillFoldedOut, "Skill parameters");
+            if (isSkillFoldedOut)
+            {
+                if (skillEditor == null || skillEditor.target != skillField.objectReferenceValue)
+                {
+                    CreateCachedEditor(skillField.objectReferenceValue, typeof(SkillEditor), ref skillEditor);
+                }
 
-            EndHorizontal();
+                if (skillEditor != null)
+                {
+                    skillEditor.OnInspectorGUI();
+                }
+            }
+
+            EditorGUI.indentLevel--;
         }
 
         serializedObject.ApplyModifiedProperties();
