@@ -7,11 +7,17 @@ using System.IO;
 public class InventoryManager : Service
 {
     //Store created items, and store amout of each AssemblyItem
-    private readonly List<Item> items = new();
+    private List<Item> items = new();
     private Dictionary<string, int> assemblyItemCount = new();
 
     //All AssemblyItems loaded from Resources/Grips
-    [HideInInspector] public List<AssemblyItem> assemblyItems;
+    [HideInInspector] public List<AssemblyItem> AssemblyItems { get; private set; }
+
+    //Store the stats of each pet, accessable with its name
+    private Dictionary<string, CharacterStats> petStats = new();
+    private List<CharacterPreset> petPresets;
+
+    private readonly JsonSerializerOptions options = new() { WriteIndented = true };
 
     protected override void Awake()
     {
@@ -27,9 +33,9 @@ public class InventoryManager : Service
         base.Awake();
 
         AssemblyItem[] loadedAssemblyItems = Resources.LoadAll<AssemblyItem>("Grips");
-        assemblyItems = new(loadedAssemblyItems);
+        AssemblyItems = new(loadedAssemblyItems);
 
-        //items.AddRange(new Item[] { new(damage: 10, critChance: 35, armorPenetration: 1), new(damage: 1, critChance: 95, critDamage: 10) });
+        items.AddRange(new Item[] { new(damage: 10, critChance: 35, armorPenetration: 1), new(damage: 1, critChance: 95, critDamage: 10) });
         SaveItems();
         LoadItems();
 
@@ -38,33 +44,61 @@ public class InventoryManager : Service
         assemblyItemCount.Add("Ultimate Grip", 64);
         SaveAssemblyItems();
         LoadAssemblyItems();
+
+        petPresets = new(Resources.LoadAll<CharacterPreset>("PetPresets"));
+
+        foreach(var preset in petPresets)
+        {
+            if (!petStats.ContainsKey(preset.name)) petStats.Add(preset.name, new CharacterStats(preset));
+        }
+
+        //SavePets();
+        LoadPets();
     }
 
     public void SaveItems()
     {
-        ItemData[] itemDatas = new ItemData[items.Count];
-        for(int i = 0; i < items.Count; i++) itemDatas[i] = new ItemData(items[i]);
-        File.WriteAllText(Application.persistentDataPath + "/savedItems.json", JsonSerializer.Serialize(itemDatas));
+        SerializableItem[] itemDatas = new SerializableItem[items.Count];
+        for(int i = 0; i < items.Count; i++) itemDatas[i] = new SerializableItem(items[i]);
+        File.WriteAllText(Application.persistentDataPath + "/savedItems.json", JsonSerializer.Serialize(itemDatas, options));
     }
 
-    public Item[] LoadItems()
+    public void LoadItems()
     {
-        ItemData[] readData = JsonSerializer.Deserialize<ItemData[]>(File.ReadAllText(Application.persistentDataPath + "/savedItems.json"));
+        SerializableItem[] readData = JsonSerializer.Deserialize<SerializableItem[]>(File.ReadAllText(Application.persistentDataPath + "/savedItems.json"));
         Item[] loadedItems = new Item[readData.Length];
         for(int i = 0; i < readData.Length; i++) loadedItems[i] = new Item().LoadFromStruct(readData[i]);
-        try { ItemData.StaticId = readData[^1].Id; }
-        catch (System.IndexOutOfRangeException) { ItemData.StaticId = 0; }
-        return loadedItems;
+        try { SerializableItem.StaticId = readData[^1].Id; }
+        catch (System.IndexOutOfRangeException) { SerializableItem.StaticId = 0; }
+        items = new(loadedItems);
     }
 
     public void SaveAssemblyItems()
     {
-        File.WriteAllText(Application.persistentDataPath + "/savedAssemblyItems.json", JsonSerializer.Serialize(assemblyItemCount));
+        File.WriteAllText(Application.persistentDataPath + "/savedAssemblyItems.json", JsonSerializer.Serialize(assemblyItemCount, options));
     }
 
     public void LoadAssemblyItems()
     {
         assemblyItemCount = JsonSerializer.Deserialize<Dictionary<string, int>>(File.ReadAllText(Application.persistentDataPath + "/savedAssemblyItems.json"));
+    }
+
+    public void SavePets()
+    {
+        var serializableDictionary = petStats.ToDictionary(
+            kvp => kvp.Key,
+            kvp => kvp.Value.ToSerializableObject()
+        );
+        File.WriteAllText(Application.persistentDataPath + "/savedPets.json", JsonSerializer.Serialize(serializableDictionary, options));
+    }
+
+    public void LoadPets()
+    {
+        var loadedDictionary = JsonSerializer.Deserialize<Dictionary<string, SerializableCharacterStats>>(File.ReadAllText(Application.persistentDataPath + "/savedPets.json"));
+        petStats = loadedDictionary.ToDictionary(
+            kvp => kvp.Key,
+            kvp => new CharacterStats(kvp.Value)
+            );
     }
 
     public void AddItemToInventory(Item item) => items.Add(item);
@@ -83,30 +117,5 @@ public class InventoryManager : Service
         else assemblyItemCount[assemblyItem.itemName] = count + amountToAdd;
     }
 
-    public AssemblyItem NameToAssemblyItem(string itemName) => assemblyItems.Where(item => item.itemName == itemName).FirstOrDefault();
-}
-
-public struct ItemData
-{
-    public static int StaticId { get; set; } = 0;
-    public int Id { get; set; }
-    public Item.Material ItemMaterial { get; set; }
-    public string Grip { get; set; }
-    public int Damage { get; set; }
-    public int AttackSpeed { get; set; }
-    public int CritChance { get; set; }
-    public int CriticalDamage { get; set; }
-    public int ArmorPenetration { get; set; }
-
-    public ItemData(Item item)
-    {
-        Id = ++StaticId;
-        ItemMaterial = item.ItemMaterial;
-        Grip = item.Grip == null ? "null" : item.Grip.itemName;
-        Damage = item.Damage;
-        AttackSpeed = item.AttackSpeed;
-        CritChance = item.CritChance;
-        CriticalDamage = item.CriticalDamage;
-        ArmorPenetration = item.ArmorPenetration;
-    }
+    public AssemblyItem NameToAssemblyItem(string itemName) => AssemblyItems.Where(item => item.itemName == itemName).FirstOrDefault();
 }

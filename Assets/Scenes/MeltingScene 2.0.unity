@@ -1514,16 +1514,22 @@ MonoBehaviour:
   maxPourSpeed: 5
   pourAcceleration: 5
   pourDeceleration: 5
-  totalLiquid: 100
-  pourGoal: 100
+  totalLiquid: 10
+  pourGoal: 10
   accelerometerSpeed: 1
   pouringAdjusted: 0
   pointA: {fileID: 611884689}
   pointB: {fileID: 1182924512}
-  pouringZones: []
+  pouringZones:
+  - {fileID: 95716930}
+  - {fileID: 813638644}
+  - {fileID: 1323276882}
+  - {fileID: 1569917085}
+  - {fileID: 118902037}
   amountText: {fileID: 660745308}
   liquidCubes: {fileID: 5699643308350017139, guid: 21d6290d39a65944ea63a2994e529af8,
     type: 3}
+  metalParent: {fileID: 1231558152}
 --- !u!54 &1200169966
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1656,6 +1662,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202130452}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1231558151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1231558152}
+  m_Layer: 0
+  m_Name: metals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1231558152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231558151}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1323276877
 GameObject:
   m_ObjectHideFlags: 0
@@ -2432,3 +2469,4 @@ SceneRoots:
   - {fileID: 1793736251}
   - {fileID: 1778258472}
   - {fileID: 753555096}
+  - {fileID: 1231558152}

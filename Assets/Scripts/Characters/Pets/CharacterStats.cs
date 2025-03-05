@@ -2,7 +2,6 @@
 {
     public int MaxHealth;
     public int Health;
-    //public float Armor;
     public int Damage;
     public float AttackCooldown;
     public int Defense;
@@ -16,11 +15,27 @@
         MaxHealth = preset.Health;
         Health = preset.Health;
         Damage = preset.Damage;
-        //Armor = preset.Armor;
         AttackCooldown = preset.AttackCooldown;
         Defense = preset.Defense;
         skill = preset.Skill;
         SkillDamage = preset.SkillDamage;
         SkillCooldown = preset.SkillCooldown;
+    }
+
+    public CharacterStats(SerializableCharacterStats serializedObject)
+    {
+        MaxHealth = serializedObject.MaxHealth;
+        Health = serializedObject.Health;
+        Damage = serializedObject.Damage;
+        AttackCooldown = serializedObject.AttackCooldown;
+        Defense = serializedObject.Defense;
+        skill = null;
+        SkillDamage = serializedObject.SkillDamage;
+        SkillCooldown = serializedObject.SkillCooldown;
+    }
+
+    public SerializableCharacterStats ToSerializableObject()
+    {
+        return new SerializableCharacterStats(this);
     }
 }

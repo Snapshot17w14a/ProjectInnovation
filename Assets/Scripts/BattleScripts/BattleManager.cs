@@ -15,6 +15,8 @@ public class BattleManager : MonoBehaviour
     private readonly Vector2[] enemyPositions = new Vector2[5];
     private Transform enemyParent;
 
+    private Transform petParent;
+
     public bool IsAttackingAllowed => isBattleInProgress;
 
     private int EnemiesAlive
@@ -33,7 +35,7 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         Transform characterParet = transform.Find("Characters");
-        Transform petParent = characterParet.Find("Pets");
+        petParent = characterParet.Find("Pets");
         enemyParent = characterParet.Find("Enemies");
 
         for(int i = 0; i < 3; i++) if (petParent.GetChild(i).TryGetComponent<Pet>(out petsInBattle[i])) petsInBattle[i].SetManager(this);
@@ -41,17 +43,18 @@ public class BattleManager : MonoBehaviour
         {
             var enemyTransform = enemyParent.GetChild(i);
             enemyPositions[i] = enemyTransform.position;
+            Destroy(enemyTransform.gameObject);
         }
     }
 
     private IEnumerator StartWaves()
     {
-        Debug.Log("Coroutine started");
+        //Debug.Log("Coroutine started");
 
         while (currentWaveIndex < enemyWaves.Length)
         {
             enemyWaves[currentWaveIndex].Initialize();
-            Debug.Log($"Wave index: {currentWaveIndex}, number of enemies: {enemyWaves[currentWaveIndex].waveEnemies.Length}");
+            //Debug.Log($"Wave index: {currentWaveIndex}, number of enemies: {enemyWaves[currentWaveIndex].waveEnemies.Length}");
 
             for (int i = 0; i < enemyWaves[currentWaveIndex].waveEnemies.Length; i++)
             {
@@ -60,15 +63,15 @@ public class BattleManager : MonoBehaviour
 
             isBattleInProgress = true;
 
-            Debug.Log($"Battle started, waiting for enemies to die");
+            //Debug.Log($"Battle started, waiting for enemies to die");
             yield return new WaitUntil(() => EnemiesAlive == 0);
-            Debug.Log($"Battle ended, enemies dead");
+            //Debug.Log($"Battle ended, enemies dead");
 
             isBattleInProgress = false;
             currentWaveIndex++;
         }
 
-        Debug.Log($"All waves beat");
+        //Debug.Log($"All waves beat");
         OnBattleEnd?.Invoke();
         yield return null;
     }
@@ -100,5 +103,13 @@ public class BattleManager : MonoBehaviour
         Debug.Log($"Creating enemy with index: {slotIndex}");
         enemiesInBattle[slotIndex] = Instantiate<Enemy>(enemy, enemyPositions[slotIndex], Quaternion.identity, enemyParent);
         enemiesInBattle[slotIndex].SetManager(this);
+    }
+
+    public void SetPetAtIndex(int index, Pet pet)
+    {
+        petsInBattle[index] = pet;
+        pet.transform.SetParent(petParent);
+        pet.transform.SetSiblingIndex(index);
+        pet.SetManager(this);
     }
 }
