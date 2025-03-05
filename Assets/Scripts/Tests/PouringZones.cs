@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PouringZones : MonoBehaviour
 {
+
     [SerializeField] private PouringMetal pouringMetal;
     [SerializeField] private Transform meter;
     [SerializeField] private float scaleMultiplier = 0.01f;
@@ -36,13 +37,34 @@ public class PouringZones : MonoBehaviour
         }
     }
 
-    private void CalculateGrade(float totalMetal)
+    private void CalculateGrade()
     {
-        Debug.Log($"IndividualMetal: {totalMetal - accumulatedMetal}");
-    }
+        Debug.Log($"IndividualMetal: {accumulatedMetal}");
 
-    public float GetCollectedMetal()
-    {
-        return accumulatedMetal;
+        float totalLiquid = pouringMetal.GetTotalLiquid();
+        float perfectAmount = totalLiquid / pouringMetal.ZoneCount();
+
+        float difference = Mathf.Abs(perfectAmount - accumulatedMetal);
+
+        string grade;
+
+        if ((int)difference == 0)
+        {
+            grade = "Perfect";
+        }
+        else if ((int)difference >= 2 && (int)difference <= 2)
+        {
+            grade = "Good";
+        }
+        else if ((int)difference >= 4 && (int)difference <= 4)
+        {
+            grade = "Average";
+        }
+        else
+        {
+            grade = "Bad";
+        }
+
+        Debug.Log($"Grade: {grade}");
     }
 }

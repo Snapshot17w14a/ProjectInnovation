@@ -7,14 +7,19 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
+public class LiquidDropContainer : MonoBehaviour
+{
+    public float Amount { get; set; }
+}
+
 public class PouringMetal : MonoBehaviour
 {
-    public event Action<float> OnPouringFinished;
+    public event Action OnPouringFinished;
 
     [SerializeField] private float maxPourSpeed = 5f; // Maximum pouring rate
     [SerializeField] private float pourAcceleration = 10f;
     [SerializeField] private float pourDeceleration = 15f;
-    [SerializeField] private float totalLiquid = 100f; // Total amount of liquid available
+    [SerializeField] private float totalLiquidAmount = 100f;
     [SerializeField] private float pourGoal = 30f; // Goal amount for pouring
     [SerializeField] private float accelerometerSpeed = 5f;
 
@@ -22,8 +27,10 @@ public class PouringMetal : MonoBehaviour
     private float currentPourSpeed = 0f;
     private float yOffest = 0.02f;
     private float gradeAmount = 0f;
+    private float currentLiquidAmount;
 
-    public float pouringAdjusted;
+
+    private float pouringAdjusted;
 
     private bool isPouring = false;
     private bool isFiniashed = false;
@@ -32,7 +39,8 @@ public class PouringMetal : MonoBehaviour
     [SerializeField] private Transform pointA;
     [SerializeField] private Transform pointB;
 
-    [SerializeField] private List<PouringZones> pouringZones;
+    [SerializeField]
+    private List<PouringZones> pouringZones;
 
     [SerializeField] private TMP_Text amountText;
 
@@ -42,7 +50,8 @@ public class PouringMetal : MonoBehaviour
 
     void Start()
     {
-        amountText.text = $" {totalLiquid.ToString("F1")}";
+        amountText.text = $" {currentLiquidAmount.ToString("F1")}";
+        currentLiquidAmount = totalLiquidAmount;
     }
 
     private void Update()
@@ -62,15 +71,15 @@ public class PouringMetal : MonoBehaviour
             currentPourSpeed = Mathf.Max(currentPourSpeed - pourDeceleration * Time.deltaTime, 0);
         }
 
-        if(totalLiquid > 0 && currentPourSpeed > 0)
+        if(currentLiquidAmount > 0 && currentPourSpeed > 0)
         {
-            pouringAdjusted = (totalLiquid < currentPourSpeed / 100f ? totalLiquid : currentPourSpeed / 100f);
-            totalLiquid = Mathf.Max(totalLiquid - pouringAdjusted, 0);
-            amountText.text = $"{totalLiquid.ToString("F1")}";
+            pouringAdjusted = (currentLiquidAmount < currentPourSpeed / 100f ? currentLiquidAmount : currentPourSpeed / 100f);
+            currentLiquidAmount = Mathf.Max(currentLiquidAmount - pouringAdjusted, 0);
+            amountText.text = $"{currentLiquidAmount.ToString("F1")}";
             Instantiate(liquidCubes, new Vector3(transform.position.x, transform.position.y - yOffest, transform.position.z), Quaternion.identity, metalParent).AddComponent<LiquidDropContainer>().Amount = pouringAdjusted;
             
         }
-        else if(totalLiquid <= 0) IsPouringFinished(totalLiquid);
+        else if(currentLiquidAmount <= 0) IsPouringFinished(currentLiquidAmount);
     }
 
     private void IsPouringFinished(float totalLiquid)
@@ -79,7 +88,7 @@ public class PouringMetal : MonoBehaviour
         if (totalLiquid <= 0 && !isFiniashed && metalParent.childCount == 0)
         {
             isFiniashed = true;
-            OnPouringFinished?.Invoke(10f);
+            OnPouringFinished?.Invoke();
         }
     }
 
@@ -92,12 +101,10 @@ public class PouringMetal : MonoBehaviour
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
     }
 
-    public void IsPouring() => isPouring = !isPouring;
-}
+    public float GetTotalLiquid() => totalLiquidAmount;
+    public int ZoneCount() => pouringZones.Count;
 
-public class LiquidDropContainer : MonoBehaviour
-{
-    public float Amount { get; set; }
+    public void isCasting() => isPouring = !isPouring;
 }
 
 
