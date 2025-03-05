@@ -406,6 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2897ae6af81e840a7bf588a6a810ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pouringMetal: {fileID: 1200169965}
   meter: {fileID: 1202130453}
   scaleMultiplier: 0.001
 --- !u!1 &118902032
@@ -526,6 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2897ae6af81e840a7bf588a6a810ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pouringMetal: {fileID: 1200169965}
   meter: {fileID: 1113392069}
   scaleMultiplier: 0.001
 --- !u!1 &611884685
@@ -575,7 +577,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611884685}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -627,7 +629,7 @@ Transform:
   m_GameObject: {fileID: 611884685}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 4, z: -1}
+  m_LocalPosition: {x: -2.2, y: 4, z: -1}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -922,6 +924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2897ae6af81e840a7bf588a6a810ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pouringMetal: {fileID: 1200169965}
   meter: {fileID: 1833853787}
   scaleMultiplier: 0.001
 --- !u!1 &821768374
@@ -1331,7 +1334,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1182924508}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1383,7 +1386,7 @@ Transform:
   m_GameObject: {fileID: 1182924508}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 4, z: -1}
+  m_LocalPosition: {x: 2.2, y: 4, z: -1}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1490,7 +1493,7 @@ Transform:
   m_GameObject: {fileID: 1200169960}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 4, z: -1}
+  m_LocalPosition: {x: -2.2, y: 4, z: -1}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1514,6 +1517,7 @@ MonoBehaviour:
   totalLiquid: 100
   pourGoal: 100
   accelerometerSpeed: 1
+  pouringAdjusted: 0
   pointA: {fileID: 611884689}
   pointB: {fileID: 1182924512}
   pouringZones: []
@@ -1770,6 +1774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2897ae6af81e840a7bf588a6a810ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pouringMetal: {fileID: 1200169965}
   meter: {fileID: 2125734942}
   scaleMultiplier: 0.001
 --- !u!1 &1569917080
@@ -1890,6 +1895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2897ae6af81e840a7bf588a6a810ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pouringMetal: {fileID: 1200169965}
   meter: {fileID: 1970980361}
   scaleMultiplier: 0.001
 --- !u!1 &1691277934
