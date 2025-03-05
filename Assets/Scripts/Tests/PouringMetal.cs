@@ -38,6 +38,8 @@ public class PouringMetal : MonoBehaviour
 
     [SerializeField] private GameObject liquidCubes;
 
+    [SerializeField] private Transform metalParent;
+
     void Start()
     {
         amountText.text = $" {totalLiquid.ToString("F1")}";
@@ -62,22 +64,22 @@ public class PouringMetal : MonoBehaviour
 
         if(totalLiquid > 0 && currentPourSpeed > 0)
         {
-            pouringAdjusted = currentPourSpeed * Time.deltaTime;
+            pouringAdjusted = (totalLiquid < currentPourSpeed / 100f ? totalLiquid : currentPourSpeed / 100f);
             totalLiquid = Mathf.Max(totalLiquid - pouringAdjusted, 0);
-            pourAmount += pouringAdjusted;
             amountText.text = $"{totalLiquid.ToString("F1")}";
-            Instantiate(liquidCubes, new Vector3(transform.position.x, transform.position.y - yOffest, transform.position.z), Quaternion.identity);
-            IsPouringFinished(totalLiquid);
+            Instantiate(liquidCubes, new Vector3(transform.position.x, transform.position.y - yOffest, transform.position.z), Quaternion.identity, metalParent).AddComponent<LiquidDropContainer>().Amount = pouringAdjusted;
+            
         }
+        else if(totalLiquid <= 0) IsPouringFinished(totalLiquid);
     }
 
     private void IsPouringFinished(float totalLiquid)
     {
         //Can also add the timer as a condition
-        if (totalLiquid <= 0 && !isFiniashed)
+        if (totalLiquid <= 0 && !isFiniashed && metalParent.childCount == 0)
         {
             isFiniashed = true;
-            OnPouringFinished?.Invoke(totalLiquid);
+            OnPouringFinished?.Invoke(10f);
         }
     }
 
@@ -91,6 +93,11 @@ public class PouringMetal : MonoBehaviour
     }
 
     public void IsPouring() => isPouring = !isPouring;
+}
+
+public class LiquidDropContainer : MonoBehaviour
+{
+    public float Amount { get; set; }
 }
 
 

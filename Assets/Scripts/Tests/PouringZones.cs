@@ -21,7 +21,7 @@ public class PouringZones : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        CollectMetal(pouringMetal.pouringAdjusted);
+        CollectMetal(other.gameObject.GetComponent<LiquidDropContainer>().Amount);
         Destroy(other.gameObject);
     }
     public void CollectMetal(float amount)
@@ -36,10 +36,9 @@ public class PouringZones : MonoBehaviour
         }
     }
 
-    private void CalculateGrade(float accumulatedMetal)
+    private void CalculateGrade(float totalMetal)
     {
-        accumulatedMetal = this.accumulatedMetal;
-        Debug.Log($"IndividualMetal: {accumulatedMetal}");
+        Debug.Log($"IndividualMetal: {totalMetal - accumulatedMetal}");
     }
 
     public float GetCollectedMetal()
