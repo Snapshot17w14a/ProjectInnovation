@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -8,18 +9,24 @@ using UnityEngine.VFX;
 
 public class PouringMetal : MonoBehaviour
 {
+    public event Action<float> OnPouringFinished;
+
     [SerializeField] private float maxPourSpeed = 5f; // Maximum pouring rate
     [SerializeField] private float pourAcceleration = 10f;
     [SerializeField] private float pourDeceleration = 15f;
-    [SerializeField] private float totalLiquid = 30f; // Total amount of liquid available
+    [SerializeField] private float totalLiquid = 100f; // Total amount of liquid available
     [SerializeField] private float pourGoal = 30f; // Goal amount for pouring
     [SerializeField] private float accelerometerSpeed = 5f;
 
     private float pourAmount = 0f;
     private float currentPourSpeed = 0f;
     private float yOffest = 0.02f;
+    private float gradeAmount = 0f;
+
+    public float pouringAdjusted;
 
     private bool isPouring = false;
+    private bool isFiniashed = false;
 
     // Left and Right constraints
     [SerializeField] private Transform pointA;
@@ -55,11 +62,22 @@ public class PouringMetal : MonoBehaviour
 
         if(totalLiquid > 0 && currentPourSpeed > 0)
         {
-            float pouringAdjusted = currentPourSpeed * Time.deltaTime;
+            pouringAdjusted = currentPourSpeed * Time.deltaTime;
             totalLiquid = Mathf.Max(totalLiquid - pouringAdjusted, 0);
             pourAmount += pouringAdjusted;
             amountText.text = $"{totalLiquid.ToString("F1")}";
-            Instantiate(liquidCubes, new Vector3(transform.position.x, transform.position.y - yOffest, transform.position.z), Quaternion.identity) ;
+            Instantiate(liquidCubes, new Vector3(transform.position.x, transform.position.y - yOffest, transform.position.z), Quaternion.identity);
+            IsPouringFinished(totalLiquid);
+        }
+    }
+
+    private void IsPouringFinished(float totalLiquid)
+    {
+        //Can also add the timer as a condition
+        if (totalLiquid <= 0 && !isFiniashed)
+        {
+            isFiniashed = true;
+            OnPouringFinished?.Invoke(totalLiquid);
         }
     }
 
