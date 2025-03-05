@@ -2,11 +2,16 @@ using UnityEngine;
 
 public class PouringZones : MonoBehaviour
 {
-
     [SerializeField] private PouringMetal pouringMetal;
     [SerializeField] private Transform meter;
     [SerializeField] private float scaleMultiplier = 0.01f;
     private float accumulatedMetal;
+
+    [Header("Grading Ranges")]
+    [SerializeField] private float goodMin = 1f;
+    [SerializeField] private float goodMax = 2f;
+    [SerializeField] private float averageMin = 3f;
+    [SerializeField] private float averageMax = 4f;
 
     private void Awake()
     {
@@ -23,11 +28,12 @@ public class PouringZones : MonoBehaviour
         CollectMetal(other.gameObject.GetComponent<LiquidDropContainer>().Amount);
         Destroy(other.gameObject);
     }
+
     public void CollectMetal(float amount)
     {
         accumulatedMetal += amount;
 
-        if(meter != null)
+        if (meter != null)
         {
             Vector3 newScale = meter.localScale;
             newScale.y += amount * scaleMultiplier;
@@ -43,18 +49,17 @@ public class PouringZones : MonoBehaviour
         float perfectAmount = totalLiquid / pouringMetal.ZoneCount();
 
         float difference = Mathf.Abs(perfectAmount - accumulatedMetal);
-
         string grade;
 
-        if ((int)difference == 0)
+        if (difference == 0)
         {
             grade = "Perfect";
         }
-        else if ((int)difference >= 2 && (int)difference <= 2)
+        else if (difference >= goodMin && difference <= goodMax)
         {
             grade = "Good";
         }
-        else if ((int)difference >= 4 && (int)difference <= 4)
+        else if (difference >= averageMin && difference <= averageMax)
         {
             grade = "Average";
         }
