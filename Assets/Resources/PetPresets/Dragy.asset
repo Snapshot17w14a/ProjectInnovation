@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac73df55292977438ac3b5b7b6949c1, type: 3}
+  m_Name: Dragy
+  m_EditorClassIdentifier: 
+  Health: 120
+  Damage: 10
+  AttackCooldown: 2
+  Defense: 5
+  Skill: {fileID: 0}
+  SkillDamage: 0
+  SkillCooldown: 0

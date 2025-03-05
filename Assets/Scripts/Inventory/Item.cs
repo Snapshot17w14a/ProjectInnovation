@@ -21,7 +21,7 @@ public class Item
         ArmorPenetration = armorPenetration;
     }
 
-    public Item LoadFromStruct(ItemData data)
+    public Item LoadFromStruct(SerializableItem data)
     {
         ItemMaterial = data.ItemMaterial;
         Grip = ServiceLocator.GetService<InventoryManager>().NameToAssemblyItem(data.Grip);

@@ -13,25 +13,14 @@ public class AssemblyManager : CraftingProcess, ICraftingProcess
     private bool isAssemblyDone;
     public bool IsProcessDone => isAssemblyDone;
 
-    private void Awake()
-    {
-        CalculateMaxCellSize();
-
-        //string[] itemTypes = Directory.GetDirectories("Assets/Resources/");
-        //foreach(var type in itemTypes)
-        //{
-        //    string strippedType = type.Replace("Assets/Resources/", "");
-        //    var allItems = Resources.LoadAll<AssemblyItem>(strippedType);
-        //    typeInstancePair.Add(strippedType, new List<AssemblyItem>(allItems));
-        //}
-    }
-
     // Start is called before the first frame update
     void Start()
     {
+        CalculateMaxCellSize();
         weapon = transform.Find("Weapon").gameObject;
         var snapObject = weapon.transform.Find("Snappoints");
         assemblySnapPoint = snapObject.GetChild(0).gameObject;
+        PopulateContent();
     }
 
     public void StartProcess(ref Item item)
@@ -82,7 +71,7 @@ public class AssemblyManager : CraftingProcess, ICraftingProcess
         }
 
         var inventoryManager = ServiceLocator.GetService<InventoryManager>();
-        foreach (var item in inventoryManager.assemblyItems)
+        foreach (var item in inventoryManager.AssemblyItems)
         {
             if(inventoryManager.GetAssemblyItemCount(item) > 0) CreateButtonForItem(item);
         }
