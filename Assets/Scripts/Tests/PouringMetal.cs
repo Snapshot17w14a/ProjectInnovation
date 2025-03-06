@@ -5,14 +5,16 @@ using System.Linq.Expressions;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.VFX;
+using static UnityEditor.Progress;
 
 public class LiquidDropContainer : MonoBehaviour
 {
     public float Amount { get; set; }
 }
 
-public class PouringMetal : MonoBehaviour
+public class PouringMetal : CraftingProcess, ICraftingProcess
 {
     public event Action OnPouringFinished;
 
@@ -49,6 +51,12 @@ public class PouringMetal : MonoBehaviour
     [SerializeField] private GameObject liquidCubes;
 
     [SerializeField] private Transform metalParent;
+
+    private Weapon weapon;
+
+    private bool isProcessDone = false;
+
+    public bool IsProcessDone => isProcessDone;
 
     void Start()
     {
@@ -93,6 +101,8 @@ public class PouringMetal : MonoBehaviour
             gradingManager.ResetGrades();
             OnPouringFinished?.Invoke();
             gradingManager.DisplayGrade();
+            weapon.SetCastResult(gradingManager.GetOverallGrade());
+            isProcessDone = true;
         }
     }
 
@@ -109,6 +119,11 @@ public class PouringMetal : MonoBehaviour
     public int ZoneCount() => pouringZones.Count;
 
     public void isCasting() => isPouring = !isPouring;
+
+    public void StartProcess(ref Weapon item)
+    {
+        weapon = item;
+    }
 }
 
 

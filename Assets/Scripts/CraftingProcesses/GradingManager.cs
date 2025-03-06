@@ -16,24 +16,24 @@ public class GradingManager : MonoBehaviour
         grades.Add(grade);
     }
 
-    public string GetOverallGrade()
+    public int GetOverallGrade()
     {
         float averageGrade = GetAverageGrade();
 
         if(averageGrade > 2.5f)
         {
-            return "Perfect";
+            return 5;
         }
         if(averageGrade >= 1.5f)
         {
-            return "Good";
+            return 4;
         }
         if(averageGrade >= 0.5f)
         {
-            return "Average";
+            return 3;
         }
 
-        return "Bad";
+        return 2;
     }
 
     private float GetAverageGrade()
@@ -57,6 +57,6 @@ public class GradingManager : MonoBehaviour
 
     public void DisplayGrade()
     {
-        gradeText.text = GetOverallGrade();
+        //gradeText.text = GetOverallGrade();
     }
 }
