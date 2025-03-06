@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class PouringZones : MonoBehaviour
 {
-
     [SerializeField] private PouringMetal pouringMetal;
     [SerializeField] private Transform meter;
+    [SerializeField] private GradingManager gradingManager;
+
     [SerializeField] private float scaleMultiplier = 0.01f;
     private float accumulatedMetal;
+
+    [Header("Grading Ranges")]
+    [SerializeField] private float goodMin = 1f;
+    [SerializeField] private float goodMax = 2f;
+    [SerializeField] private float averageMin = 3f;
+    [SerializeField] private float averageMax = 4f;
 
     private void Awake()
     {
@@ -23,11 +30,12 @@ public class PouringZones : MonoBehaviour
         CollectMetal(other.gameObject.GetComponent<LiquidDropContainer>().Amount);
         Destroy(other.gameObject);
     }
+
     public void CollectMetal(float amount)
     {
         accumulatedMetal += amount;
 
-        if(meter != null)
+        if (meter != null)
         {
             Vector3 newScale = meter.localScale;
             newScale.y += amount * scaleMultiplier;
@@ -37,32 +45,30 @@ public class PouringZones : MonoBehaviour
 
     private void CalculateGrade()
     {
-        Debug.Log($"IndividualMetal: {accumulatedMetal}");
-
         float totalLiquid = pouringMetal.GetTotalLiquid();
         float perfectAmount = totalLiquid / pouringMetal.ZoneCount();
 
         float difference = Mathf.Abs(perfectAmount - accumulatedMetal);
+        int roundedDifference = Mathf.FloorToInt(difference);
+        int gradeValue;
 
-        string grade;
-
-        if ((int)difference == 0)
+        if (roundedDifference == 0)
         {
-            grade = "Perfect";
+            gradeValue = 3;
         }
-        else if ((int)difference >= 2 && (int)difference <= 2)
+        else if (roundedDifference >= goodMin && roundedDifference <= goodMax)
         {
-            grade = "Good";
+            gradeValue = 2;
         }
-        else if ((int)difference >= 4 && (int)difference <= 4)
+        else if (roundedDifference >= averageMin && roundedDifference <= averageMax)
         {
-            grade = "Average";
+            gradeValue = 1;
         }
         else
         {
-            grade = "Bad";
+            gradeValue= 0;
         }
 
-        Debug.Log($"Grade: {grade}");
+        gradingManager.RegisterGrade(gradeValue);
     }
 }

@@ -409,6 +409,10 @@ MonoBehaviour:
   pouringMetal: {fileID: 1200169965}
   meter: {fileID: 1202130453}
   scaleMultiplier: 0.001
+  goodMin: 1
+  goodMax: 2
+  averageMin: 3
+  averageMax: 4
 --- !u!1 &118902032
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +534,10 @@ MonoBehaviour:
   pouringMetal: {fileID: 1200169965}
   meter: {fileID: 1113392069}
   scaleMultiplier: 0.001
+  goodMin: 1
+  goodMax: 2
+  averageMin: 3
+  averageMax: 4
 --- !u!1 &611884685
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +935,10 @@ MonoBehaviour:
   pouringMetal: {fileID: 1200169965}
   meter: {fileID: 1833853787}
   scaleMultiplier: 0.001
+  goodMin: 1
+  goodMax: 2
+  averageMin: 3
+  averageMax: 4
 --- !u!1 &821768374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,7 +1557,7 @@ MonoBehaviour:
   maxPourSpeed: 5
   pourAcceleration: 5
   pourDeceleration: 5
-  totalLiquid: 10
+  totalLiquidAmount: 50
   pourGoal: 10
   accelerometerSpeed: 1
   pointA: {fileID: 611884689}
@@ -1844,6 +1856,10 @@ MonoBehaviour:
   pouringMetal: {fileID: 1200169965}
   meter: {fileID: 2125734942}
   scaleMultiplier: 0.001
+  goodMin: 1
+  goodMax: 2
+  averageMin: 3
+  averageMax: 4
 --- !u!1 &1569917080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,6 +1981,10 @@ MonoBehaviour:
   pouringMetal: {fileID: 1200169965}
   meter: {fileID: 1970980361}
   scaleMultiplier: 0.001
+  goodMin: 1
+  goodMax: 2
+  averageMin: 3
+  averageMax: 4
 --- !u!1 &1691277934
 GameObject:
   m_ObjectHideFlags: 0
@@ -2500,3 +2520,4 @@ SceneRoots:
   - {fileID: 1778258472}
   - {fileID: 753555096}
   - {fileID: 1231558152}
+  - {fileID: 922927527}
