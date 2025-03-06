@@ -7,8 +7,6 @@
     public int Defense;
 
     public Skill skill;
-    public int SkillDamage;
-    public float SkillCooldown;
 
     public CharacterStats(CharacterPreset preset)
     {
@@ -18,23 +16,19 @@
         AttackCooldown = preset.AttackCooldown;
         Defense = preset.Defense;
         skill = preset.Skill;
-        SkillDamage = preset.SkillDamage;
-        SkillCooldown = preset.SkillCooldown;
     }
 
-    public CharacterStats(SerializableCharacterStats serializedObject)
+    public CharacterStats FromSerializableObject (SerializableCharacterStats serializedObject)
     {
         MaxHealth = serializedObject.MaxHealth;
         Health = serializedObject.Health;
         Damage = serializedObject.Damage;
         AttackCooldown = serializedObject.AttackCooldown;
         Defense = serializedObject.Defense;
-        skill = null;
-        SkillDamage = serializedObject.SkillDamage;
-        SkillCooldown = serializedObject.SkillCooldown;
+        return this;
     }
 
-    public SerializableCharacterStats ToSerializableObject()
+    public readonly SerializableCharacterStats ToSerializableObject()
     {
         return new SerializableCharacterStats(this);
     }

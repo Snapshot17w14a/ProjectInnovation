@@ -24,7 +24,7 @@ public class ForgeHandler : CraftingProcess, ICraftingProcess
     private bool isTimerStarted = false;
     private float timer = 0;
 
-    private Item forgedItem;
+    private Weapon forgedItem;
     private bool isForgingDone = false;
     private bool isForgingStarted = false;
 
@@ -36,7 +36,7 @@ public class ForgeHandler : CraftingProcess, ICraftingProcess
         maxScore = craftingManager != null ? craftingManager.MaxScorePerProcess : 5;
         blowDetector = GetComponent<BlowDetector>();
 
-        forgedItem = new Item();
+        forgedItem = new Weapon();
         StartProcess(ref forgedItem);
     }
 
@@ -72,7 +72,7 @@ public class ForgeHandler : CraftingProcess, ICraftingProcess
         }
     }
 
-    public void StartProcess(ref Item item)
+    public void StartProcess(ref Weapon item)
     {
         forgedItem = item;
         isForgingStarted = true;

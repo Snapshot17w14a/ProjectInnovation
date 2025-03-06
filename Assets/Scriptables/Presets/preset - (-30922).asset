@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ac73df55292977438ac3b5b7b6949c1, type: 3}
-  m_Name: preset - (-54592)
+  m_Name: preset - (-30922)
   m_EditorClassIdentifier: 
-  Health: 50
-  Damage: 2
-  AttackCooldown: 2.5
+  Health: 20
+  Damage: 1
+  AttackCooldown: 2
   Defense: 1
   Skill: {fileID: 0}
   SkillDamage: 0

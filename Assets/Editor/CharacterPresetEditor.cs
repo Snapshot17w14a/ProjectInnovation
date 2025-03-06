@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEngine;
 using static UnityEditor.EditorGUILayout;
 
 [CustomEditor(typeof(CharacterPreset))]
@@ -25,19 +26,19 @@ public class CharacterPresetEditor : Editor
 
         EndHorizontal();
 
-        var skillField = serializedObject.FindProperty("Skill");
-        PropertyField(skillField);
+        var skillProperty = serializedObject.FindProperty("Skill");
+        PropertyField(skillProperty);
 
-        if (skillField.objectReferenceValue != null)
+        if (skillProperty.objectReferenceValue != null)
         {
             EditorGUI.indentLevel++;
 
             isSkillFoldedOut = Foldout(isSkillFoldedOut, "Skill parameters");
             if (isSkillFoldedOut)
             {
-                if (skillEditor == null || skillEditor.target != skillField.objectReferenceValue)
+                if (skillEditor == null || skillEditor.target != skillProperty.objectReferenceValue)
                 {
-                    CreateCachedEditor(skillField.objectReferenceValue, typeof(SkillEditor), ref skillEditor);
+                    CreateCachedEditor(skillProperty.objectReferenceValue, typeof(SkillEditor), ref skillEditor);
                 }
 
                 if (skillEditor != null)
