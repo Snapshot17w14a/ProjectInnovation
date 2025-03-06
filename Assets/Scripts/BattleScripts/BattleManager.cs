@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class BattleManager : MonoBehaviour
 {
     [SerializeField] private EnemyWave[] enemyWaves;
@@ -15,9 +15,13 @@ public class BattleManager : MonoBehaviour
     private readonly Vector2[] enemyPositions = new Vector2[5];
     private Transform enemyParent;
 
+    private readonly Vector2[] petPositions = new Vector2[3];
     private Transform petParent;
 
+    [SerializeField] private GameObject[] objectsToHideInBattle;
+
     public bool IsAttackingAllowed => isBattleInProgress;
+    public Enemy[] AllEnemies => enemiesInBattle;
 
     private int EnemiesAlive
     {
@@ -38,13 +42,21 @@ public class BattleManager : MonoBehaviour
         petParent = characterParet.Find("Pets");
         enemyParent = characterParet.Find("Enemies");
 
-        for(int i = 0; i < 3; i++) if (petParent.GetChild(i).TryGetComponent<Pet>(out petsInBattle[i])) petsInBattle[i].SetManager(this);
-        for(int i = 0; i < 5; i++)
+        //for(int i = 0; i < 3; i++) if (petParent.GetChild(i).TryGetComponent<Pet>(out petsInBattle[i])) petsInBattle[i].SetManager(this);
+        for (int i = 0; i < 3; i++)
+        {
+            var petTransform = petParent.GetChild(i);
+            petPositions[i] = petTransform.position;
+            Destroy(petTransform.gameObject);
+        }
+        for (int i = 0; i < 5; i++)
         {
             var enemyTransform = enemyParent.GetChild(i);
             enemyPositions[i] = enemyTransform.position;
             Destroy(enemyTransform.gameObject);
         }
+
+        Skill.battleManager = this;
     }
 
     private IEnumerator StartWaves()
@@ -78,6 +90,7 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle()
     {
+        foreach (var gameObject in objectsToHideInBattle) gameObject.SetActive(false);
         StartCoroutine(StartWaves());
     }
 
@@ -100,16 +113,18 @@ public class BattleManager : MonoBehaviour
     private void CreateEnemy(Enemy enemy, int slotIndex)
     {
         if (enemy == null) return;
-        Debug.Log($"Creating enemy with index: {slotIndex}");
+        //Debug.Log($"Creating enemy with index: {slotIndex}");
         enemiesInBattle[slotIndex] = Instantiate<Enemy>(enemy, enemyPositions[slotIndex], Quaternion.identity, enemyParent);
         enemiesInBattle[slotIndex].SetManager(this);
     }
 
     public void SetPetAtIndex(int index, Pet pet)
     {
+        if (petsInBattle[index] != null) DestroyImmediate(petsInBattle[index].gameObject);
         petsInBattle[index] = pet;
         pet.transform.SetParent(petParent);
         pet.transform.SetSiblingIndex(index);
+        pet.transform.position = petPositions[index];
         pet.SetManager(this);
     }
 }

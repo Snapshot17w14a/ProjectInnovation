@@ -8,7 +8,7 @@ public class AssemblyManager : CraftingProcess, ICraftingProcess
     [SerializeField] private ScrollRect scrollView;
     [SerializeField][Range(1,5)] private int gridDimension;
 
-    private Item assemblyItem;
+    private Weapon assemblyItem;
 
     private bool isAssemblyDone;
     public bool IsProcessDone => isAssemblyDone;
@@ -23,7 +23,7 @@ public class AssemblyManager : CraftingProcess, ICraftingProcess
         PopulateContent();
     }
 
-    public void StartProcess(ref Item item)
+    public void StartProcess(ref Weapon item)
     {
         assemblyItem = item;
         PopulateContent();

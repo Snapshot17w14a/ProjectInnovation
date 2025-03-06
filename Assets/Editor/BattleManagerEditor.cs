@@ -15,6 +15,8 @@ public class BattleManagerEditor : Editor
 
         var waveList = serializedObject.FindProperty("enemyWaves");
 
+        LabelField("Wave Settings", EditorStyles.boldLabel);
+
         BeginHorizontal();
         isWaveListFoldedOut = Foldout(isWaveListFoldedOut, "Enemy Waves");
         waveList.arraySize = IntField(waveList.arraySize);
@@ -42,6 +44,10 @@ public class BattleManagerEditor : Editor
             waveList.arraySize++;
             waveList.GetArrayElementAtIndex(waveList.arraySize - 1).objectReferenceValue = createdWaveObject;
         }
+
+        LabelField("Other Settings", EditorStyles.boldLabel);
+
+        PropertyField(serializedObject.FindProperty("objectsToHideInBattle"));
 
         serializedObject.ApplyModifiedProperties();
     }

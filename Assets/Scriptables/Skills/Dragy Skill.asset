@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ac73df55292977438ac3b5b7b6949c1, type: 3}
-  m_Name: preset - (-54592)
+  m_Script: {fileID: 11500000, guid: 9fa2eb3408a1a4d4c990d607844bcf6b, type: 3}
+  m_Name: Dragy Skill
   m_EditorClassIdentifier: 
-  Health: 50
-  Damage: 2
-  AttackCooldown: 2.5
-  Defense: 1
-  Skill: {fileID: 0}
-  SkillDamage: 0
-  SkillCooldown: 0
+  SkillDamage: 5
+  SkillCooldown: 6
+  parent: {fileID: 0}
+  effectPrefab: {fileID: 4587382512791985823, guid: e3c0904817d928743b8061803e77b33c,
+    type: 3}
+  unitsPerSecond: 600
+  aliveTime: 0.5

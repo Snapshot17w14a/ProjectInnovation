@@ -2,22 +2,12 @@ using UnityEngine;
 
 public class PetSelector : MonoBehaviour
 {
-    private static BattleManager battleManager;
+    [SerializeField] private GameObject petSelectorCanvas;
+    [SerializeField] private PetSelectorManager selectorManager;
 
-    // Start is called before the first frame update
-    void Start()
+    public void SelectSlot(int index)
     {
-        battleManager = FindAnyObjectByType<BattleManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnMouseDown()
-    {
-        transform.GetSiblingIndex();
+        petSelectorCanvas.SetActive(true);
+        selectorManager.SlotIndex = index;
     }
 }

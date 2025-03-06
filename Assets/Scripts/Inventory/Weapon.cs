@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Item
+public class Weapon
 {
     public Material ItemMaterial { get; private set; }
     public AssemblyItem Grip { get; private set; }
@@ -10,7 +10,7 @@ public class Item
     public int CriticalDamage { get; private set; } = 0;
     public int ArmorPenetration { get; private set; } = 0;
 
-    public Item(Material material = Material.None, AssemblyItem grip = null, int damage = 0, int attackSpeed = 0, int critChance = 0, int critDamage = 0, int armorPenetration = 0)
+    public Weapon(Material material = Material.None, AssemblyItem grip = null, int damage = 0, int attackSpeed = 0, int critChance = 0, int critDamage = 0, int armorPenetration = 0)
     {
         ItemMaterial = material;
         Grip = grip;
@@ -21,7 +21,7 @@ public class Item
         ArmorPenetration = armorPenetration;
     }
 
-    public Item LoadFromStruct(SerializableItem data)
+    public Weapon LoadFromStruct(SerializableItem data)
     {
         ItemMaterial = data.ItemMaterial;
         Grip = ServiceLocator.GetService<InventoryManager>().NameToAssemblyItem(data.Grip);

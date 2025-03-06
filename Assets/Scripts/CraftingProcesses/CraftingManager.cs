@@ -8,7 +8,7 @@ public class CraftingManager : Service
     [SerializeField] private string[] craftingScenes;
     [SerializeField] private int maxScorePerProcess = 5;
     private int craftingSceneIndex = -1;
-    private Item craftingItem;
+    private Weapon craftingItem;
 
     public int MaxScorePerProcess => maxScorePerProcess;
 
@@ -35,7 +35,7 @@ public class CraftingManager : Service
 
     public void StartCrafting()
     {
-        craftingItem = new Item();
+        craftingItem = new Weapon();
         StartCoroutine(CraftingProcesses());
     }
 
@@ -43,7 +43,7 @@ public class CraftingManager : Service
     {
         var inventory = ServiceLocator.GetService<InventoryManager>();
         if (inventory != null) inventory.AddItemToInventory(craftingItem);
-        inventory.SaveItems();
+        inventory.SaveWeapons();
     }
 
     private IEnumerator CraftingProcesses()

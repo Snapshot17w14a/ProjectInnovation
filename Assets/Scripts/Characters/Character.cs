@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [System.Serializable]
+[RequireComponent(typeof(Animator))]
 public abstract class Character : MonoBehaviour
 {
     [SerializeField] protected CharacterPreset preset;
@@ -51,7 +52,7 @@ public abstract class Character : MonoBehaviour
         stats.Health -= damage - stats.Defense;
         Instantiate(damageNumberPrefab, transform.position, Quaternion.identity, transform).GetComponent<DamageDisplay>().Damage = damage;
         healthDisplay.Percentage = stats.Health / (float)stats.MaxHealth;
-        characterAnimator?.SetTrigger("Hit");
+        characterAnimator.SetTrigger("Hit");
         if (stats.Health <= 0) Destroy(gameObject);
     }
 

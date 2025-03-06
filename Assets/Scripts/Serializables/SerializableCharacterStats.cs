@@ -6,10 +6,6 @@ public struct SerializableCharacterStats
     public float AttackCooldown { get; set; }
     public int Defense { get; set; }
 
-    public string Skill { get; set; }
-    public int SkillDamage { get; set; }
-    public float SkillCooldown { get; set; }
-
     public SerializableCharacterStats(CharacterStats characterStats)
     {
         MaxHealth = characterStats.MaxHealth;
@@ -17,8 +13,5 @@ public struct SerializableCharacterStats
         Damage = characterStats.Damage;
         AttackCooldown = characterStats.AttackCooldown;
         Defense = characterStats.Defense;
-        Skill = characterStats.skill != null ? characterStats.skill.name : "null";
-        SkillDamage = characterStats.SkillDamage;
-        SkillCooldown = characterStats.SkillCooldown;
     }
 }
