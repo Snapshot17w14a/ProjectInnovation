@@ -4,6 +4,8 @@ public class PouringZones : MonoBehaviour
 {
     [SerializeField] private PouringMetal pouringMetal;
     [SerializeField] private Transform meter;
+    [SerializeField] private GradingManager gradingManager;
+
     [SerializeField] private float scaleMultiplier = 0.01f;
     private float accumulatedMetal;
 
@@ -43,31 +45,30 @@ public class PouringZones : MonoBehaviour
 
     private void CalculateGrade()
     {
-        Debug.Log($"IndividualMetal: {accumulatedMetal}");
-
         float totalLiquid = pouringMetal.GetTotalLiquid();
         float perfectAmount = totalLiquid / pouringMetal.ZoneCount();
 
         float difference = Mathf.Abs(perfectAmount - accumulatedMetal);
-        string grade;
+        int roundedDifference = Mathf.FloorToInt(difference);
+        int gradeValue;
 
-        if (difference == 0)
+        if (roundedDifference == 0)
         {
-            grade = "Perfect";
+            gradeValue = 3;
         }
-        else if (difference >= goodMin && difference <= goodMax)
+        else if (roundedDifference >= goodMin && roundedDifference <= goodMax)
         {
-            grade = "Good";
+            gradeValue = 2;
         }
-        else if (difference >= averageMin && difference <= averageMax)
+        else if (roundedDifference >= averageMin && roundedDifference <= averageMax)
         {
-            grade = "Average";
+            gradeValue = 1;
         }
         else
         {
-            grade = "Bad";
+            gradeValue= 0;
         }
 
-        Debug.Log($"Grade: {grade}");
+        gradingManager.RegisterGrade(gradeValue);
     }
 }

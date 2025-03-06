@@ -39,6 +39,8 @@ public class PouringMetal : MonoBehaviour
     [SerializeField] private Transform pointA;
     [SerializeField] private Transform pointB;
 
+    [SerializeField] private GradingManager gradingManager;
+
     [SerializeField]
     private List<PouringZones> pouringZones;
 
@@ -88,7 +90,9 @@ public class PouringMetal : MonoBehaviour
         if (totalLiquid <= 0 && !isFiniashed && metalParent.childCount == 0)
         {
             isFiniashed = true;
+            gradingManager.ResetGrades();
             OnPouringFinished?.Invoke();
+            gradingManager.DisplayGrade();
         }
     }
 
