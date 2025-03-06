@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.WebSockets;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
@@ -33,6 +34,8 @@ public class GradingManager : MonoBehaviour
             return 3;
         }
 
+        //var value = Mathf.Lerp(0, 5, averageGrade / 10f);
+        //round to an int
         return 2;
     }
 
