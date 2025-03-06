@@ -10,11 +10,12 @@ public abstract class Character : MonoBehaviour
 
     private HealthDisplay healthDisplay;
 
-    protected CharacterStats stats;
-    protected bool isBattling;
-
     protected Animator characterAnimator;
+    protected CharacterStats stats;
     protected BattleManager battleManager;
+
+    protected bool isBattling;
+    protected bool isMarkedForDestruction = false;
 
     public enum CharacterType
     {
@@ -47,13 +48,17 @@ public abstract class Character : MonoBehaviour
         StartCoroutine(AttackRoutine());
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
-        stats.Health -= damage - stats.Defense;
+        stats.Health -= Mathf.Max(0, damage - stats.Defense);
         Instantiate(damageNumberPrefab, transform.position, Quaternion.identity, transform).GetComponent<DamageDisplay>().Damage = damage;
         healthDisplay.Percentage = stats.Health / (float)stats.MaxHealth;
         characterAnimator.SetTrigger("Hit");
-        if (stats.Health <= 0) Destroy(gameObject);
+        if (stats.Health <= 0)
+        {
+            Destroy(gameObject);
+            isMarkedForDestruction = true;
+        }
     }
 
     public void SetManager(BattleManager battleManager)
@@ -68,7 +73,7 @@ public abstract class Character : MonoBehaviour
         StopAllCoroutines();
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         battleManager.OnBattleEnd -= EndBattle;
     }

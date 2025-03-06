@@ -16,6 +16,6 @@ MonoBehaviour:
   Damage: 10
   AttackCooldown: 2
   Defense: 5
-  Skill: {fileID: 0}
+  Skill: {fileID: 11400000, guid: 9d460644dbc18e946bfa56823caff5ce, type: 2}
   SkillDamage: 0
   SkillCooldown: 0
