@@ -49,7 +49,7 @@ public class PouringZones : MonoBehaviour
         float perfectAmount = totalLiquid / pouringMetal.ZoneCount();
 
         float difference = Mathf.Abs(perfectAmount - accumulatedMetal);
-        int roundedDifference = Mathf.FloorToInt(difference);
+        int roundedDifference = Mathf.RoundToInt(difference);
         int gradeValue;
 
         if (roundedDifference == 0)

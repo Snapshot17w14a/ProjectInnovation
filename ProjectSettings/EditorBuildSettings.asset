@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AssemblyScene.unity
     guid: e237f92221d95724b87fa18bf8551119
+  - enabled: 1
+    path: Assets/Scenes/MeltingScene 2.0.unity
+    guid: a8283c47b231b214abb9c8272e1b0ddd
   m_configObjects: {}

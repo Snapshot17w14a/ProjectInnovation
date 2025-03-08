@@ -540,6 +540,7 @@ MonoBehaviour:
   craftingScenes:
   - MicrophoneScene
   - AssemblyScene
+  - MeltingScene 2.0
   maxScorePerProcess: 5
 --- !u!4 &631071242
 Transform:
