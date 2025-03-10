@@ -15,8 +15,8 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
     private void Start()
     {
         //Remove after testing
-        weapon = new Weapon();
-        StartProcess(ref weapon);
+/*        weapon = new Weapon();
+        StartProcess(ref weapon);*/
     }
 
     public void ApplyNewEffect(IWeaponEffect newEffect)
