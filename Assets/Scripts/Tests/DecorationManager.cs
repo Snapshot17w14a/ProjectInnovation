@@ -27,6 +27,7 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
         }
 
         //weapon.SetDecorationResult(newEffect);
+        isProcessDone = true;
     }
 
     public void ClearEffect()
