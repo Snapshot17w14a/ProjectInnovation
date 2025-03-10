@@ -5,6 +5,7 @@ public struct SerializableCharacterStats
     public int Damage { get; set; }
     public float AttackCooldown { get; set; }
     public int Defense { get; set; }
+    public int Experience { get; set; }
 
     public SerializableCharacterStats(CharacterStats characterStats)
     {
@@ -12,6 +13,7 @@ public struct SerializableCharacterStats
         Health = characterStats.Health;
         Damage = characterStats.Damage;
         AttackCooldown = characterStats.AttackCooldown;
+        Experience = characterStats.Experience;
         Defense = characterStats.Defense;
     }
 }

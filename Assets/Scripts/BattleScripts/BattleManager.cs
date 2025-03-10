@@ -9,8 +9,8 @@ public class BattleManager : MonoBehaviour
     private bool isBattleInProgress = false;
     private int currentWaveIndex = 0;
 
-    private readonly Pet[] petsInBattle = new Pet[3];
     private readonly Enemy[] enemiesInBattle = new Enemy[5];
+    private readonly Pet[] petsInBattle = new Pet[3];
 
     private readonly Vector2[] enemyPositions = new Vector2[5];
     private Transform enemyParent;

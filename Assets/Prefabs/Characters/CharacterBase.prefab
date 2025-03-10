@@ -31,7 +31,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6041010040339394173}
+  - {fileID: 5123039964064803450}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
@@ -98,7 +98,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1001 &3758583527680126803
+--- !u!1001 &2370125792061107028
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -109,7 +109,7 @@ PrefabInstance:
     - target: {fileID: 2156492050303825150, guid: 9ffdc11f59c842b43839c947ac978cb8,
         type: 3}
       propertyPath: m_Name
-      value: HealthBar
+      value: HealthBar (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7493094150296650030, guid: 9ffdc11f59c842b43839c947ac978cb8,
         type: 3}
@@ -194,7 +194,7 @@ PrefabInstance:
     - target: {fileID: 7493094150296650030, guid: 9ffdc11f59c842b43839c947ac978cb8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -70.6
+      value: -113.99999
       objectReference: {fileID: 0}
     - target: {fileID: 7493094150296650030, guid: 9ffdc11f59c842b43839c947ac978cb8,
         type: 3}
@@ -216,9 +216,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ffdc11f59c842b43839c947ac978cb8, type: 3}
---- !u!224 &6041010040339394173 stripped
+--- !u!224 &5123039964064803450 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7493094150296650030, guid: 9ffdc11f59c842b43839c947ac978cb8,
     type: 3}
-  m_PrefabInstance: {fileID: 3758583527680126803}
+  m_PrefabInstance: {fileID: 2370125792061107028}
   m_PrefabAsset: {fileID: 0}
