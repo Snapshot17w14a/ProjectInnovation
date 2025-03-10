@@ -23,6 +23,7 @@ public class Pet : Character
     {
         var target = battleManager.GetTargetCharacter(CharacterType.Pet);
         target.TakeDamage(stats.Damage * (stats.Weapon.CritChance > Random.Range(0, 100) ? stats.Weapon.CriticalDamage : 1));
+        battleManager.ApplyWeaponEffect(target);
         characterAnimator.SetTrigger("Attack");
     }
 

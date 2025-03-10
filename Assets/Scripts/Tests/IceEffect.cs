@@ -8,10 +8,11 @@ public class IceEffect : MonoBehaviour, IWeaponEffect
     [SerializeField] private int maxStacks = 3;
     private int currentStacks = 0;
 
-    private Enemy targetEnemy;
+    private Character targetEnemy;
 
-    public void ApplyEffect()
+    public void ApplyEffect(Character enemy)
     {
+        targetEnemy = enemy;
         AddStack();
     }
 

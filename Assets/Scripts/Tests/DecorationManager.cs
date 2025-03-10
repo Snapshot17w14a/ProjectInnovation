@@ -43,4 +43,9 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
     {
         weapon = item;
     }
+
+    public IWeaponEffect GetWeaponEffect()
+    {
+        return currentEffect;
+    }
 }

@@ -26,6 +26,8 @@ public class BattleManager : MonoBehaviour
     public bool IsAttackingAllowed => isBattleInProgress;
     public Enemy[] AllEnemies => enemiesInBattle;
 
+    [SerializeField] private DecorationManager decorationManager;
+
     private int EnemiesAlive
     {
         get
@@ -145,5 +147,14 @@ public class BattleManager : MonoBehaviour
         pet.transform.position = petPositions[index];
         pet.SetManager(this);
         fightButton.interactable = AreTherePetsInBattle;
+    }
+
+    public void ApplyWeaponEffect(Character enemy)
+    {
+        var effect = decorationManager.GetWeaponEffect();
+        if (effect != null)
+        {
+            effect.ApplyEffect(enemy);
+        }
     }
 }
