@@ -19,3 +19,6 @@ MonoBehaviour:
   Skill: {fileID: 11400000, guid: 9d460644dbc18e946bfa56823caff5ce, type: 2}
   SkillDamage: 0
   SkillCooldown: 0
+  HpPerLevel: 6
+  DmgPerLevel: 2
+  StartingLevel: 10

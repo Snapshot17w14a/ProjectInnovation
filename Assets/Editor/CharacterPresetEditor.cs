@@ -50,6 +50,15 @@ public class CharacterPresetEditor : Editor
             EditorGUI.indentLevel--;
         }
 
+        serializedObject.FindProperty("StartingLevel").intValue = IntField("Starting Level", serializedObject.FindProperty("StartingLevel").intValue);
+
+        BeginHorizontal();
+
+            serializedObject.FindProperty("HpPerLevel").intValue = IntField("HpPerLevel", serializedObject.FindProperty("HpPerLevel").intValue);
+            serializedObject.FindProperty("DmgPerLevel").intValue = IntField("DmgPerLevel", serializedObject.FindProperty("DmgPerLevel").intValue);
+
+        EndHorizontal();
+
         serializedObject.ApplyModifiedProperties();
     }
 }

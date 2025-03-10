@@ -17,6 +17,12 @@ public abstract class Character : MonoBehaviour
     protected bool isBattling;
     protected bool isMarkedForDestruction = false;
 
+    protected Animator characterAnimator;
+    protected BattleManager battleManager;
+
+    public Vector3 HitPosition => hitPosition;
+    private Vector3 hitPosition;
+
     public enum CharacterType
     {
         Pet,
@@ -41,6 +47,8 @@ public abstract class Character : MonoBehaviour
         stats = new CharacterStats(preset);
         characterAnimator = GetComponent<Animator>();
         healthDisplay = GetComponentInChildren<HealthDisplay>();
+
+        hitPosition = transform.Find("HitPosition").position;
 
         if (damageNumberPrefab == null) damageNumberPrefab = Resources.Load<GameObject>("DamageNumber");
 

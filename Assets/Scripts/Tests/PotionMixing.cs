@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PotionMixing : MonoBehaviour
 {
-    [SerializeField] private float hitThreshold = 1f;
+    private float hitThreshold = 1f;
+    [SerializeField] private int averageThreshold = 50;
     [SerializeField] private int successThreshold = 900;
     [SerializeField] private int failThreshold = 300;
-    [SerializeField] private int averageThreshold = 50;
     [SerializeField] private float maxWaterAmount = 5f;
-    [SerializeField] private float waterIncreaseRate = 0.5f;
+    private float waterIncreaseRate = 0.5f;
     private Vector3 lastAcceleration;
     private int shakeCount;
 
@@ -21,6 +22,9 @@ public class PotionMixing : MonoBehaviour
     private bool isAddingWater = false;
     private bool canShake = false;
 
+    private string buff;
+    private string quality;
+
     private MeshRenderer meshRenderer;
 
     private List<string> selectedIngredients = new List<string>();
@@ -28,12 +32,23 @@ public class PotionMixing : MonoBehaviour
     private Dictionary<HashSet<string>, string> potionEffects = new Dictionary<HashSet<string>, string>(HashSetComparer.Instance);
 
     [SerializeField] private Button[] ingredientButtons;
+    [SerializeField] private Button waterButton;
+    [SerializeField] private Button shakeButton;
+    [SerializeField] private Button completeButton;
+
+    [SerializeField] private TMP_Text effectText;
+    [SerializeField] private TMP_Text waterText;
+    [SerializeField] private TMP_Text ingredientText1;
+    [SerializeField] private TMP_Text ingredientText2;
+    [SerializeField] private TMP_Text ingredientText3;
+
+    [SerializeField] private RawImage shakeIndicator;
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         lastAcceleration = Input.acceleration;
 
-        foreach (var button in ingredientButtons)
+        foreach (Button button in ingredientButtons)
         {
             string ingredientName = button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text;
             button.onClick.AddListener(() => AddIngredient(ingredientName));
@@ -52,15 +67,7 @@ public class PotionMixing : MonoBehaviour
         if (isAddingWater && waterAmount <= maxWaterAmount)
         {
             waterAmount += waterIncreaseRate * Time.deltaTime;
-            Debug.Log("WaterAmount: " + waterAmount);
-        }
-
-        if(selectedIngredients.Count >= 3)
-        {
-            canShake = true;
-        } else
-        {
-            canShake = false;
+            waterText.text = $" " + waterAmount.ToString("F1");
         }
 
         Vector3 currentAcceleration = Input.acceleration;
@@ -69,7 +76,6 @@ public class PotionMixing : MonoBehaviour
         if (accelerationChange > hitThreshold && canShake)
         {
             shakeCount++;
-            Debug.Log("ShakeCount: " + shakeCount);
             lastAcceleration = currentAcceleration;
         }
 
@@ -78,36 +84,42 @@ public class PotionMixing : MonoBehaviour
 
     public void FinishPotion()
     {
-        string buff = GetPotionBuff();
-        string quality = DeterminePotionQuality();
+        buff = GetPotionBuff();
         var (duration, effectMultiplier) = CalculatePotionEffect();
-
         Debug.Log($"Potion Created! - Buff: {buff}, Quality: {quality}, Duration: {duration}s, Effect Strength: {effectMultiplier * 100}%");
+
+        effectText.text = buff;
     }
 
-    private string DeterminePotionQuality()
+    private (string quality, float multiplier) DeterminePotionQuality()
     {
         if (shakeCount < averageThreshold)
         {
-            return "Weak";
+            return ("Weak", 0.5f);
         }
         if (shakeCount >= averageThreshold && shakeCount < successThreshold)
         {
-            return "Average";
+            return ("Average", 1f);
         }
         if (shakeCount >= successThreshold && shakeCount < failThreshold)
         {
-            return "Good";
+            return ("Good", 2f);
         }
 
-        return "Failed";
+        return ("Failed", 0f);
     }
 
     private string GetPotionBuff()
     {
         var key = new HashSet<string>(selectedIngredients);
-        return potionEffects.TryGetValue(key, out string buff) ? buff : "Unknown Potion";
+        var (duration, effectMultiplier) = CalculatePotionEffect();
+        var (quality, multiplier) = DeterminePotionQuality();
+
+        var effectiveness = effectMultiplier * multiplier;
+        return potionEffects.TryGetValue(key, out string buff) ? $"Gives a +{effectiveness.ToString("F1")}% {buff} buff for {duration.ToString("F0")} seconds " : "Potion Fail: Ingredients incompatible";
     }
+
+    // shaking = effectiveness
 
     public void AddIngredient(string ingredient)
     {
@@ -115,29 +127,65 @@ public class PotionMixing : MonoBehaviour
         {
             selectedIngredients.Add(ingredient);
             Debug.Log("Added: " + ingredient);
-        }
-        else
-        {
-            Debug.LogError("You already added 3 ingredients!");
+
+            if (selectedIngredients.Count == 1)
+            {
+                ingredientText1.text = ingredient;
+            }
+            else if (selectedIngredients.Count == 2)
+            {
+                ingredientText2.text = ingredient;
+            }
+            else if (selectedIngredients.Count == 3)
+            {
+                ingredientText3.text = ingredient;
+
+                foreach (Button button in ingredientButtons)
+                {
+                    button.gameObject.SetActive(false);
+                }
+
+                waterButton.gameObject.SetActive(true);
+                waterText.gameObject.SetActive(true);
+                waterText.text = $" " + waterAmount.ToString("F1");
+                shakeButton.gameObject.SetActive(true);
+            }
         }
     }
 
     public void ResetPotion()
     {
         selectedIngredients.Clear();
-        waterAmount = 0f;
+        waterAmount = 1f;
         shakeCount = 0;
+
+        ingredientText1.text = $"ingredient";
+        ingredientText2.text = $"ingredient";
+        ingredientText3.text = $"ingredient";
+        effectText.text = $"";
+        waterText.text = $"{waterAmount.ToString("F1")}";
+
+        foreach (Button button in ingredientButtons)
+        {
+            button.gameObject.SetActive(true);
+        }
+
+        waterButton.gameObject.SetActive(false);
+        waterText.gameObject.SetActive(false);
+        shakeIndicator.gameObject.SetActive(false);
+        shakeButton.gameObject.SetActive(false);
+        completeButton.gameObject.SetActive(false);
+        canShake = false;
     }
 
     private (float duration, float effectMultiplier) CalculatePotionEffect()
     {
         float baseDuration = 15f;
-        float baseEffectiveness = 1f;
 
         float duration = baseDuration * waterAmount;
-        float effectMultiplier = Mathf.Clamp(1f - ((waterAmount - 1f) / (maxWaterAmount - 1f)), 0.3f, 1f);
+        float effectMultiplier = Mathf.Clamp(1f - ((waterAmount - 2f) / (maxWaterAmount - 1f)), 0.3f, 1f);
 
-        return (duration, effectMultiplier);
+        return (duration, effectMultiplier * 100);
     }
 
     private void UpdatePotionColor()
@@ -160,6 +208,16 @@ public class PotionMixing : MonoBehaviour
         {
             meshRenderer.material.color = Color.red; // Failed potion
         }
+    }
+
+    public void ProceedToShake()
+    {
+        canShake = true;
+        shakeButton.gameObject.SetActive(false);
+        waterText.gameObject.SetActive(false);
+        waterButton.gameObject.SetActive(false);
+        shakeIndicator.gameObject.SetActive(true);
+        completeButton.gameObject.SetActive(true);
     }
 
     public void ToggleWater() => isAddingWater = !isAddingWater;

@@ -54,7 +54,7 @@ public class MicrophoneService : Service
     {
         foreach (var device in Microphone.devices)
         {
-            Debug.Log("Name: " + device);
+            //Debug.Log("Name: " + device);
         }
     }
 }

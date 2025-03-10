@@ -8,8 +8,12 @@ public class CharacterPreset : ScriptableObject
     public float AttackCooldown;
     public int Defense;
 
-    [SerializeReference]
     public Skill Skill;
     public int SkillDamage;
     public float SkillCooldown;
+
+    public int HpPerLevel;
+    public int DmgPerLevel;
+
+    public int StartingLevel;
 }

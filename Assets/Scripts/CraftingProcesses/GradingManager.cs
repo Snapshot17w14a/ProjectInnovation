@@ -39,6 +39,28 @@ public class GradingManager : MonoBehaviour
         return 2;
     }
 
+    public string GetOverallGradeText()
+    {
+        float averageGrade = GetAverageGrade();
+
+        if (averageGrade > 2.5f)
+        {
+            return "Perfect";
+        }
+        if (averageGrade >= 1.5f)
+        {
+            return "Good";
+        }
+        if (averageGrade >= 0.5f)
+        {
+            return "Average";
+        }
+
+        //var value = Mathf.Lerp(0, 5, averageGrade / 10f);
+        //round to an int
+        return "Poor";
+    }
+
     private float GetAverageGrade()
     {
         if(grades.Count == 0) return 0;
@@ -60,6 +82,6 @@ public class GradingManager : MonoBehaviour
 
     public void DisplayGrade()
     {
-        //gradeText.text = GetOverallGrade();
+        gradeText.text = GetOverallGradeText();
     }
 }
