@@ -34,7 +34,7 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
     {
         if (currentEffect != null)
         {
-            currentEffect.RemoveEffect();
+            
             currentEffect = null;
         }
     }

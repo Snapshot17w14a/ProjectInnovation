@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IWeaponEffect
 {
-    public void ApplyEffect(Enemy enemy);
-    public void RemoveEffect(Enemy enemy);
+    public void ApplyEffect();
+    public void RemoveEffect();
 }

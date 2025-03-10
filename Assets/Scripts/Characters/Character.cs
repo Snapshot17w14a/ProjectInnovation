@@ -17,9 +17,6 @@ public abstract class Character : MonoBehaviour
     protected bool isBattling;
     protected bool isMarkedForDestruction = false;
 
-    protected Animator characterAnimator;
-    protected BattleManager battleManager;
-
     public Vector3 HitPosition => hitPosition;
     private Vector3 hitPosition;
 

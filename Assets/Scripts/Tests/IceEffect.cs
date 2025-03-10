@@ -10,26 +10,26 @@ public class IceEffect : MonoBehaviour, IWeaponEffect
 
     private Enemy targetEnemy;
 
-    public void ApplyEffect(Enemy enemy)
+    public void ApplyEffect()
     {
-        AddStack(enemy);
+        AddStack();
     }
 
-    private void AddStack(Enemy enemy)
+    private void AddStack()
     {
-        if (currentStacks < maxStacks)
+        if (currentStacks >= maxStacks)
+        {
+            Debug.Log("IceEffect already at max stacks!");
+        }
+        else
         {
             currentStacks++;
             float reductionMultiplier = 1f - (reductionPerStack * currentStacks);
             Debug.Log("Ice Stacks: " + currentStacks);
         }
-        else
-        {
-            Debug.Log("IceEffect already at max stacks!");
-        }
     }
 
-    public void RemoveEffect(Enemy enemy)
+    public void RemoveEffect()
     {
 
     }
