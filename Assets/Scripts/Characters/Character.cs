@@ -17,11 +17,10 @@ public abstract class Character : MonoBehaviour
     protected bool isBattling;
     protected bool isMarkedForDestruction = false;
 
-    protected Animator characterAnimator;
-    protected BattleManager battleManager;
-
     public Vector3 HitPosition => hitPosition;
     private Vector3 hitPosition;
+
+    private static Transform damageNumberParent;
 
     public enum CharacterType
     {
@@ -44,22 +43,20 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void Start()
     {
-        stats = new CharacterStats(preset);
+        if (preset != null) stats = new CharacterStats(preset);
         characterAnimator = GetComponent<Animator>();
         healthDisplay = GetComponentInChildren<HealthDisplay>();
 
         hitPosition = transform.Find("HitPosition").position;
 
+        if (damageNumberParent == null) damageNumberParent =  GameObject.Find("DamageNumbers").transform;
         if (damageNumberPrefab == null) damageNumberPrefab = Resources.Load<GameObject>("DamageNumber");
-
-        isBattling = true;
-        StartCoroutine(AttackRoutine());
     }
 
     public virtual void TakeDamage(int damage)
     {
         stats.Health -= Mathf.Max(0, damage - stats.Defense);
-        Instantiate(damageNumberPrefab, transform.position, Quaternion.identity, transform).GetComponent<DamageDisplay>().Damage = damage;
+        Instantiate(damageNumberPrefab, transform.position, Quaternion.identity, damageNumberParent).GetComponent<DamageDisplay>().Damage = damage;
         healthDisplay.Percentage = stats.Health / (float)stats.MaxHealth;
         characterAnimator.SetTrigger("Hit");
         if (stats.Health <= 0)
@@ -75,14 +72,22 @@ public abstract class Character : MonoBehaviour
         battleManager.OnBattleEnd += EndBattle;
     }
 
-    private void EndBattle()
+    public virtual void StartBattle()
+    {
+        isBattling = true;
+        StartCoroutine(AttackRoutine());
+    }
+
+    public virtual void EndBattle()
     {
         isBattling = false;
+        battleManager.OnBattleEnd -= EndBattle;
         StopAllCoroutines();
     }
 
     protected virtual void OnDestroy()
     {
+        EndBattle();
         battleManager.OnBattleEnd -= EndBattle;
     }
 }

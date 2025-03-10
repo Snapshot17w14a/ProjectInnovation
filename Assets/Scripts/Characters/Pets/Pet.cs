@@ -3,6 +3,18 @@ using UnityEngine;
 
 public class Pet : Character
 {
+    protected override void Start()
+    {
+        base.Start();
+        stats = ServiceLocator.GetService<InventoryManager>().PetNameToStats(name.Replace("(Clone)", ""));
+        if (stats.skill != null)
+        {
+            stats.skill = (Skill)ScriptableObject.CreateInstance(stats.skill.GetType());
+            stats.skill.FromStaticSkill(preset.Skill);
+            stats.skill.parent = gameObject;
+        }
+    }
+
     protected virtual IEnumerator SkillRoutine()
     {
         yield return new WaitUntil(() => battleManager != null && battleManager.IsAttackingAllowed);
@@ -22,22 +34,13 @@ public class Pet : Character
     protected override void Attack()
     {
         var target = battleManager.GetTargetCharacter(CharacterType.Pet);
-        target.TakeDamage(stats.Damage * (stats.Weapon.CritChance > Random.Range(0, 100) ? stats.Weapon.CriticalDamage : 1));
+        target.TakeDamage(stats.Damage * (stats.Weapon != null ? (stats.Weapon.CritChance > Random.Range(0, 100) ? Mathf.RoundToInt(stats.Weapon.CriticalDamage / 100f) : 1) : 1));
         characterAnimator.SetTrigger("Attack");
     }
 
-    protected override void Start()
+    public override void StartBattle()
     {
-        base.Start();
-        stats = ServiceLocator.GetService<InventoryManager>().PetNameToStats(name.Replace("(Clone)", ""));
-        if (stats.skill != null)
-        {
-            stats.skill = (Skill)ScriptableObject.CreateInstance(stats.skill.GetType());
-            stats.skill.FromStaticSkill(preset.Skill);
-            stats.skill.parent = gameObject;
-            StartCoroutine(SkillRoutine());
-        }
-        stats.ApplyLevelBuffs();
-        stats.Weapon = ServiceLocator.GetService<InventoryManager>().GetWeaponFromId(5);
+        base.StartBattle();
+        StartCoroutine(SkillRoutine());
     }
 }

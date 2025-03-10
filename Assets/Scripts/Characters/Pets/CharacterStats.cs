@@ -1,4 +1,6 @@
-﻿public struct CharacterStats
+﻿using System;
+
+public class CharacterStats
 {
     public int MaxHealth;
     public int Health;
@@ -10,9 +12,11 @@
     public Skill skill;
     public Weapon Weapon;
 
+    public string Name;
+
     private readonly CharacterPreset usedPreset;
 
-    public readonly int Level
+    public int Level
     {
         get
         {
@@ -41,6 +45,14 @@
         skill = preset.Skill;
         Weapon = null;
         usedPreset = preset;
+        Name = preset.name;
+        GlobalEvent<WeaponAssigmentEvent>.OnRaiseEvent += OnAssignmentEvent;
+        ApplyLevelBuffs();
+    }
+
+    ~CharacterStats()
+    {
+        GlobalEvent<WeaponAssigmentEvent>.OnRaiseEvent -= OnAssignmentEvent;
     }
 
     public CharacterStats FromSerializableObject(SerializableCharacterStats serializedObject)
@@ -51,11 +63,11 @@
         AttackCooldown = serializedObject.AttackCooldown;
         Experience = serializedObject.Experience;
         Defense = serializedObject.Defense;
-        Weapon = ServiceLocator.GetService<InventoryManager>().GetWeaponFromId(serializedObject.WeaponId);
+        Weapon = serializedObject.WeaponId != -1 ? ServiceLocator.GetService<InventoryManager>().GetWeaponFromId(serializedObject.WeaponId) : null;
         return this;
     }
 
-    public readonly SerializableCharacterStats ToSerializableObject()
+    public SerializableCharacterStats ToSerializableObject()
     {
         return new SerializableCharacterStats(this);
     }
@@ -65,20 +77,23 @@
         int level = Level - 1;
         Damage += usedPreset.DmgPerLevel * level;
         Health += usedPreset.HpPerLevel * level;
+        MaxHealth += usedPreset.HpPerLevel * level;
     }
 
-    public void AssignWeapon(Weapon weapon)
+    public CharacterStats AssignWeapon(Weapon weapon)
     {
         AddWeaponStats(true);
         Weapon = weapon;
         AddWeaponStats();
+        return this;
     }
 
-    public void AssignWeapon(int id) 
+    public CharacterStats AssignWeapon(int id) 
     {
         AddWeaponStats(true);
         Weapon = ServiceLocator.GetService<InventoryManager>().GetWeaponFromId(id);
         AddWeaponStats();
+        return this;
     }
 
     private void AddWeaponStats(bool isRemoving = false)
@@ -87,5 +102,13 @@
         int modifier = isRemoving ? -1 : 1;
         Damage += Weapon.Damage * modifier;
         AttackCooldown += Weapon.AttackSpeed * modifier;
+    }
+
+    private void OnAssignmentEvent(WeaponAssigmentEvent eventParams)
+    {
+        if (Name != eventParams.petName) return;
+        AssignWeapon(eventParams.weapon);
+
+        ServiceLocator.GetService<InventoryManager>().SetPetStat(Name, this);
     }
 }

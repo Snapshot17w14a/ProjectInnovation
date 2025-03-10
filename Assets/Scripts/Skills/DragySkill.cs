@@ -11,14 +11,9 @@ public class DragySkill : Skill
     {
         var enemies = battleManager.AllEnemies;
         foreach (var enemy in enemies) if (enemy != null) enemy.TakeDamage(SkillDamage);
-        var projectile = Instantiate(effectPrefab, parent.transform.position + new Vector3(115, 0, 0), effectPrefab.transform.rotation, parent.transform).AddComponent<DragyFireProjectile>();
+        var projectile = Instantiate(effectPrefab, parent.transform.position, effectPrefab.transform.rotation, parent.transform).AddComponent<DragyFireProjectile>();
         projectile.UnitsPerSecond = unitsPerSecond;
         projectile.AliveTime = aliveTime;
-        //var fireEffect = new GameObject("fireEffect", typeof(Image));
-        //fireEffect.transform.SetParent(parent.transform);
-        //fireEffect.transform.position = parent.transform.position;
-        //fireEffect.GetComponent<Image>().sprite = fireSprite;
-        //Destroy(fireEffect, 0.5f);
     }
 
     public override void FromStaticSkill(Skill skill)

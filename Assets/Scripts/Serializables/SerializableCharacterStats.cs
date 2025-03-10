@@ -7,6 +7,7 @@ public struct SerializableCharacterStats
     public int Defense { get; set; }
     public int Experience { get; set; }
     public int WeaponId { get; set; }
+    public string Name { get; set; }
 
     public SerializableCharacterStats(CharacterStats characterStats)
     {
@@ -16,6 +17,7 @@ public struct SerializableCharacterStats
         AttackCooldown = characterStats.AttackCooldown;
         Experience = characterStats.Experience;
         Defense = characterStats.Defense;
-        WeaponId = characterStats.Weapon.Id;
+        WeaponId = characterStats.Weapon != null ? characterStats.Weapon.Id : -1;
+        Name = characterStats.Name;
     }
 }
