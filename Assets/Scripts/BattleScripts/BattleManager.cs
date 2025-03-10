@@ -106,7 +106,7 @@ public class BattleManager : MonoBehaviour
     public void StartBattle()
     {
         foreach (var gameObject in objectsToHideInBattle) gameObject.SetActive(false);
-        foreach (var pet in petsInBattle) pet.StartBattle();
+        foreach (var pet in petsInBattle) pet?.StartBattle();
         OnBattleEnd += BattleEnd;
         StartCoroutine(StartWaves());
     }
@@ -155,10 +155,7 @@ public class BattleManager : MonoBehaviour
     public void ApplyWeaponEffect(Character enemy)
     {
         var effect = decorationManager.GetWeaponEffect();
-        if (effect != null)
-        {
-            effect.ApplyEffect(enemy);
-        }
+        effect?.ApplyEffect(enemy);
     }
 
     private void BattleEnd()
