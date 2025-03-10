@@ -49,7 +49,7 @@ public abstract class Character : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        stats.Health -= damage - stats.Defense;
+        stats.Health -= Mathf.Max(0, damage - stats.Defense);
         Instantiate(damageNumberPrefab, transform.position, Quaternion.identity, transform).GetComponent<DamageDisplay>().Damage = damage;
         healthDisplay.Percentage = stats.Health / (float)stats.MaxHealth;
         characterAnimator.SetTrigger("Hit");

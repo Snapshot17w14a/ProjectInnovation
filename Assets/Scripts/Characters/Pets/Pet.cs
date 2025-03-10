@@ -37,5 +37,6 @@ public class Pet : Character
             stats.skill.parent = gameObject;
             StartCoroutine(SkillRoutine());
         }
+        stats.ApplyLevelBuffs();
     }
 }
