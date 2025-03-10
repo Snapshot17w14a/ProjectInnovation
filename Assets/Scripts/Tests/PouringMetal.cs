@@ -101,6 +101,7 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
             gradingManager.ResetGrades();
             OnPouringFinished?.Invoke();
             gradingManager.DisplayGrade();
+
             weapon.SetCastResult(gradingManager.GetOverallGrade());
             isProcessDone = true;
         }

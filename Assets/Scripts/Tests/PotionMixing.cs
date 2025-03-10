@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,14 @@ public class PotionMixing : MonoBehaviour
     private Dictionary<HashSet<string>, string> potionEffects = new Dictionary<HashSet<string>, string>(HashSetComparer.Instance);
 
     [SerializeField] private Button[] ingredientButtons;
+
+
+    [SerializeField] private TMP_Text effectText;
+    [SerializeField] private TMP_Text waterText;
+
+    [SerializeField] private TMP_Text ingredientText1;
+    [SerializeField] private TMP_Text ingredientText2;
+    [SerializeField] private TMP_Text ingredientText3;
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
@@ -52,7 +61,7 @@ public class PotionMixing : MonoBehaviour
         if (isAddingWater && waterAmount <= maxWaterAmount)
         {
             waterAmount += waterIncreaseRate * Time.deltaTime;
-            Debug.Log("WaterAmount: " + waterAmount);
+            waterText.text = $" " + waterAmount.ToString("F1");
         }
 
         if(selectedIngredients.Count >= 3)
@@ -69,7 +78,6 @@ public class PotionMixing : MonoBehaviour
         if (accelerationChange > hitThreshold && canShake)
         {
             shakeCount++;
-            Debug.Log("ShakeCount: " + shakeCount);
             lastAcceleration = currentAcceleration;
         }
 
@@ -83,6 +91,8 @@ public class PotionMixing : MonoBehaviour
         var (duration, effectMultiplier) = CalculatePotionEffect();
 
         Debug.Log($"Potion Created! - Buff: {buff}, Quality: {quality}, Duration: {duration}s, Effect Strength: {effectMultiplier * 100}%");
+
+        effectText.text = GetPotionBuff();
     }
 
     private string DeterminePotionQuality()
@@ -115,6 +125,19 @@ public class PotionMixing : MonoBehaviour
         {
             selectedIngredients.Add(ingredient);
             Debug.Log("Added: " + ingredient);
+
+            if (selectedIngredients.Count == 1)
+            {
+                ingredientText1.text = ingredient;
+            }
+            else if (selectedIngredients.Count == 2)
+            {
+                ingredientText2.text = ingredient;
+            }
+            else if (selectedIngredients.Count == 3)
+            {
+                ingredientText3.text = ingredient;
+            }
         }
         else
         {
@@ -127,15 +150,20 @@ public class PotionMixing : MonoBehaviour
         selectedIngredients.Clear();
         waterAmount = 0f;
         shakeCount = 0;
+
+        ingredientText1.text = $"ingredient";
+        ingredientText2.text = $"ingredient";
+        ingredientText3.text = $"ingredient";
+        effectText.text = $"Effect";
+        waterText.text = $"Water";
     }
 
     private (float duration, float effectMultiplier) CalculatePotionEffect()
     {
         float baseDuration = 15f;
-        float baseEffectiveness = 1f;
 
         float duration = baseDuration * waterAmount;
-        float effectMultiplier = Mathf.Clamp(1f - ((waterAmount - 1f) / (maxWaterAmount - 1f)), 0.3f, 1f);
+        float effectMultiplier = Mathf.Clamp(1f - ((waterAmount - 2f) / (maxWaterAmount - 1f)), 0.3f, 1f);
 
         return (duration, effectMultiplier);
     }
