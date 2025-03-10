@@ -49,6 +49,8 @@ public class BattleManagerEditor : Editor
 
         PropertyField(serializedObject.FindProperty("objectsToHideInBattle"));
 
+        PropertyField(serializedObject.FindProperty("fightButton"));
+
         serializedObject.ApplyModifiedProperties();
     }
 

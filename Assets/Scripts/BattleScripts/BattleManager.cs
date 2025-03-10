@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 public class BattleManager : MonoBehaviour
@@ -20,6 +21,8 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private GameObject[] objectsToHideInBattle;
 
+    [SerializeField] private Button fightButton;
+
     public bool IsAttackingAllowed => isBattleInProgress;
     public Enemy[] AllEnemies => enemiesInBattle;
 
@@ -30,6 +33,15 @@ public class BattleManager : MonoBehaviour
             int count = 0;
             foreach (var enemy in enemiesInBattle) if (enemy != null) count++;
             return count;
+        }
+    }
+
+    private bool AreTherePetsInBattle
+    {
+        get
+        {
+            foreach(var pet in petsInBattle) if (pet != null) return true;
+            return false;
         }
     }
 
@@ -57,6 +69,7 @@ public class BattleManager : MonoBehaviour
         }
 
         Skill.battleManager = this;
+        fightButton.interactable = AreTherePetsInBattle;
     }
 
     private IEnumerator StartWaves()
@@ -120,11 +133,17 @@ public class BattleManager : MonoBehaviour
 
     public void SetPetAtIndex(int index, Pet pet)
     {
+        if (pet == null)
+        {
+            petsInBattle[index] = null;
+            return;
+        }
         if (petsInBattle[index] != null) DestroyImmediate(petsInBattle[index].gameObject);
         petsInBattle[index] = pet;
         pet.transform.SetParent(petParent);
         pet.transform.SetSiblingIndex(index);
         pet.transform.position = petPositions[index];
         pet.SetManager(this);
+        fightButton.interactable = AreTherePetsInBattle;
     }
 }

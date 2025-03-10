@@ -1,4 +1,6 @@
-﻿public class Enemy : Character
+﻿using UnityEngine;
+
+public class Enemy : Character
 {
     protected override void Attack()
     {

@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MeltingScene 2.0.unity
     guid: a8283c47b231b214abb9c8272e1b0ddd
+  - enabled: 1
+    path: Assets/Scenes/MaterialSelection.unity
+    guid: 0af1cf51815de134bb2ca448acacc12b
+  - enabled: 1
+    path: Assets/Scenes/BattleScene.unity
+    guid: 794d59fea4d90624eb1079c3b34dc24b
+  - enabled: 1
+    path: Assets/Scenes/CraftingScene.unity
+    guid: cafb93454ee020d48adce3d3a0e1debb
   m_configObjects: {}

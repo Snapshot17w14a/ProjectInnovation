@@ -32,11 +32,13 @@ public class InventoryManager : Service
 
         base.Awake();
 
+        Weapon.Initialize();
+
         AssemblyItem[] loadedAssemblyItems = Resources.LoadAll<AssemblyItem>("Grips");
         AssemblyItems = new(loadedAssemblyItems);
 
-        weapons.AddRange(new Weapon[] { new(damage: 10, critChance: 35, armorPenetration: 1), new(damage: 1, critChance: 95, critDamage: 10) });
-        SaveWeapons();
+        //weapons.AddRange(new Weapon[] { new(damage: 10, critChance: 35, armorPenetration: 1), new(damage: 1, critChance: 95, critDamage: 10) });
+        //SaveWeapons();
         LoadWeapons();
 
         assemblyItemCount.Add("Insane Grip", 2);
@@ -59,18 +61,18 @@ public class InventoryManager : Service
 
     public void SaveWeapons()
     {
-        SerializableItem[] itemDatas = new SerializableItem[weapons.Count];
-        for(int i = 0; i < weapons.Count; i++) itemDatas[i] = new SerializableItem(weapons[i]);
+        SerializableWeapon[] itemDatas = new SerializableWeapon[weapons.Count];
+        for(int i = 0; i < weapons.Count; i++) itemDatas[i] = new SerializableWeapon(weapons[i]);
         File.WriteAllText(Application.persistentDataPath + "/savedItems.json", JsonSerializer.Serialize(itemDatas, options));
     }
 
     public void LoadWeapons()
     {
-        SerializableItem[] readData = JsonSerializer.Deserialize<SerializableItem[]>(File.ReadAllText(Application.persistentDataPath + "/savedItems.json"));
+        SerializableWeapon[] readData = JsonSerializer.Deserialize<SerializableWeapon[]>(File.ReadAllText(Application.persistentDataPath + "/savedItems.json"));
         Weapon[] loadedItems = new Weapon[readData.Length];
         for(int i = 0; i < readData.Length; i++) loadedItems[i] = new Weapon().LoadFromStruct(readData[i]);
-        try { SerializableItem.StaticId = readData[^1].Id; }
-        catch (System.IndexOutOfRangeException) { SerializableItem.StaticId = 0; }
+        try { SerializableWeapon.StaticId = readData[^1].Id; }
+        catch (System.IndexOutOfRangeException) { SerializableWeapon.StaticId = 0; }
         weapons = new(loadedItems);
     }
 
@@ -104,6 +106,10 @@ public class InventoryManager : Service
 
     public void AddItemToInventory(Weapon item) => weapons.Add(item);
     public void RemoveItemFromInventory(Weapon item) => weapons.Remove(item);
+
+    public Weapon[] GetAllWeapons => weapons.ToArray();
+
+    public Weapon GetWeaponFromId(int id) => weapons.Where(item => item.Id == id).FirstOrDefault();
 
     public int GetAssemblyItemCount(AssemblyItem assemblyItem)
     {
