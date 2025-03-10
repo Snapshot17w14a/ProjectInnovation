@@ -12,7 +12,7 @@
 
     public SerializableWeapon(Weapon item)
     {
-        Id = ++StaticId;
+        Id = item.Id;
         ItemMaterial = item.ItemMaterial;
         Grip = item.Grip == null ? "null" : item.Grip.itemName;
         Damage = item.Damage;
