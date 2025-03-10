@@ -35,9 +35,6 @@ public class ForgeHandler : CraftingProcess, ICraftingProcess
         var craftingManager = ServiceLocator.GetService<CraftingManager>();
         maxScore = craftingManager != null ? craftingManager.MaxScorePerProcess : 5;
         blowDetector = GetComponent<BlowDetector>();
-
-        forgedItem = new Weapon();
-        StartProcess(ref forgedItem);
     }
 
     // Update is called once per frame
@@ -57,7 +54,7 @@ public class ForgeHandler : CraftingProcess, ICraftingProcess
 
             //Increase item score when in the correct spot
             itemScore = Mathf.Clamp(itemScore + ((progressDisplay.IsNeedlePositionCorrect() ? increaseAmount : -decreaseAmount) * Time.deltaTime), 0, maxScore);
-            Debug.Log($"score: {score}, itemScore: {itemScore}");
+            //Debug.Log($"score: {score}, itemScore: {itemScore}");
 
             //Display values on UI
             progressDisplay.SetNeedleProgress(score / maxScore);

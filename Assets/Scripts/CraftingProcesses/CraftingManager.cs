@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(InventoryManager))]
 public class CraftingManager : Service
 {
     [SerializeField] private string[] craftingScenes;
@@ -27,12 +26,6 @@ public class CraftingManager : Service
         base.Awake();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void StartCrafting()
     {
         craftingItem = new Weapon();
@@ -42,7 +35,7 @@ public class CraftingManager : Service
     private void CraftingDone()
     {
         var inventory = ServiceLocator.GetService<InventoryManager>();
-        if (inventory != null) inventory.AddItemToInventory(craftingItem);
+        inventory.AddItemToInventory(craftingItem);
         inventory.SaveWeapons();
     }
 
@@ -56,8 +49,14 @@ public class CraftingManager : Service
             yield return new WaitUntil(() => currentCraftingProcess.IsProcessDone);
         }
         CraftingDone();
-        yield return SceneManager.LoadSceneAsync("CraftingScene");
+        yield return SceneManager.LoadSceneAsync("BattleScene");
+        Destroy(gameObject);
         yield return null;
+    }
+
+    private void OnDestroy()
+    {
+        ServiceLocator.UnregisterService(this);
     }
 }
 

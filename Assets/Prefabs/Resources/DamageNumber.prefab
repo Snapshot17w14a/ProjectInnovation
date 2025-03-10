@@ -152,7 +152,7 @@ MonoBehaviour:
   timeoutTime: 1
   minTextSize: 50
   maxTextSize: 150
-  movementDistance: 100
+  movementDistance: 1
   sizeDelta: 30
   damageGradient:
     serializedVersion: 2

@@ -10,11 +10,18 @@ public abstract class Character : MonoBehaviour
 
     private HealthDisplay healthDisplay;
 
+    protected Animator characterAnimator;
     protected CharacterStats stats;
+    protected BattleManager battleManager;
+
     protected bool isBattling;
+    protected bool isMarkedForDestruction = false;
 
     protected Animator characterAnimator;
     protected BattleManager battleManager;
+
+    public Vector3 HitPosition => hitPosition;
+    private Vector3 hitPosition;
 
     public enum CharacterType
     {
@@ -41,19 +48,25 @@ public abstract class Character : MonoBehaviour
         characterAnimator = GetComponent<Animator>();
         healthDisplay = GetComponentInChildren<HealthDisplay>();
 
+        hitPosition = transform.Find("HitPosition").position;
+
         if (damageNumberPrefab == null) damageNumberPrefab = Resources.Load<GameObject>("DamageNumber");
 
         isBattling = true;
         StartCoroutine(AttackRoutine());
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         stats.Health -= Mathf.Max(0, damage - stats.Defense);
         Instantiate(damageNumberPrefab, transform.position, Quaternion.identity, transform).GetComponent<DamageDisplay>().Damage = damage;
         healthDisplay.Percentage = stats.Health / (float)stats.MaxHealth;
         characterAnimator.SetTrigger("Hit");
-        if (stats.Health <= 0) Destroy(gameObject);
+        if (stats.Health <= 0)
+        {
+            Destroy(gameObject);
+            isMarkedForDestruction = true;
+        }
     }
 
     public void SetManager(BattleManager battleManager)
@@ -68,7 +81,7 @@ public abstract class Character : MonoBehaviour
         StopAllCoroutines();
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         battleManager.OnBattleEnd -= EndBattle;
     }

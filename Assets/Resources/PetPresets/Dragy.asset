@@ -21,4 +21,4 @@ MonoBehaviour:
   SkillCooldown: 0
   HpPerLevel: 6
   DmgPerLevel: 2
-  StartingLevel: 1
+  StartingLevel: 10

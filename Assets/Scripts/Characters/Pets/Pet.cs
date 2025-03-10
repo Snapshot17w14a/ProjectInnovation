@@ -22,7 +22,7 @@ public class Pet : Character
     protected override void Attack()
     {
         var target = battleManager.GetTargetCharacter(CharacterType.Pet);
-        target.TakeDamage(stats.Damage);
+        target.TakeDamage(stats.Damage * (stats.Weapon.CritChance > Random.Range(0, 100) ? stats.Weapon.CriticalDamage : 1));
         characterAnimator.SetTrigger("Attack");
     }
 
@@ -38,5 +38,6 @@ public class Pet : Character
             StartCoroutine(SkillRoutine());
         }
         stats.ApplyLevelBuffs();
+        stats.Weapon = ServiceLocator.GetService<InventoryManager>().GetWeaponFromId(5);
     }
 }

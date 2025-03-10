@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac73df55292977438ac3b5b7b6949c1, type: 3}
   m_Name: preset - (-115008)
   m_EditorClassIdentifier: 
-  Health: 0
-  Damage: 0
-  AttackCooldown: 0
-  Defense: 0
+  Health: 20
+  Damage: 10
+  AttackCooldown: 2
+  Defense: 2
   Skill: {fileID: 0}
   SkillDamage: 0
   SkillCooldown: 0
+  HpPerLevel: 0
+  DmgPerLevel: 0
+  StartingLevel: 0

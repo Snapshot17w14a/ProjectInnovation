@@ -509,7 +509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51e7f77f44ebd494f9272b1b1eeeaefa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  microphoneThreshold: 0.1
+  microphoneThreshold: 0.2
   increaseAmount: 2
   decreaseAmount: 0.5
   activeIncrease: 5

@@ -8,8 +8,9 @@
     public int Experience;
 
     public Skill skill;
+    public Weapon Weapon;
 
-    private CharacterPreset usedPreset;
+    private readonly CharacterPreset usedPreset;
 
     public readonly int Level
     {
@@ -38,10 +39,11 @@
         Experience = 0;
         for (int i = 0; i < preset.StartingLevel; i++) Experience += 100 + (i - 1) * 100;
         skill = preset.Skill;
+        Weapon = null;
         usedPreset = preset;
     }
 
-    public CharacterStats FromSerializableObject (SerializableCharacterStats serializedObject)
+    public CharacterStats FromSerializableObject(SerializableCharacterStats serializedObject)
     {
         MaxHealth = serializedObject.MaxHealth;
         Health = serializedObject.Health;
@@ -49,6 +51,7 @@
         AttackCooldown = serializedObject.AttackCooldown;
         Experience = serializedObject.Experience;
         Defense = serializedObject.Defense;
+        Weapon = ServiceLocator.GetService<InventoryManager>().GetWeaponFromId(serializedObject.WeaponId);
         return this;
     }
 
@@ -62,5 +65,27 @@
         int level = Level - 1;
         Damage += usedPreset.DmgPerLevel * level;
         Health += usedPreset.HpPerLevel * level;
+    }
+
+    public void AssignWeapon(Weapon weapon)
+    {
+        AddWeaponStats(true);
+        Weapon = weapon;
+        AddWeaponStats();
+    }
+
+    public void AssignWeapon(int id) 
+    {
+        AddWeaponStats(true);
+        Weapon = ServiceLocator.GetService<InventoryManager>().GetWeaponFromId(id);
+        AddWeaponStats();
+    }
+
+    private void AddWeaponStats(bool isRemoving = false)
+    {
+        if (Weapon == null) return;
+        int modifier = isRemoving ? -1 : 1;
+        Damage += Weapon.Damage * modifier;
+        AttackCooldown += Weapon.AttackSpeed * modifier;
     }
 }
