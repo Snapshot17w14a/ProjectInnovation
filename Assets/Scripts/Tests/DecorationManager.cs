@@ -15,8 +15,8 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
     private void Start()
     {
         //Remove after testing
-        weapon = new Weapon();
-        StartProcess(ref weapon);
+/*        weapon = new Weapon();
+        StartProcess(ref weapon);*/
     }
 
     public void ApplyNewEffect(IWeaponEffect newEffect)
@@ -27,13 +27,14 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
         }
 
         //weapon.SetDecorationResult(newEffect);
+        isProcessDone = true;
     }
 
     public void ClearEffect()
     {
         if (currentEffect != null)
         {
-            currentEffect.RemoveEffect();
+            
             currentEffect = null;
         }
     }
@@ -41,5 +42,10 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
     public void StartProcess(ref Weapon item)
     {
         weapon = item;
+    }
+
+    public IWeaponEffect GetWeaponEffect()
+    {
+        return currentEffect;
     }
 }

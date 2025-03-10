@@ -8,29 +8,26 @@ public class IceEffect : MonoBehaviour, IWeaponEffect
     [SerializeField] private int maxStacks = 3;
     private int currentStacks = 0;
 
-    public void ApplyEffect()
+    private Character targetEnemy;
+
+    public void ApplyEffect(Character enemy)
     {
+        targetEnemy = enemy;
         AddStack();
     }
 
     private void AddStack()
     {
-        if (currentStacks < maxStacks)
-        {
-            currentStacks++;
-            UpdateAttackSpeed();
-            Debug.Log("Ice Stacks " + currentStacks);
-        }
-        else
+        if (currentStacks >= maxStacks)
         {
             Debug.Log("IceEffect already at max stacks!");
         }
-    }
-
-    private void UpdateAttackSpeed()
-    {
-        float reductionMultiplier = 1f - (reductionPerStack * currentStacks);
-        //Maybe we modify attackSpeed of the enemy here?
+        else
+        {
+            currentStacks++;
+            float reductionMultiplier = 1f - (reductionPerStack * currentStacks);
+            Debug.Log("Ice Stacks: " + currentStacks);
+        }
     }
 
     public void RemoveEffect()
