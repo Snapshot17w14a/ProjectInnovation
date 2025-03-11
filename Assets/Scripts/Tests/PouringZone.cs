@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class PouringZones : MonoBehaviour
+public class PouringZone : MonoBehaviour
 {
+    public float PourFraction { get; private set; }
+
     [SerializeField] private PouringMetal pouringMetal;
-    [SerializeField] private Transform meter;
     [SerializeField] private GradingManager gradingManager;
 
     [SerializeField] private float scaleMultiplier = 0.01f;
@@ -35,12 +36,9 @@ public class PouringZones : MonoBehaviour
     {
         accumulatedMetal += amount;
 
-        if (meter != null)
-        {
-            Vector3 newScale = meter.localScale;
-            newScale.y += amount * scaleMultiplier;
-            meter.localScale = newScale;
-        }
+        float totalLiquid = pouringMetal.GetTotalLiquid();
+        float perfectAmount = totalLiquid / pouringMetal.ZoneCount();
+        PourFraction = accumulatedMetal / perfectAmount;
     }
 
     private void CalculateGrade()

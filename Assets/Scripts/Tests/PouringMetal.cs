@@ -12,6 +12,8 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
 {
     public event Action OnPouringFinished;
 
+    public float MoveFraction { get; private set; }
+
     [SerializeField] private float maxPourSpeed = 5f; // Maximum pouring rate
     [SerializeField] private float pourAcceleration = 10f;
     [SerializeField] private float pourDeceleration = 15f;
@@ -35,7 +37,7 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
     [SerializeField] private GradingManager gradingManager;
 
     [SerializeField]
-    private List<PouringZones> pouringZones;
+    private List<PouringZone> pouringZones;
 
     [SerializeField] private TMP_Text amountText;
 
@@ -104,6 +106,7 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
         float newX = transform.position.x + move;
 
         newX = Mathf.Clamp(newX, pointA.position.x, pointB.position.x);
+        MoveFraction = (newX - pointA.position.x) / (pointB.position.x - pointA.position.x);
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
     }
 

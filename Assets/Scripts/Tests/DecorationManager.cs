@@ -21,8 +21,3 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
         weapon = item;
     }
 }
-
-public static class EffectHolder
-{
-    public static IWeaponEffect SelectedEffect;
-}

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(PouringZones))]
+[CustomEditor(typeof(PouringZone))]
 public class PouringZonesEditor : Editor
 {
     private SerializedProperty goodMinProp;

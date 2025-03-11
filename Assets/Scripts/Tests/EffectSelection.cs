@@ -9,22 +9,16 @@ public class EffectSelection : MonoBehaviour
 
     public void OnIceButtonClicked()
     {
-        EffectHolder.SelectedEffect = new IceEffect();
         Debug.Log("Ice effect selected.");
     }
 
     public void OnFireButtonClicked()
     {
-        EffectHolder.SelectedEffect = new FireEffect();
         Debug.Log("Fire effect selected.");
     }
 
     public void OnApplyButtonClicked()
     {
-        if (EffectHolder.SelectedEffect != null)
-        {
-            decorationManager.CompleteProcess(EffectHolder.SelectedEffect);
-            Debug.Log($"Effect {EffectHolder.SelectedEffect.GetType().Name} applied!");
-        }
+
     }
 }
