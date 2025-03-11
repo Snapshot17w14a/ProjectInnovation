@@ -2,10 +2,12 @@
 
 public class CharacterStats
 {
+    public float AttackCooldown { get => attackCooldown + (attackCooldown * iceEffectExtraCooldownFraction) * IceEffectStacks; }
+
+    public int IceEffectStacks;
     public int MaxHealth;
     public int Health;
     public int Damage;
-    public float AttackCooldown;
     public int Defense;
     public int Experience = 0;
 
@@ -17,6 +19,11 @@ public class CharacterStats
     public string Name;
 
     private readonly CharacterPreset usedPreset;
+
+    private float attackCooldown;
+
+    private const float iceEffectExtraCooldownFraction = 0.1f;
+
 
     public int Level { get; private set; } = 1;
 
@@ -42,7 +49,8 @@ public class CharacterStats
         MaxHealth = preset.Health;
         Health = preset.Health;
         Damage = preset.Damage;
-        AttackCooldown = preset.AttackCooldown;
+        attackCooldown = preset.AttackCooldown;
+        IceEffectStacks = 1;
         Defense = preset.Defense;
         usedPreset = preset;
         int xp = 0;
@@ -59,7 +67,8 @@ public class CharacterStats
         MaxHealth = original.MaxHealth;
         Health = original.MaxHealth;
         Damage = original.Damage;
-        AttackCooldown = original.AttackCooldown;
+        attackCooldown = original.attackCooldown;
+        IceEffectStacks = 1;
         Defense = original.Defense;
         usedPreset = original.usedPreset;
         Level = original.Level;
@@ -81,7 +90,8 @@ public class CharacterStats
         MaxHealth = serializedObject.MaxHealth;
         Health = serializedObject.Health;
         Damage = serializedObject.Damage;
-        AttackCooldown = serializedObject.AttackCooldown;
+        attackCooldown = serializedObject.AttackCooldown;
+        IceEffectStacks = 1;
         Experience = serializedObject.Experience;
         Defense = serializedObject.Defense;
         Weapon = serializedObject.WeaponId != -1 ? ServiceLocator.GetService<InventoryManager>().GetWeaponFromId(serializedObject.WeaponId) : null;
@@ -121,7 +131,7 @@ public class CharacterStats
         if (Weapon == null) return;
         int modifier = isRemoving ? -1 : 1;
         Damage += Weapon.Damage * modifier;
-        AttackCooldown += Weapon.AttackSpeed * modifier;
+        attackCooldown += Weapon.AttackSpeed * modifier;
     }
 
     private void OnAssignmentEvent(WeaponAssigmentEvent eventParams)

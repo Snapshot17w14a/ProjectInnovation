@@ -65,6 +65,15 @@ public abstract class Character : MonoBehaviour
             isMarkedForDestruction = true;
         }
     }
+    public void AddIceEffectStack(int maxStacks)
+    {
+        stats.IceEffectStacks = Mathf.Min(maxStacks, stats.IceEffectStacks + 1);
+    }
+
+    public void RemoveIceEffectStack()
+    {
+        stats.IceEffectStacks = Mathf.Max(0, stats.IceEffectStacks - 1);
+    }
 
     public void SetManager(BattleManager battleManager)
     {

@@ -14,7 +14,7 @@ public struct SerializableCharacterStats
         MaxHealth = characterStats.MaxHealth;
         Health = characterStats.Health;
         Damage = characterStats.Damage;
-        AttackCooldown = characterStats.AttackCooldown;
+        AttackCooldown = characterStats.attackCooldown;
         Experience = characterStats.Experience;
         Defense = characterStats.Defense;
         WeaponId = characterStats.Weapon != null ? characterStats.Weapon.Id : -1;
