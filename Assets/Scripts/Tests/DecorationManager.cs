@@ -25,13 +25,6 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
             throw new NullReferenceException(nameof(iceEffectButton));
         }
 
-
-
-
-
-
-
-
         iceEffectButton.onClick.AddListener(OnIceEffectButtonClicked);
 
     }
