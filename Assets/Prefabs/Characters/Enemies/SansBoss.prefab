@@ -170,6 +170,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 730338a443a11e24aaa549527be56e3e,
         type: 2}
+    - target: {fileID: 9146297092745195170, guid: da5478fe81608464a806878791ccd1d4,
+        type: 3}
+      propertyPath: lootTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 2db95c86f2664f54fb92dc225b810fe9,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2255420830440051147, guid: da5478fe81608464a806878791ccd1d4, type: 3}

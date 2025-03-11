@@ -6,7 +6,8 @@ using UnityEngine.UI;
 [Serializable]
 public class BattleManager : MonoBehaviour
 {
-    [SerializeField] private EnemyWave[] enemyWaves;
+    [SerializeField] private Battle battleContainer;
+
     private bool isBattleInProgress = false;
     private int currentWaveIndex = 0;
 
@@ -78,14 +79,14 @@ public class BattleManager : MonoBehaviour
     {
         //Debug.Log("Coroutine started");
 
-        while (currentWaveIndex < enemyWaves.Length)
+        while (currentWaveIndex < battleContainer.enemyWaves.Length)
         {
-            enemyWaves[currentWaveIndex].Initialize();
+            battleContainer.enemyWaves[currentWaveIndex].Initialize();
             //Debug.Log($"Wave index: {currentWaveIndex}, number of enemies: {enemyWaves[currentWaveIndex].waveEnemies.Length}");
 
-            for (int i = 0; i < enemyWaves[currentWaveIndex].waveEnemies.Length; i++)
+            for (int i = 0; i < battleContainer.enemyWaves[currentWaveIndex].waveEnemies.Length; i++)
             {
-                CreateEnemy(enemyWaves[currentWaveIndex].waveEnemies[i], i);
+                CreateEnemy(battleContainer.enemyWaves[currentWaveIndex].waveEnemies[i], i);
             }
 
             isBattleInProgress = true;
@@ -103,10 +104,16 @@ public class BattleManager : MonoBehaviour
         yield return null;
     }
 
+    private void Update()
+    {
+        if (!isBattleInProgress) return;
+        if (!AreTherePetsInBattle) OnBattleEnd?.Invoke();
+    }
+
     public void StartBattle()
     {
         foreach (var gameObject in objectsToHideInBattle) gameObject.SetActive(false);
-        foreach (var pet in petsInBattle) pet?.StartBattle();
+        foreach (var pet in petsInBattle) if (pet != null) pet.StartBattle();
         OnBattleEnd += BattleEnd;
         StartCoroutine(StartWaves());
     }
@@ -143,7 +150,7 @@ public class BattleManager : MonoBehaviour
             petsInBattle[index] = null;
             return;
         }
-        if (petsInBattle[index] != null) DestroyImmediate(petsInBattle[index].gameObject);
+        if (petsInBattle[index] != null) Destroy(petsInBattle[index].gameObject);
         petsInBattle[index] = Instantiate<Pet>(pet, Vector2.zero, Quaternion.identity, transform);
         petsInBattle[index].transform.SetParent(petParent);
         petsInBattle[index].transform.SetSiblingIndex(index);
@@ -164,7 +171,23 @@ public class BattleManager : MonoBehaviour
         foreach (var obj in objectsToHideInBattle) obj.SetActive(true);
         currentWaveIndex = 0;
         StopAllCoroutines();
-        foreach (var pet in petsInBattle) pet.StopAllCoroutines();
+        foreach (var pet in petsInBattle) if (pet != null) pet.StopAllCoroutines();
+        if (!AreTherePetsInBattle)
+        {
+            for (int i = enemiesInBattle.Length - 1; i >= 0; i--)
+            {
+                if (enemiesInBattle[i] == null) continue;
+                Destroy(enemiesInBattle[i].gameObject);
+                enemiesInBattle[i] = null;
+            }
+        }
+        isBattleInProgress = false;
+        fightButton.interactable = AreTherePetsInBattle;
         OnBattleEnd -= BattleEnd;
+    }
+
+    public void SetBattleContainer(Battle container)
+    {
+        battleContainer = container;
     }
 }

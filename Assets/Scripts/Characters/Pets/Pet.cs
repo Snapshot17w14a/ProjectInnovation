@@ -6,7 +6,7 @@ public class Pet : Character
     protected override void Start()
     {
         base.Start();
-        stats = ServiceLocator.GetService<InventoryManager>().PetNameToStats(name.Replace("(Clone)", ""));
+        stats = ServiceLocator.GetService<InventoryManager>().PetNameToStats(name.Replace("(Clone)", "")).Clone();
         if (stats.skill != null)
         {
             stats.skill = (Skill)ScriptableObject.CreateInstance(stats.skill.GetType());

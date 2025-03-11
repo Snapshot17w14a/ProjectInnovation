@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using static UnityEditor.EditorGUILayout;
@@ -6,44 +5,24 @@ using static UnityEditor.EditorGUILayout;
 [CustomEditor(typeof(BattleManager))]
 public class BattleManagerEditor : Editor
 {
-    Dictionary<Object, Editor> objectEditorPair = new();
-    private bool isWaveListFoldedOut = true;
+    private Editor battleCachedEditor;
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
 
-        var waveList = serializedObject.FindProperty("enemyWaves");
+        var container = serializedObject.FindProperty("battleContainer");
 
-        LabelField("Wave Settings", EditorStyles.boldLabel);
+        PropertyField(container, new GUIContent("Battle Container"));
+        
+        var refValue = container.objectReferenceValue;
 
-        BeginHorizontal();
-        isWaveListFoldedOut = Foldout(isWaveListFoldedOut, "Enemy Waves");
-        waveList.arraySize = IntField(waveList.arraySize);
-        if (GUILayout.Button("+")) waveList.arraySize++;
-        if (GUILayout.Button("-") && waveList.arraySize != 0) waveList.arraySize--; 
-        EndHorizontal();
-
-        if (isWaveListFoldedOut)
+        if (refValue != null && (battleCachedEditor == null || battleCachedEditor.target != refValue))
         {
-            for (int i = 0; i < waveList.arraySize; i++)
-            {
-                DrawListElement(waveList.GetArrayElementAtIndex(i));
-            }
+            CreateCachedEditor(refValue, typeof(BattleEditor), ref battleCachedEditor);
         }
 
-        if (GUILayout.Button("Add Wave"))
-        {
-            EnemyWave createdWaveObject = CreateInstance<EnemyWave>();
-            createdWaveObject.name = "WaveObject";
-
-            AssetDatabase.CreateAsset(createdWaveObject, $"Assets/Scriptables/Waves/Wave - ({createdWaveObject.GetInstanceID()}).asset");
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-
-            waveList.arraySize++;
-            waveList.GetArrayElementAtIndex(waveList.arraySize - 1).objectReferenceValue = createdWaveObject;
-        }
+        if (battleCachedEditor != null) battleCachedEditor.OnInspectorGUI();
 
         LabelField("Other Settings", EditorStyles.boldLabel);
 
@@ -52,31 +31,5 @@ public class BattleManagerEditor : Editor
         PropertyField(serializedObject.FindProperty("fightButton"));
 
         serializedObject.ApplyModifiedProperties();
-    }
-
-    private void DrawListElement(SerializedProperty element)
-    {
-        BeginVertical("Box");
-
-        PropertyField(element, new GUIContent("Scriptable"));
-
-        Object refValue = element.objectReferenceValue;
-
-        if (refValue == null)
-        {
-            EndVertical();
-            return;
-        }
-
-        if (!objectEditorPair.ContainsKey(refValue))
-        {
-            Editor createdEditor = null;
-            CreateCachedEditor(refValue, typeof(WaveEditor), ref createdEditor);
-            objectEditorPair.Add(refValue, createdEditor);
-        }
-
-        objectEditorPair[refValue].OnInspectorGUI();
-
-        EndVertical();
     }
 }

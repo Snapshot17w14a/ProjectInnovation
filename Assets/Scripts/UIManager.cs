@@ -6,18 +6,6 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> canvases = new();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OpenInventoryPanel()
     {
         foreach(var gameobject in canvases)
@@ -45,7 +33,7 @@ public class UIManager : MonoBehaviour
             {
                 gameobject.SetActive(true);
                 gameobject.TryGetComponent(out InventoryDisplayer inventoryDisplayer);
-                inventoryDisplayer.UpdateContent();
+                if(inventoryDisplayer != null) inventoryDisplayer.UpdateContent();
             }
         }
     }

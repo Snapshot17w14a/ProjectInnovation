@@ -17,6 +17,9 @@ public class InventoryManager : Service
     private Dictionary<string, CharacterStats> petStats = new();
     private readonly Dictionary<string, CharacterPreset> petPresets = new();
 
+    //Store material amounts
+    private Dictionary<Weapon.Material, int> materialCountPair = new();
+
     private readonly JsonSerializerOptions options = new() { WriteIndented = true };
 
     protected override void Awake()
@@ -57,6 +60,12 @@ public class InventoryManager : Service
 
         //SavePets();
         LoadPets();
+
+        materialCountPair.Add(Weapon.Material.Stone, 10);
+        materialCountPair.Add(Weapon.Material.Copper, 5);
+
+        //SaveMaterials();
+        LoadMaterials();
     }
 
     public void SaveWeapons()
@@ -104,12 +113,22 @@ public class InventoryManager : Service
             );
     }
 
+    public void SaveMaterials()
+    {
+        File.WriteAllText(Application.persistentDataPath + "/savedMaterials.json", JsonSerializer.Serialize(materialCountPair, options));
+    }
+
+    public void LoadMaterials()
+    {
+        materialCountPair = JsonSerializer.Deserialize<Dictionary<Weapon.Material, int>>(File.ReadAllText(Application.persistentDataPath + "/savedMaterials.json"));
+    }
+
     public void AddItemToInventory(Weapon item) => weapons.Add(item);
     public void RemoveItemFromInventory(Weapon item) => weapons.Remove(item);
 
     public Weapon[] GetAllWeapons => weapons.ToArray();
 
-    public Weapon GetWeaponFromId(int id) => weapons.Where(item => item.Id == id).FirstOrDefault();
+    public Weapon GetWeaponFromId(int id) => weapons.Where(item => item.Id == id).First();
 
     public int GetAssemblyItemCount(AssemblyItem assemblyItem)
     {
@@ -124,7 +143,7 @@ public class InventoryManager : Service
         else assemblyItemCount[assemblyItem.itemName] = count + amountToAdd;
     }
 
-    public AssemblyItem NameToAssemblyItem(string itemName) => AssemblyItems.Where(item => item.itemName == itemName).FirstOrDefault();
+    public AssemblyItem NameToAssemblyItem(string itemName) => AssemblyItems.Where(item => item.itemName == itemName).First();
 
     public CharacterStats PetNameToStats(string petName) => petStats[petName];
 
@@ -132,4 +151,8 @@ public class InventoryManager : Service
     {
         petStats[petName] = statToSet;
     }
+
+    public void AddMaterial(Weapon.Material material, int count) => materialCountPair[material] += count;
+
+    public int MaterialCount(Weapon.Material material) => materialCountPair[material];
 }

@@ -9,7 +9,7 @@ public class PetSelectorManager : MonoBehaviour
 
     private readonly Dictionary<string, Pet> namePetPair = new();
 
-    private static BattleManager battleManager;
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private GameObject canvas;
 
     public static int SlotIndex { get; set; }
@@ -30,14 +30,12 @@ public class PetSelectorManager : MonoBehaviour
             tile.transform.GetChild(0).GetComponent<Image>().sprite = namePetPair[petName].GetComponent<Image>().sprite;
             tile.GetComponent<Button>().onClick.AddListener(() => ReturnSelectedpPet(petName));
         }
-
-        battleManager = FindAnyObjectByType<BattleManager>();
     }
 
     public void ReturnSelectedpPet(string petName)
     {
         ReturnFunction(namePetPair[petName], SlotIndex);
         ReturnFunction = null;
-        canvas.SetActive(false);
+        uiManager.CloseAllOverlays();
     }
 }

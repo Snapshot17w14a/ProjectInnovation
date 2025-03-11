@@ -48,6 +48,13 @@ public class CharacterEditor : Editor
             AssetDatabase.Refresh();
         }
 
+        var lootTable = serializedObject.FindProperty("lootTable");
+        
+        if (lootTable != null)
+        {
+            PropertyField(lootTable);
+        }
+
         serializedObject.ApplyModifiedProperties();
     }
 }

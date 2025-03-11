@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ac73df55292977438ac3b5b7b6949c1, type: 3}
-  m_Name: TestPrefab
+  m_Script: {fileID: 11500000, guid: 69530c9f612d2e543aa06d5e006de0fc, type: 3}
+  m_Name: Wave - (-1146880)
   m_EditorClassIdentifier: 
-  Health: 50
-  Damage: 2
-  AttackCooldown: 2
-  Defense: 1
-  Skill: {fileID: 11400000, guid: 9d460644dbc18e946bfa56823caff5ce, type: 2}
-  SkillDamage: 1
-  SkillCooldown: 1
+  waveEnemies: []

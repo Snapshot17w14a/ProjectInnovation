@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94043ecd046c44c48998f5c851ca4407, type: 3}
+  m_Name: NormalEmenyTable
+  m_EditorClassIdentifier: 
+  entries:
+  - fromLevel: 1
+    materials: 00000000
+    materialDropRate: 5a000000
+    materialRatePerLevel: 01000000
+    handles: []
+    handleDropRate: 
+    handleRatePerLevel: []
+  - fromLevel: 10
+    materials: 0000000001000000
+    materialDropRate: 5000000014000000
+    materialRatePerLevel: 0000000003000000
+    handles:
+    - {fileID: 11400000, guid: 77f981369b205014eb30974fa868a1c5, type: 2}
+    handleDropRate: 03000000
+    handleRatePerLevel:
+    - 0
+  - fromLevel: 20
+    materials: 0000000001000000
+    materialDropRate: 500000003c000000
+    materialRatePerLevel: 0000000001000000
+    handles:
+    - {fileID: 11400000, guid: 77f981369b205014eb30974fa868a1c5, type: 2}
+    handleDropRate: 05000000
+    handleRatePerLevel:
+    - 0.2
+  - fromLevel: 30
+    materials: 0000000001000000
+    materialDropRate: 460000004b000000
+    materialRatePerLevel: 0000000001000000
+    handles:
+    - {fileID: 11400000, guid: 77f981369b205014eb30974fa868a1c5, type: 2}
+    handleDropRate: 64000000
+    handleRatePerLevel:
+    - 0
