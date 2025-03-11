@@ -25,8 +25,6 @@ public class PotionMixing : MonoBehaviour
     private string buff;
     private string quality;
 
-    private MeshRenderer meshRenderer;
-
     private List<string> selectedIngredients = new List<string>();
 
     private Dictionary<HashSet<string>, string> potionEffects = new Dictionary<HashSet<string>, string>(HashSetComparer.Instance);
@@ -38,14 +36,11 @@ public class PotionMixing : MonoBehaviour
 
     [SerializeField] private TMP_Text effectText;
     [SerializeField] private TMP_Text waterText;
-    [SerializeField] private TMP_Text ingredientText1;
-    [SerializeField] private TMP_Text ingredientText2;
-    [SerializeField] private TMP_Text ingredientText3;
 
     [SerializeField] private RawImage shakeIndicator;
+    [SerializeField] private RawImage bookImage;
     void Start()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
         lastAcceleration = Input.acceleration;
 
         foreach (Button button in ingredientButtons)
@@ -78,8 +73,6 @@ public class PotionMixing : MonoBehaviour
             shakeCount++;
             lastAcceleration = currentAcceleration;
         }
-
-        UpdatePotionColor();
     }
 
     public void FinishPotion()
@@ -130,21 +123,15 @@ public class PotionMixing : MonoBehaviour
 
             if (selectedIngredients.Count == 1)
             {
-                ingredientText1.text = ingredient;
+                
             }
             else if (selectedIngredients.Count == 2)
             {
-                ingredientText2.text = ingredient;
+                
             }
             else if (selectedIngredients.Count == 3)
             {
-                ingredientText3.text = ingredient;
-
-                foreach (Button button in ingredientButtons)
-                {
-                    button.gameObject.SetActive(false);
-                }
-
+                bookImage.gameObject.SetActive(false);
                 waterButton.gameObject.SetActive(true);
                 waterText.gameObject.SetActive(true);
                 waterText.text = $" " + waterAmount.ToString("F1");
@@ -159,9 +146,7 @@ public class PotionMixing : MonoBehaviour
         waterAmount = 1f;
         shakeCount = 0;
 
-        ingredientText1.text = $"ingredient";
-        ingredientText2.text = $"ingredient";
-        ingredientText3.text = $"ingredient";
+
         effectText.text = $"";
         waterText.text = $"{waterAmount.ToString("F1")}";
 
@@ -186,28 +171,6 @@ public class PotionMixing : MonoBehaviour
         float effectMultiplier = Mathf.Clamp(1f - ((waterAmount - 2f) / (maxWaterAmount - 1f)), 0.3f, 1f);
 
         return (duration, effectMultiplier * 100);
-    }
-
-    private void UpdatePotionColor()
-    {
-        if (meshRenderer == null) return;
-
-        if (shakeCount < averageThreshold)
-        {
-            meshRenderer.material.color = Color.gray; // Weak potion
-        }
-        else if (shakeCount < successThreshold)
-        {
-            meshRenderer.material.color = Color.green; // Average potion
-        }
-        else if (shakeCount < failThreshold)
-        {
-            meshRenderer.material.color = Color.blue; // Good potion
-        }
-        else
-        {
-            meshRenderer.material.color = Color.red; // Failed potion
-        }
     }
 
     public void ProceedToShake()

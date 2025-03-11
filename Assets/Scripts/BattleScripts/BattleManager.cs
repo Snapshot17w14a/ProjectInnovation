@@ -159,13 +159,6 @@ public class BattleManager : MonoBehaviour
         fightButton.interactable = AreTherePetsInBattle;
     }
 
-    public void ApplyWeaponEffect(Character enemy)
-    {
-        var effect = EffectHolder.SelectedEffect;
-        effect?.ApplyEffect(enemy);
-
-    }
-
     private void BattleEnd()
     {
         foreach (var obj in objectsToHideInBattle) obj.SetActive(true);

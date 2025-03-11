@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IWeaponEffect
 {
-    public void ApplyEffect(Character target);
+    public void ApplyEffect(Character target, params object[] parameters);
 }

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireEffect : MonoBehaviour, IWeaponEffect
+public class FireEffect : IWeaponEffect
 {
-    public void ApplyEffect(Character target)
+    public void ApplyEffect(Character target, params object[] parameters)
     {
         throw new System.NotImplementedException();
     }

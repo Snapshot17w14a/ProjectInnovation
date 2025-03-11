@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IceEffect : MonoBehaviour, IWeaponEffect
+public class IceEffect : IWeaponEffect
 {
     [SerializeField] private float reductionPerStack = 0.1f;
     [SerializeField] private int maxStacks = 3;
@@ -10,11 +10,11 @@ public class IceEffect : MonoBehaviour, IWeaponEffect
 
     private Character targetEnemy;
 
-    public void ApplyEffect(Character enemy)
+    public void ApplyEffect(Character target, params object[] parameters)
     {
         if (targetEnemy == null)
         {
-            targetEnemy = enemy;
+            targetEnemy = target;
         }
 
         AddStack();
@@ -33,7 +33,7 @@ public class IceEffect : MonoBehaviour, IWeaponEffect
 
         if(targetEnemy != null)
         {
-            // reduce the attackSpeed of the enemy here but ask Kevin
+            
         }
     }
 }
