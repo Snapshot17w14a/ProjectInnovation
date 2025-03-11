@@ -12,8 +12,8 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
 
     public void CompleteProcess(IWeaponEffect newEffect)
     {
-        //weapon.SetDecorationResult(newEffect);
-        //isProcessDone = true;
+        weapon.SetDecorationResult(newEffect);
+        isProcessDone = true;
     }
 
     public void StartProcess(ref Weapon item)

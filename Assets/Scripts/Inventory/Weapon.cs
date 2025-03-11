@@ -12,7 +12,7 @@ public class Weapon
     public int CritChance { get; private set; } = 0;
     public int CriticalDamage { get; private set; } = 0;
     public int ArmorPenetration { get; private set; } = 0;
-
+    public IWeaponEffect weaponEffect { get; private set; }
     public Weapon(Material material = Material.None, AssemblyItem grip = null, int damage = 0, int attackSpeed = 0, int critChance = 0, int critDamage = 0, int armorPenetration = 0)
     {
         Id = ++SerializableWeapon.StaticId;
@@ -51,6 +51,11 @@ public class Weapon
         Debug.Log($"Setting cast result: {score}, initial damage {Damage}");
         Damage = Mathf.RoundToInt(Damage * (0.9f + (score - 1) * 0.05f));
         Debug.Log($"end damage {Damage}");
+    }
+
+    public void SetDecorationResult(IWeaponEffect effect)
+    {
+        Debug.Log($"Decoration set: {effect}");
     }
 
     public void SetHammerResult(int score)
