@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Main screen cristals
+  m_Shader: {fileID: -6465566751694194690, guid: f510d626c2c847b4dbecfb47d7e1deea,
+    type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _RECEIVE_SHADOWS_OFF
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _SampleTexture2D_2b47ce9371cb4964805b6718b07c535c_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 18ca6fb2483513d4c913eac0eccdbd31, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_e2a4cf7ed57f4480a77ba86760bf4570_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 641dd293b7295cd4aa3b68277321edb3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Sample_texture:
+        m_Texture: {fileID: 2800000, guid: f79ba40c3be45124cb9efba3d8892771, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 1
+    - _AlphaToMask: 1
+    - _Blend: 3
+    - _BlendModePreserveSpecular: 1
+    - _CastShadows: 0
+    - _Color_intensity: 0
+    - _Cull: 2
+    - _DecalMeshBiasType: 0
+    - _DecalMeshDepthBias: 0
+    - _DecalMeshViewBias: 0
+    - _DrawOrder: 0
+    - _DstBlend: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 0
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 0
+    m_Colors:
+    - _Color: {r: 2.9960787, g: 2.9960787, b: 2.9960787, a: 0.01960784}
+    - _Color_Bloom: {r: 0, g: 8.865261, b: 10.680627, a: 0}
+    - _Color_Line_Art_Bloom: {r: 0, g: 2.1471252, b: 7.9394164, a: 0.003921569}
+    - _Color_gradient_high: {r: 0, g: 1.8535903, b: 2.1944344, a: 0}
+    - _Color_gradient_low: {r: 4, g: 1.8301888, b: 3.7471468, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &1589627940328633258
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7

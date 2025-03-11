@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Animations/Dragy/DragyAttack.anim.meta
+guid: 4d1f2667000c7f34183ffb7ea4fd1b3f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+========
+guid: 554a19ef9d74c494fb119a542b453db1
+VisualEffectImporter:
+  externalObjects: {}
+>>>>>>>> origin/main:Assets/Materials/Electric Element.vfx.meta
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
