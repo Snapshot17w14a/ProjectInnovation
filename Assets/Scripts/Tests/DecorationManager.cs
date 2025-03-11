@@ -7,7 +7,6 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
     public bool IsProcessDone => isProcessDone;
 
     private Weapon weapon;
-    private IWeaponEffect currentEffect;
 
     private bool isProcessDone = false;
 
