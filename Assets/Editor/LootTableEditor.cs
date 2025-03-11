@@ -1,50 +1,56 @@
-//using System.Collections.Generic;
-//using UnityEditor;
-//using UnityEngine;
-//using static UnityEditor.EditorGUILayout;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using static UnityEditor.EditorGUILayout;
 
-//[CustomEditor(typeof(LootTable))]
-//public class LootTableEditor : Editor
-//{
-//    Dictionary<Object, Editor> objectEditorPair = new();
+[CustomEditor(typeof(LootTable))]
+public class LootTableEditor : Editor
+{
+    Dictionary<Object, Editor> objectEditorPair = new();
 
-//    public override void OnInspectorGUI()
-//    {
-//        serializedObject.Update();
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
 
-//        LabelField("Loot table settings", EditorStyles.boldLabel);
+        LabelField("Loot table settings", EditorStyles.boldLabel);
 
-//        var entryArray = serializedObject.FindProperty("entries");
-//        entryArray.arraySize = IntField("Arr size", entryArray.arraySize);
+        var entryArray = serializedObject.FindProperty("entries");
 
-//        for (int i = 0; i < entryArray.arraySize; i++)
-//        {
-//            var currentProperty = entryArray.GetArrayElementAtIndex(i);
+        BeginHorizontal();
 
-//            BeginVertical("Box");
+        entryArray.arraySize = Mathf.Max(0, IntField("Arr size", entryArray.arraySize));
 
-//            PropertyField(currentProperty, new GUIContent("Scriptable"));
+        if (GUILayout.Button(new GUIContent("+"))) entryArray.arraySize++;
+        if (GUILayout.Button(new GUIContent("-"))) entryArray.arraySize -= entryArray.arraySize != 0 ? 1 : 0;
 
-//            Object refValue = currentProperty.objectReferenceValue;
+        EndHorizontal();
 
-//            if (refValue == null)
-//            {
-//                EndVertical();
-//                continue;
-//            }
+        for (int i = 0; i < entryArray.arraySize; i++)
+        {
+            BeginVertical("Box");
 
-//            if (!objectEditorPair.ContainsKey(refValue))
-//            {
-//                Editor createdEditor = null;
-//                CreateCachedEditor(refValue, typeof(LootTableEntryEditor), ref createdEditor);
-//                objectEditorPair.Add(refValue, createdEditor);
-//            }
+            PropertyField(entryArray.GetArrayElementAtIndex(i), new GUIContent($"Table Entry {i + 1}"));
 
-//            objectEditorPair[refValue].OnInspectorGUI();
+            //Object refValue = currentProperty.objectReferenceValue;
 
-//            EndVertical();
-//        }
+            //if (refValue == null)
+            //{
+            //    EndVertical();
+            //    continue;
+            //}
 
-//        serializedObject.ApplyModifiedProperties();
-//    }
-//}
+            //if (!objectEditorPair.ContainsKey(refValue))
+            //{
+            //    Editor createdEditor = null;
+            //    CreateCachedEditor(refValue, typeof(LootTableEntryEditor), ref createdEditor);
+            //    objectEditorPair.Add(refValue, createdEditor);
+            //}
+
+            //objectEditorPair[refValue].OnInspectorGUI();
+
+            EndVertical();
+        }
+
+        serializedObject.ApplyModifiedProperties();
+    }
+}

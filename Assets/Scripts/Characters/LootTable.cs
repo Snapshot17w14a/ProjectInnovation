@@ -8,7 +8,7 @@ public class LootTable : ScriptableObject
 }
 
 [System.Serializable]
-public class LootTableEntry
+public struct LootTableEntry
 {
     public int fromLevel;
 
@@ -19,11 +19,11 @@ public class LootTableEntry
 
     //Ingredient Drops
     //public Ingredient[] ingredients
-    public int[] ingredientDropRate;
-    public int[] ingredientRatePerLevel;
+    //public int[] ingredientDropRate;
+    //public int[] ingredientRatePerLevel;
 
     //Handle Drops
     public AssemblyItem[] handles;
     public int[] handleDropRate;
-    public int[] handleRatePerLevel;
+    public float[] handleRatePerLevel;
 }

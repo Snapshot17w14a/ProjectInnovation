@@ -88,6 +88,5 @@ public abstract class Character : MonoBehaviour
     protected virtual void OnDestroy()
     {
         EndBattle();
-        battleManager.OnBattleEnd -= EndBattle;
     }
 }

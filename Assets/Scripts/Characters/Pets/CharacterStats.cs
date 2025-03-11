@@ -7,7 +7,9 @@ public class CharacterStats
     public int Damage;
     public float AttackCooldown;
     public int Defense;
-    public int Experience;
+    public int Experience = 0;
+
+    private int levelThreshold = 100;
 
     public Skill skill;
     public Weapon Weapon;
@@ -16,22 +18,24 @@ public class CharacterStats
 
     private readonly CharacterPreset usedPreset;
 
-    public int Level
-    {
-        get
-        {
-            int threshold = 100;
-            int level = 1;
-            int xp = Experience;
-            while (Experience > threshold)
-            {
-                level++;
-                xp -= threshold;
-                threshold += 100;
-            }
-            return level;
-        }
-    }
+    public int Level { get; private set; } = 1;
+
+    //public int Level
+    //{
+    //    get
+    //    {
+    //        int threshold = 100;
+    //        int level = 1;
+    //        int xp = Experience;
+    //        while (Experience > threshold)
+    //        {
+    //            level++;
+    //            xp -= threshold;
+    //            threshold += 100;
+    //        }
+    //        return level;
+    //    }
+    //}
 
     public CharacterStats(CharacterPreset preset)
     {
@@ -40,14 +44,31 @@ public class CharacterStats
         Damage = preset.Damage;
         AttackCooldown = preset.AttackCooldown;
         Defense = preset.Defense;
-        Experience = 0;
-        for (int i = 0; i < preset.StartingLevel; i++) Experience += 100 + (i - 1) * 100;
+        usedPreset = preset;
+        int xp = 0;
+        for (int i = 0; i < preset.StartingLevel - 1; i++) xp += 100 + i * 100;
+        AddExperience(xp);
         skill = preset.Skill;
         Weapon = null;
-        usedPreset = preset;
         Name = preset.name;
         GlobalEvent<WeaponAssigmentEvent>.OnRaiseEvent += OnAssignmentEvent;
-        ApplyLevelBuffs();
+    }
+
+    private CharacterStats(CharacterStats original)
+    {
+        MaxHealth = original.MaxHealth;
+        Health = original.MaxHealth;
+        Damage = original.Damage;
+        AttackCooldown = original.AttackCooldown;
+        Defense = original.Defense;
+        usedPreset = original.usedPreset;
+        Level = original.Level;
+        Weapon = original.Weapon;
+        Name = original.Name;
+        skill = original.skill;
+        Experience = original.Experience;
+        levelThreshold = original.levelThreshold;
+        GlobalEvent<WeaponAssigmentEvent>.OnRaiseEvent += OnAssignmentEvent;
     }
 
     ~CharacterStats()
@@ -74,10 +95,9 @@ public class CharacterStats
 
     public void ApplyLevelBuffs()
     {
-        int level = Level - 1;
-        Damage += usedPreset.DmgPerLevel * level;
-        Health += usedPreset.HpPerLevel * level;
-        MaxHealth += usedPreset.HpPerLevel * level;
+        Damage += usedPreset.DmgPerLevel;
+        Health += usedPreset.HpPerLevel;
+        MaxHealth += usedPreset.HpPerLevel;
     }
 
     public CharacterStats AssignWeapon(Weapon weapon)
@@ -111,4 +131,18 @@ public class CharacterStats
 
         ServiceLocator.GetService<InventoryManager>().SetPetStat(Name, this);
     }
+
+    public void AddExperience(int xp)
+    {
+        Experience += xp;
+        while (Experience >= levelThreshold)
+        {
+            Experience -= levelThreshold;
+            Level++;
+            levelThreshold += 100;
+            ApplyLevelBuffs();
+        }
+    }
+
+    public CharacterStats Clone() => new(this);
 }
