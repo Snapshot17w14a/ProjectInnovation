@@ -1,13 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.VFX;
-using static UnityEditor.Progress;
+using System;
+using TMPro;
 
 public class LiquidDropContainer : MonoBehaviour
 {
@@ -22,13 +16,10 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
     [SerializeField] private float pourAcceleration = 10f;
     [SerializeField] private float pourDeceleration = 15f;
     [SerializeField] private float totalLiquidAmount = 100f;
-    [SerializeField] private float pourGoal = 30f; // Goal amount for pouring
     [SerializeField] private float accelerometerSpeed = 5f;
 
-    private float pourAmount = 0f;
     private float currentPourSpeed = 0f;
     private float yOffest = 0.02f;
-    private float gradeAmount = 0f;
     private float currentLiquidAmount;
 
 

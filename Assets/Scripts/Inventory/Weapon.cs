@@ -41,7 +41,8 @@ public class Weapon
     public void SetForgeResult(int score)
     {
         Debug.Log($"Setting forge result: {score}, initial attack speed {AttackSpeed}");
-        AttackSpeed *= (0.9f + (score - 1) * 0.05f);
+        AttackSpeed *= (1.1f - (score - 1) * 0.05f);
+        AttackSpeed = System.MathF.Round(AttackSpeed, 2);
         Debug.Log($"end attack speed {AttackSpeed}");
     }
 

@@ -12,7 +12,9 @@ public class PetSelectorManager : MonoBehaviour
     private static BattleManager battleManager;
     [SerializeField] private GameObject canvas;
 
-    public int SlotIndex { get; set; }
+    public static int SlotIndex { get; set; }
+
+    public static System.Action<Pet, int> ReturnFunction { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -26,16 +28,16 @@ public class PetSelectorManager : MonoBehaviour
         {
             var tile = Instantiate(tilePrefab, Vector2.zero, Quaternion.identity, transform);
             tile.transform.GetChild(0).GetComponent<Image>().sprite = namePetPair[petName].GetComponent<Image>().sprite;
-            tile.GetComponent<Button>().onClick.AddListener(() => SelectPetForIndex(petName));
+            tile.GetComponent<Button>().onClick.AddListener(() => ReturnSelectedpPet(petName));
         }
 
         battleManager = FindAnyObjectByType<BattleManager>();
     }
 
-    public void SelectPetForIndex(string petName)
+    public void ReturnSelectedpPet(string petName)
     {
-        var createdPet = Instantiate<Pet>(namePetPair[petName], Vector2.zero, Quaternion.identity, battleManager.transform);
-        battleManager.SetPetAtIndex(SlotIndex, createdPet);
+        ReturnFunction(namePetPair[petName], SlotIndex);
+        ReturnFunction = null;
         canvas.SetActive(false);
     }
 }

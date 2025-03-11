@@ -127,4 +127,9 @@ public class InventoryManager : Service
     public AssemblyItem NameToAssemblyItem(string itemName) => AssemblyItems.Where(item => item.itemName == itemName).FirstOrDefault();
 
     public CharacterStats PetNameToStats(string petName) => petStats[petName];
+
+    public void SetPetStat(string petName, CharacterStats statToSet)
+    {
+        petStats[petName] = statToSet;
+    }
 }

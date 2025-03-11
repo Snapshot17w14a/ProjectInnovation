@@ -21,7 +21,12 @@ public class Enemy : Character
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
-        if (isMarkedForDestruction) Destroy(Instantiate(dropItemPrefab, transform.position, Quaternion.identity, dropItemParent), 1f);
+        if (isMarkedForDestruction) 
+        {
+            var dropItem = Instantiate(dropItemPrefab, transform.position, Quaternion.identity, dropItemParent);
+            dropItem.GetComponent<Rigidbody>().AddForce(new(Random.Range(-2f, 2f), 3f, 0), ForceMode.Impulse);
+            Destroy(dropItem, 3f);
+        }
     }
 
     protected override void OnDestroy()

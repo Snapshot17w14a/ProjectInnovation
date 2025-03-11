@@ -106,6 +106,8 @@ public class BattleManager : MonoBehaviour
     public void StartBattle()
     {
         foreach (var gameObject in objectsToHideInBattle) gameObject.SetActive(false);
+        foreach (var pet in petsInBattle) pet?.StartBattle();
+        OnBattleEnd += BattleEnd;
         StartCoroutine(StartWaves());
     }
 
@@ -131,9 +133,10 @@ public class BattleManager : MonoBehaviour
         //Debug.Log($"Creating enemy with index: {slotIndex}");
         enemiesInBattle[slotIndex] = Instantiate<Enemy>(enemy, enemyPositions[slotIndex], Quaternion.identity, enemyParent);
         enemiesInBattle[slotIndex].SetManager(this);
+        enemiesInBattle[slotIndex].StartBattle();
     }
 
-    public void SetPetAtIndex(int index, Pet pet)
+    public void SetPetAtIndex(Pet pet, int index)
     {
         if (pet == null)
         {
@@ -141,11 +144,11 @@ public class BattleManager : MonoBehaviour
             return;
         }
         if (petsInBattle[index] != null) DestroyImmediate(petsInBattle[index].gameObject);
-        petsInBattle[index] = pet;
-        pet.transform.SetParent(petParent);
-        pet.transform.SetSiblingIndex(index);
-        pet.transform.position = petPositions[index];
-        pet.SetManager(this);
+        petsInBattle[index] = Instantiate<Pet>(pet, Vector2.zero, Quaternion.identity, transform);
+        petsInBattle[index].transform.SetParent(petParent);
+        petsInBattle[index].transform.SetSiblingIndex(index);
+        petsInBattle[index].transform.position = petPositions[index];
+        petsInBattle[index].SetManager(this);
         fightButton.interactable = AreTherePetsInBattle;
     }
 
@@ -156,5 +159,14 @@ public class BattleManager : MonoBehaviour
         {
             effect.ApplyEffect(enemy);
         }
+    }
+
+    private void BattleEnd()
+    {
+        foreach (var obj in objectsToHideInBattle) obj.SetActive(true);
+        currentWaveIndex = 0;
+        StopAllCoroutines();
+        foreach (var pet in petsInBattle) pet.StopAllCoroutines();
+        OnBattleEnd -= BattleEnd;
     }
 }

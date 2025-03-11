@@ -17,5 +17,5 @@ MonoBehaviour:
   parent: {fileID: 0}
   effectPrefab: {fileID: 4587382512791985823, guid: e3c0904817d928743b8061803e77b33c,
     type: 3}
-  unitsPerSecond: 600
-  aliveTime: 0.5
+  unitsPerSecond: 6
+  aliveTime: 0.55
