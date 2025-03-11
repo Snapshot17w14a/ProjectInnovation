@@ -151,7 +151,7 @@ public class BattleManager : MonoBehaviour
 
     public void ApplyWeaponEffect(Character enemy)
     {
-        var effect = decorationManager.GetWeaponEffect();
+        var effect = EffectHolder.SelectedEffect;
         if (effect != null)
         {
             effect.ApplyEffect(enemy);

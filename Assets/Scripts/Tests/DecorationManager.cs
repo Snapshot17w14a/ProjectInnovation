@@ -7,45 +7,23 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
     public bool IsProcessDone => isProcessDone;
 
     private Weapon weapon;
+    private IWeaponEffect currentEffect;
 
     private bool isProcessDone = false;
 
-    private IWeaponEffect currentEffect;
-
-    private void Start()
+    public void CompleteProcess(IWeaponEffect newEffect)
     {
-        //Remove after testing
-/*        weapon = new Weapon();
-        StartProcess(ref weapon);*/
-    }
-
-    public void ApplyNewEffect(IWeaponEffect newEffect)
-    {
-        if (currentEffect != null)
-        {
-            currentEffect.RemoveEffect();
-        }
-
         //weapon.SetDecorationResult(newEffect);
-        isProcessDone = true;
-    }
-
-    public void ClearEffect()
-    {
-        if (currentEffect != null)
-        {
-            
-            currentEffect = null;
-        }
+        //isProcessDone = true;
     }
 
     public void StartProcess(ref Weapon item)
     {
         weapon = item;
     }
+}
 
-    public IWeaponEffect GetWeaponEffect()
-    {
-        return currentEffect;
-    }
+public static class EffectHolder
+{
+    public static IWeaponEffect SelectedEffect;
 }
