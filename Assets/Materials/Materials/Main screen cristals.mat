@@ -18,7 +18,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2999
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -64,7 +64,7 @@ Material:
     - _DrawOrder: 0
     - _DstBlend: 0
     - _QueueControl: 0
-    - _QueueOffset: 0
+    - _QueueOffset: -1
     - _ReceiveShadows: 0
     - _SrcBlend: 1
     - _Surface: 0
@@ -74,10 +74,10 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 2.9960787, g: 2.9960787, b: 2.9960787, a: 0.01960784}
-    - _Color_Bloom: {r: 0, g: 8.865261, b: 10.680627, a: 0}
-    - _Color_Line_Art_Bloom: {r: 0, g: 2.1471252, b: 7.9394164, a: 0.003921569}
+    - _Color_Bloom: {r: 0, g: 32.319077, b: 38.93715, a: 0}
+    - _Color_Line_Art_Bloom: {r: 5.5399194, g: 10.557156, b: 23.968628, a: 0.003921569}
     - _Color_gradient_high: {r: 0, g: 1.8535903, b: 2.1944344, a: 0}
-    - _Color_gradient_low: {r: 4, g: 1.8301888, b: 3.7471468, a: 0}
+    - _Color_gradient_low: {r: 3.9533498, g: 1.8088441, b: 3.7034457, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1589627940328633258
 MonoBehaviour:

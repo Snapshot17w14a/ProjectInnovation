@@ -15,7 +15,7 @@ MonoBehaviour:
   SkillDamage: 5
   SkillCooldown: 6
   parent: {fileID: 0}
-  effectPrefab: {fileID: 4587382512791985823, guid: e3c0904817d928743b8061803e77b33c,
+  effectPrefab: {fileID: 7968692383294788287, guid: 5d111f09af5d0c5448bba661b1453ab7,
     type: 3}
-  unitsPerSecond: 6
-  aliveTime: 0.55
+  unitsPerSecond: 0
+  aliveTime: 3

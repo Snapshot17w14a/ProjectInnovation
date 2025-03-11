@@ -21,4 +21,4 @@ MonoBehaviour:
   SkillCooldown: 0
   HpPerLevel: 0
   DmgPerLevel: 0
-  StartingLevel: 0
+  StartingLevel: 1
