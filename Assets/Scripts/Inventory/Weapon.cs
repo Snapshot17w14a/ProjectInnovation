@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon
 {
@@ -13,6 +14,11 @@ public class Weapon
     public int CriticalDamage { get; private set; } = 0;
     public int ArmorPenetration { get; private set; } = 0;
     public IWeaponEffect weaponEffect { get; private set; }
+
+    private static GameObject weaponPrefab;
+
+    private static Sprite[] bladeSprites;
+
     public Weapon(Material material = Material.None, AssemblyItem grip = null, int damage = 0, int attackSpeed = 0, int critChance = 0, int critDamage = 0, int armorPenetration = 0)
     {
         Id = ++SerializableWeapon.StaticId;
@@ -82,6 +88,16 @@ public class Weapon
     public static void Initialize()
     {
         materialStats = Resources.LoadAll<MaterialStats>("MaterialStats");
+        weaponPrefab = Resources.Load<GameObject>("Sword");
+        bladeSprites = Resources.LoadAll<Sprite>("SwordParts/Blades");
+    }
+
+    public GameObject GetWeaponSpritePrefab()
+    {
+        var obj = GameObject.Instantiate(weaponPrefab);
+        obj.transform.GetChild(1).GetComponent<Image>().sprite = Grip.sprite;
+        obj.transform.GetChild(2).GetComponent<Image>().sprite = bladeSprites[(int)ItemMaterial];
+        return obj;
     }
 
     public enum Material
