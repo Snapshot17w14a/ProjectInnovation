@@ -2430,6 +2430,7 @@ MonoBehaviour:
   pourDeceleration: 5
   totalLiquidAmount: 50
   accelerometerSpeed: 1
+  angleOffset: 180
   pointA: {fileID: 611884689}
   pointB: {fileID: 1182924512}
   gradingManager: {fileID: 1980040382}
@@ -2443,6 +2444,9 @@ MonoBehaviour:
   liquidCubes: {fileID: 5699643308350017139, guid: 21d6290d39a65944ea63a2994e529af8,
     type: 3}
   metalParent: {fileID: 1231558152}
+  moltenMetalVFX: {fileID: 1289982930968422298, guid: 9fe49e1e855c6824cb4cdcd14d8eff1d,
+    type: 3}
+  vial: {fileID: 185725066}
 --- !u!54 &1200169966
 Rigidbody:
   m_ObjectHideFlags: 0
