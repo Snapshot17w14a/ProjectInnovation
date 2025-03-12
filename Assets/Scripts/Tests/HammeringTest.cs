@@ -33,7 +33,8 @@ public class HammeringTest : CraftingProcess, ICraftingProcess
 
     void Start()
     {
-
+        //GameObject spawnedSword = weapon.GetWeaponSpritePrefab();
+        //spawnedSword.transform.position = new Vector3(0, 0, 0);
     }
 
     void Update()

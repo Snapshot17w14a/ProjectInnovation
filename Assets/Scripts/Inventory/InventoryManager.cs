@@ -68,6 +68,11 @@ public class InventoryManager : Service
         LoadMaterials();
     }
 
+    public void AddPotion(Potion potion)
+    {
+
+    }
+
     public void SaveWeapons()
     {
         SerializableWeapon[] itemDatas = new SerializableWeapon[weapons.Count];
