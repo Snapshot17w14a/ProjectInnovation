@@ -6,6 +6,8 @@ public class WeaponTile : MonoBehaviour
 {
     public Weapon displayedWeapon;
 
+    public Transform iconTransform;
+
     public TextMeshProUGUI damageText;
     public TextMeshProUGUI critChanceText;
     public TextMeshProUGUI critDamageText;
@@ -28,5 +30,6 @@ public class WeaponTile : MonoBehaviour
             Destroy(gameObject);
         });
         equipButton = transform.Find("Equip").GetComponent<Button>();
+        iconTransform = transform.Find("WeaponImage");
     }
 }

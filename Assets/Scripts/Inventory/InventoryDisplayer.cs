@@ -20,12 +20,12 @@ public class InventoryDisplayer : MonoBehaviour
         foreach (var weapon in weapons)
         {
             var tile = Instantiate(tilePrefab, Vector2.zero, Quaternion.identity, scrollContent.transform).GetComponent<WeaponTile>();
-            tile.damageText.text = $"Damage: {weapon.Damage}";
-            tile.critChanceText.text = $"Crit Chance: {weapon.CritChance}%";
-            tile.critDamageText.text = $"Crit Damage: {weapon.CriticalDamage}%";
-            tile.attackSpeedText.text = $"Attack Speed: {weapon.AttackSpeed}/s" ;
-            tile.materialText.text = $"Material: {weapon.ItemMaterial}" ;
-            tile.armorPenText.text = $"Armor Penetration: {weapon.ArmorPenetration}";
+            tile.damageText.text = $"<b>Damage:</b> {weapon.Damage}";
+            tile.critChanceText.text = $"<b>Crit Chance:</b> {weapon.CritChance}%";
+            tile.critDamageText.text = $"<b>Crit Damage:</b> {weapon.CriticalDamage}%";
+            tile.attackSpeedText.text = $"<b>Attack Speed:</b> +{weapon.AttackSpeed}/s";
+            tile.materialText.text = $"<b>Material:</b> {weapon.ItemMaterial}" ;
+            tile.armorPenText.text = $"<b>Armor Penetration:</b> {weapon.ArmorPenetration}";
             tile.weapon = weapon;
             tile.equipButton.onClick.AddListener(() =>
             {
@@ -33,6 +33,10 @@ public class InventoryDisplayer : MonoBehaviour
                 petSelectorCanvas.SetActive(true);
                 selectedWeapon = tile.weapon;
             });
+            var icon = weapon.GetWeaponSpritePrefab();
+            icon.transform.SetParent(tile.iconTransform);
+            icon.transform.position = tile.iconTransform.position;
+            icon.transform.localScale = new Vector3(2, 2, 2);
             createdTiles.Add(tile);
         }
     }

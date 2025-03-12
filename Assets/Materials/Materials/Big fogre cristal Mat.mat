@@ -35,8 +35,8 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _Color_Line_Art_Bloom: {r: 0, g: 22.625202, b: 23.547169, a: 0.003921569}
-    - _Color_gradient_high: {r: 0.05105854, g: 1.8138909, b: 0.19460964, a: 2.3068104}
-    - _Color_gradient_low: {r: 0.05105854, g: 1.8138909, b: 0.19460964, a: 2.3068104}
+    - _Color_gradient_high: {r: 0.017376097, g: 1.34855, b: 0.30082887, a: 2.1068282}
+    - _Color_gradient_low: {r: 0.017376097, g: 1.34855, b: 0.30082887, a: 2.1068282}
   m_BuildTextureStacks: []
 --- !u!114 &1589627940328633258
 MonoBehaviour:
