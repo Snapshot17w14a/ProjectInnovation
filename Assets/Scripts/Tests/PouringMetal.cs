@@ -11,7 +11,6 @@ public class LiquidDropContainer : MonoBehaviour
 public class PouringMetal : CraftingProcess, ICraftingProcess
 {
     public event Action OnPouringFinished;
-
     public float MoveFraction { get; private set; }
 
     [SerializeField] private float maxPourSpeed = 5f; // Maximum pouring rate
@@ -38,12 +37,10 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
 
     [SerializeField]
     private List<PouringZone> pouringZones;
-
     [SerializeField] private TMP_Text amountText;
-
     [SerializeField] private GameObject liquidCubes;
-
     [SerializeField] private Transform metalParent;
+
 
     private Weapon weapon;
 
