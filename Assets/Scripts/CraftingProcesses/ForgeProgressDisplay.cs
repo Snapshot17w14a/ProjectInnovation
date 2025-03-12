@@ -8,9 +8,11 @@ public class ForgeProgressDisplay : MonoBehaviour
     [SerializeField] private Image correctSpot;
     [SerializeField] private Image volumeImage;
 
-    [SerializeField] private float particleMultiplier = 10;
-    [SerializeField] private ParticleSystem fireParticles;
-    private ParticleSystem.EmissionModule emissionModule;
+    [SerializeField] private float maxIntensity;
+    [SerializeField] private Material bigCrystalMaterial;
+    [SerializeField] private Material lineartCrystalMaterial;
+    [SerializeField] private Gradient crystalColorGradient;
+    [SerializeField] private Gradient lineartColorGradient;
 
     private float width;
     private float correctSpotWidth;
@@ -23,7 +25,10 @@ public class ForgeProgressDisplay : MonoBehaviour
         correctSpotWidth = correctSpot.rectTransform.sizeDelta.x;
         correctSpotX = correctSpot.rectTransform.anchoredPosition.x;
 
-        emissionModule = fireParticles.emission;
+        bigCrystalMaterial.SetVector("_Color_gradient_high", crystalColorGradient.Evaluate(0));
+        bigCrystalMaterial.SetVector("_Color_gradient_low", crystalColorGradient.Evaluate(0));
+
+        lineartCrystalMaterial.SetVector("_Color", lineartColorGradient.Evaluate(0));
     }
 
     public void SetNeedleProgress(float progress)
@@ -35,7 +40,7 @@ public class ForgeProgressDisplay : MonoBehaviour
     public bool IsNeedlePositionCorrect()
     {
         float needleX = needle.rectTransform.anchoredPosition.x;
-        return needleX >= correctSpotX && needleX <= correctSpotX + correctSpotWidth;   
+        return needleX >= correctSpotX && needleX <= correctSpotX + correctSpotWidth;
     }
 
     public void DisplayMicrophoneVolume(float microphoneVolume, float volumeThreshold)
@@ -44,8 +49,15 @@ public class ForgeProgressDisplay : MonoBehaviour
         volumeImage.color = microphoneVolume > volumeThreshold ? Color.red : Color.white;
     }
 
-    public void UpdateFireParticles(float microphoneVolume, float volumeThreshold)
+    public void UpdateFireParticles(float t)
     {
-        emissionModule.rateOverTime = microphoneVolume > volumeThreshold ? microphoneVolume * 10 * particleMultiplier : 30;
+        float intensity = Mathf.Lerp(1, maxIntensity, t);
+
+        bigCrystalMaterial.SetVector("_Color_gradient_high", Vector4.Lerp(bigCrystalMaterial.GetVector("_Color_gradient_high"), ColorToVec4(crystalColorGradient.Evaluate(t)) * intensity, Time.deltaTime));
+        bigCrystalMaterial.SetVector("_Color_gradient_low", Vector4.Lerp(bigCrystalMaterial.GetVector("_Color_gradient_low"), ColorToVec4(crystalColorGradient.Evaluate(t)) * intensity, Time.deltaTime));
+
+        lineartCrystalMaterial.SetVector("_Color", Vector4.Lerp(lineartCrystalMaterial.GetVector("_Color"), ColorToVec4(lineartColorGradient.Evaluate(t)) * intensity, Time.deltaTime));
     }
+
+    private Vector4 ColorToVec4(Color color) => new(color.r, color.g, color.b, color.a);
 }
