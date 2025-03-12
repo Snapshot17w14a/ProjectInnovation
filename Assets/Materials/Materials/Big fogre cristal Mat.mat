@@ -11,14 +11,14 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: f510d626c2c847b4dbecfb47d7e1deea,
     type: 3}
   m_Parent: {fileID: 2100000, guid: 83bdee7972e379a4f9794370b96ac677, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_ModifiedSerializedProperties: 16
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2450
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -30,11 +30,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _Color_intensity: 0
+    - _QueueOffset: 0
     m_Colors:
-    - _Color_Line_Art_Bloom: {r: 5.9921565, g: 0.062745094, b: 0, a: 0.003921569}
-    - _Color_gradient_high: {r: 1.4980394, g: 1.1184387, b: 0, a: 0}
-    - _Color_gradient_low: {r: 1.498039, g: 0.86121273, b: 0, a: 0}
+    - _Color_Line_Art_Bloom: {r: 0, g: 22.625202, b: 23.547169, a: 0.003921569}
+    - _Color_gradient_high: {r: 0.017376097, g: 1.34855, b: 0.30082887, a: 2.1068282}
+    - _Color_gradient_low: {r: 0.017376097, g: 1.34855, b: 0.30082887, a: 2.1068282}
   m_BuildTextureStacks: []
 --- !u!114 &1589627940328633258
 MonoBehaviour:
