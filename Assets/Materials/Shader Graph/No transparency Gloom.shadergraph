@@ -1844,7 +1844,7 @@
     "m_ZWriteControl": 0,
     "m_AlphaMode": 2,
     "m_RenderFace": 2,
-    "m_AlphaClip": true,
+    "m_AlphaClip": false,
     "m_CastShadows": false,
     "m_ReceiveShadows": false,
     "m_SupportsLODCrossFade": false,

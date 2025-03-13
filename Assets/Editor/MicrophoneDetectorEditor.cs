@@ -20,6 +20,8 @@ public class MicrophoneDetectorEditor : Editor
         PropertyField(serializedObject.FindProperty("activeDecrease"));
         PropertyField(serializedObject.FindProperty("allowedTime"));
 
+        PropertyField(serializedObject.FindProperty("soundPlayer"));
+
         LabelField("Score increase threshold");
 
         BeginHorizontal();
