@@ -179,6 +179,24 @@ public class BattleManager : MonoBehaviour
         OnBattleEnd -= BattleEnd;
     }
 
+    public void RemovePetFromBattle(Pet pet)
+    {
+        for(int i = 0; i < petsInBattle.Length; i++)
+        {
+            if (petsInBattle[i] == null) continue;
+            else if (petsInBattle[i] == pet) petsInBattle[i] = null;
+        }
+    }
+
+    public void RemoveEnemyFromBattle(Enemy enemy)
+    {
+        for (int i = 0; i < enemiesInBattle.Length; i++)
+        {
+            if (enemiesInBattle[i] == null) continue;
+            else if (enemiesInBattle[i] == enemy) enemiesInBattle[i] = null;
+        }
+    }
+
     public void SetBattleContainer(Battle container)
     {
         battleContainer = container;

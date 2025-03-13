@@ -24,7 +24,7 @@ public class CharacterStats
 
     private const float iceEffectExtraCooldownFraction = 0.1f;
 
-
+    public Action OnWeaponChanged;
     public int Level { get; private set; } = 1;
 
     //public int Level
@@ -115,6 +115,7 @@ public class CharacterStats
         AddWeaponStats(true);
         Weapon = weapon;
         AddWeaponStats();
+        OnWeaponChanged?.Invoke();
         return this;
     }
 

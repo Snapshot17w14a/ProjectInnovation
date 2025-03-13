@@ -19,3 +19,6 @@ MonoBehaviour:
   Skill: {fileID: 0}
   SkillDamage: 0
   SkillCooldown: 0
+  HpPerLevel: 0
+  DmgPerLevel: 1
+  StartingLevel: 21

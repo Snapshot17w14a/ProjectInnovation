@@ -13,6 +13,8 @@ public class Pet : Character
             stats.skill.FromStaticSkill(preset.Skill);
             stats.skill.parent = gameObject;
         }
+        if (stats.Weapon != null) SetSwordSprites();
+        stats.OnWeaponChanged += SetSwordSprites;
     }
 
     protected virtual IEnumerator SkillRoutine()
@@ -43,5 +45,29 @@ public class Pet : Character
     {
         base.StartBattle();
         StartCoroutine(SkillRoutine());
+    }
+
+    private void SetSwordSprites()
+    {
+        var swordAnimObject = transform.Find("WeaponPivot");
+        if (swordAnimObject.childCount > 0) Destroy(swordAnimObject.GetChild(0).gameObject);
+        var swordObject = Instantiate(stats.Weapon.GetWeaponSpritePrefab(), swordAnimObject.transform.position, swordAnimObject.transform.rotation, swordAnimObject);
+        swordObject.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.17f);
+        swordObject.transform.position = swordAnimObject.transform.position;
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        if (isMarkedForDestruction)
+        {
+            battleManager.RemovePetFromBattle(this);
+        }
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        stats.OnWeaponChanged -= SetSwordSprites;
     }
 }
