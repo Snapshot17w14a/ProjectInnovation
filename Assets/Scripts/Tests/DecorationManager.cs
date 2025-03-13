@@ -21,6 +21,8 @@ public class DecorationManager : CraftingProcess, ICraftingProcess
     [SerializeField] private GameObject leafVFXPrefab;
     [SerializeField] private GameObject poisonVFXPrefab;
 
+    [SerializeField] private SoundEffectPlayer soundPlayer;
+
     private GameObject currentVFX;
 
     public bool IsProcessDone => isProcessDone;

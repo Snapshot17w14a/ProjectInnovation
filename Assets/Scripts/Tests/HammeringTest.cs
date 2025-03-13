@@ -31,6 +31,8 @@ public class HammeringTest : CraftingProcess, ICraftingProcess
 
     private Weapon weapon;
 
+    [SerializeField] private SoundEffectPlayer soundPlayer;
+
     void Start()
     {
         //GameObject spawnedSword = weapon.GetWeaponSpritePrefab();
@@ -49,6 +51,8 @@ public class HammeringTest : CraftingProcess, ICraftingProcess
 
     private void CheckHit(Vector2 mousePosition)
     {
+        soundPlayer.PlayAudio();
+
         float closestDistance = float.MaxValue;
         int closestEdgeIndex = -1;
 

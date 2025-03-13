@@ -140,7 +140,9 @@ public class CharacterStats
         if (Name != eventParams.petName) return;
         AssignWeapon(eventParams.weapon);
 
-        ServiceLocator.GetService<InventoryManager>().SetPetStat(Name, this);
+        var invManager = ServiceLocator.GetService<InventoryManager>();
+        invManager.SetPetStat(Name, this);
+        invManager.SavePets();
     }
 
     public void AddExperience(int xp)

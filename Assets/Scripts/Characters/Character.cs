@@ -43,6 +43,7 @@ public abstract class Character : MonoBehaviour
             soundEffectPlayer.SetVolume = 0.5f;
             soundEffectPlayer.PlayAudioWithRange(0, 3);
             yield return new WaitForSeconds(stats.AttackCooldown);
+            yield return new WaitUntil(() => battleManager.IsAttackingAllowed);
         }
     }
 

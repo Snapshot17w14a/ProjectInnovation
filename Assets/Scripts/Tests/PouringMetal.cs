@@ -52,6 +52,8 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
 
     public bool IsProcessDone => isProcessDone;
 
+    [SerializeField] private SoundEffectPlayer soundPlayer;
+
     void Start()
     {
         amountText.text = $" {currentLiquidAmount.ToString("F1")}";
@@ -75,11 +77,13 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
         if (isPouring && currentLiquidAmount > 0)
         {
             currentPourSpeed = Mathf.Min(currentPourSpeed + pourAcceleration * Time.deltaTime, maxPourSpeed);
+            soundPlayer.SetVolume = 1;
             EnableVFX();
         }
         else
         {
             currentPourSpeed = Mathf.Max(currentPourSpeed - pourDeceleration * Time.deltaTime, 0);
+            soundPlayer.SetVolume = 0;
 
             if (currentPourSpeed == 0 || currentLiquidAmount == 0)
             {
@@ -91,7 +95,7 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
         {
             pouringAdjusted = (currentLiquidAmount < currentPourSpeed / 100f ? currentLiquidAmount : currentPourSpeed / 100f);
             currentLiquidAmount = Mathf.Max(currentLiquidAmount - pouringAdjusted, 0);
-            amountText.text = $"{currentLiquidAmount.ToString("F1")}";
+            amountText.text = $"{currentLiquidAmount:F1}";
             Instantiate(liquidCubes, new Vector3(transform.position.x, transform.position.y - yOffest, transform.position.z), Quaternion.identity, metalParent).AddComponent<LiquidDropContainer>().Amount = pouringAdjusted;
         }
         else if (currentLiquidAmount <= 0)

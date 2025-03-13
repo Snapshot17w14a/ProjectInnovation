@@ -56,7 +56,7 @@ public class InventoryManager : Service
             if (!petPresets.ContainsKey(preset.name)) petPresets.Add(preset.name, preset);
         }
 
-        SavePets();
+        //SavePets();
         LoadPets();
 
         materialCountPair.Add(Weapon.Material.Stone, 10);
