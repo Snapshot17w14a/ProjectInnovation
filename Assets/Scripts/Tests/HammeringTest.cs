@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.VFX;
 
 public class HammeringTest : CraftingProcess, ICraftingProcess
@@ -33,13 +34,14 @@ public class HammeringTest : CraftingProcess, ICraftingProcess
     private Weapon weapon;
     [SerializeField] private Transform effectParent;
     [SerializeField] private VisualEffect hammeringSparksVFX;
-
     [SerializeField] private SoundEffectPlayer soundPlayer;
+
+    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private Image swordImage;
 
     void Start()
     {
-        //GameObject spawnedSword = weapon.GetWeaponSpritePrefab();
-        //spawnedSword.transform.position = new Vector3(0, 0, 0);
+        //swordImage.sprite = sprites[(int)weapon.ItemMaterial];
     }
 
     void Update()
