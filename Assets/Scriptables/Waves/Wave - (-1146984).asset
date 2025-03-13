@@ -15,6 +15,6 @@ MonoBehaviour:
   waveEnemies:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 3367897698447107354, guid: 60aee3f833d74244499724f9b5770e70, type: 3}
-  - {fileID: 3367897698447107354, guid: 60aee3f833d74244499724f9b5770e70, type: 3}
-  - {fileID: 3367897698447107354, guid: 60aee3f833d74244499724f9b5770e70, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

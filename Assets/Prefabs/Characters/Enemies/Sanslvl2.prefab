@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2958408864465769691
+--- !u!1001 &5787971748989782968
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -51,17 +51,17 @@ PrefabInstance:
     - target: {fileID: 3966555114048478930, guid: da5478fe81608464a806878791ccd1d4,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.06
       objectReference: {fileID: 0}
     - target: {fileID: 3966555114048478930, guid: da5478fe81608464a806878791ccd1d4,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.06
       objectReference: {fileID: 0}
     - target: {fileID: 3966555114048478930, guid: da5478fe81608464a806878791ccd1d4,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 1.06
       objectReference: {fileID: 0}
     - target: {fileID: 3966555114048478930, guid: da5478fe81608464a806878791ccd1d4,
         type: 3}
@@ -137,29 +137,44 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 922d799d3874bc847b4379bb8662ae0c,
+      objectReference: {fileID: 21300000, guid: ac65969af06161d419a34cb3005fca40,
         type: 3}
+    - target: {fileID: 6543093498304731935, guid: da5478fe81608464a806878791ccd1d4,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.71270907
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543093498304731935, guid: da5478fe81608464a806878791ccd1d4,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.923287
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543093498304731935, guid: da5478fe81608464a806878791ccd1d4,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.9811321
+      objectReference: {fileID: 0}
     - target: {fileID: 6669796262057938171, guid: da5478fe81608464a806878791ccd1d4,
         type: 3}
       propertyPath: m_Name
-      value: Snek
+      value: Sanslvl2
       objectReference: {fileID: 0}
     - target: {fileID: 8183076987271716892, guid: da5478fe81608464a806878791ccd1d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -125
+      value: -122
       objectReference: {fileID: 0}
     - target: {fileID: 9146297092745195170, guid: da5478fe81608464a806878791ccd1d4,
         type: 3}
       propertyPath: preset
       value: 
-      objectReference: {fileID: 11400000, guid: a11afb1fc2ae1e341be19603f41a042e,
+      objectReference: {fileID: 11400000, guid: dde8dab2acfc02846bee59bb87b53bd9,
         type: 2}
     - target: {fileID: 9146297092745195170, guid: da5478fe81608464a806878791ccd1d4,
         type: 3}
       propertyPath: lootTable
       value: 
-      objectReference: {fileID: 11400000, guid: 517b333d968462d428d267f0688ac2b9,
+      objectReference: {fileID: 11400000, guid: 2db95c86f2664f54fb92dc225b810fe9,
         type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

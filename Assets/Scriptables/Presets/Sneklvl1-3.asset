@@ -9,12 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69530c9f612d2e543aa06d5e006de0fc, type: 3}
-  m_Name: Wave - (-1146794)
+  m_Script: {fileID: 11500000, guid: 9ac73df55292977438ac3b5b7b6949c1, type: 3}
+  m_Name: Sneklvl1-3
   m_EditorClassIdentifier: 
-  waveEnemies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  Health: 24
+  Damage: 8
+  AttackCooldown: 2
+  Defense: 0
+  Skill: {fileID: 0}
+  SkillDamage: 0
+  SkillCooldown: 0
+  HpPerLevel: 2
+  DmgPerLevel: 0
+  StartingLevel: 2
