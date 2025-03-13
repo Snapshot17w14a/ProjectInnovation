@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69530c9f612d2e543aa06d5e006de0fc, type: 3}
-  m_Name: Wave - (-1119606)
+  m_Name: Wave 2-5
   m_EditorClassIdentifier: 
   waveEnemies:
   - {fileID: 3367897698447107354, guid: 04754716539cadf49a3f8d64b92b2e0f, type: 3}
   - {fileID: 3367897698447107354, guid: 04754716539cadf49a3f8d64b92b2e0f, type: 3}
-  - {fileID: 6332146353692129913, guid: 58790bee024de004f9586f07d81aa5ea, type: 3}
-  - {fileID: 3367897698447107354, guid: 60aee3f833d74244499724f9b5770e70, type: 3}
-  - {fileID: 6332146353692129913, guid: 58790bee024de004f9586f07d81aa5ea, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

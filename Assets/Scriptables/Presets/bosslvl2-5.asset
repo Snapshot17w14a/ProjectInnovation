@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ac73df55292977438ac3b5b7b6949c1, type: 3}
-  m_Name: bosslvl1
+  m_Name: bosslvl2-5
   m_EditorClassIdentifier: 
   Health: 10
   Damage: 10
