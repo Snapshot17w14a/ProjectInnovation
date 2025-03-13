@@ -105,9 +105,11 @@ public abstract class Character : MonoBehaviour
         // TODO: Animation for healing
     }
 
+    // TODO: Animation for buffs
     public void AddDamageStat(int damage)
     {
         stats.Damage += Mathf.Min(0, damage);
+        
     }
 
     public void RemoveDamageStat(int damage)
@@ -125,15 +127,25 @@ public abstract class Character : MonoBehaviour
         stats.Defense += Mathf.Max(0, armour);
     }
 
-/*    public void AddIceEffectStack(int maxStacks)
+    public void AddAttackSpeedStat(int attackSpeed)
     {
-        stats.IceEffectStacks = Mathf.Min(maxStacks, stats.IceEffectStacks + 1);
+        stats.AttackCooldown += Mathf.Min(0, attackSpeed);
     }
 
-    public void RemoveIceEffectStack()
+    public void RemoveAttackSpeedStat(int attackSpeed)
     {
-        stats.IceEffectStacks = Mathf.Max(0, stats.IceEffectStacks - 1);
-    }*/
+        stats.AttackCooldown += Mathf.Max(0, attackSpeed);
+    }
+
+    /*    public void AddIceEffectStack(int maxStacks)
+        {
+            stats.IceEffectStacks = Mathf.Min(maxStacks, stats.IceEffectStacks + 1);
+        }
+
+        public void RemoveIceEffectStack()
+        {
+            stats.IceEffectStacks = Mathf.Max(0, stats.IceEffectStacks - 1);
+        }*/
 
     public void SetManager(BattleManager battleManager)
     {

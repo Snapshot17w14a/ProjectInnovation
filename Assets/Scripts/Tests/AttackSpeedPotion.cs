@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArmourPotion : Potion
+public class AttackSpeedPotion : Potion
 {
-
-    public ArmourPotion(int armour, float duration)
+    public AttackSpeedPotion(int attackSpeed, float duration)
     {
-        Amount = Math.Max(0, armour);
+        Amount = Math.Max(0, attackSpeed);
         Duration = Math.Max(0, duration);
     }
 
@@ -16,7 +15,7 @@ public class ArmourPotion : Potion
     {
         foreach (Character character in characters)
         {
-            character.AddBuff(new ArmourBuff(Amount, Duration));
+            character.AddBuff(new AttackSpeedBuff(Amount, Duration));
         }
     }
 }

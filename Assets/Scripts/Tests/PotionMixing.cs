@@ -101,13 +101,13 @@ public class PotionMixing : MonoBehaviour
                 inventoryManager.SavePotion(new HealthPotion((int)effectMultiplier));
                 break;
             case "Damage":
-
+                inventoryManager.SavePotion(new DamagePotion((int)effectMultiplier, duration));
                 break;
             case "Armour":
-
+                inventoryManager.SavePotion(new ArmourPotion((int)effectMultiplier, duration));
                 break;
             case "Attack Speed":
-
+                
                 break;
             case "Critical Chance":
 
