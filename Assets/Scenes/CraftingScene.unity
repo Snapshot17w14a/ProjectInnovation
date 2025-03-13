@@ -1660,6 +1660,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: CraftingManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6686736326461034896, guid: 91d1ba685e7a22644bb2f81e9b26835f,
+        type: 3}
+      propertyPath: craftingScenes.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6686736326461034896, guid: 91d1ba685e7a22644bb2f81e9b26835f,
+        type: 3}
+      propertyPath: craftingScenes.Array.data[2]
+      value: MeltingScene 2.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6686736326461034896, guid: 91d1ba685e7a22644bb2f81e9b26835f,
+        type: 3}
+      propertyPath: craftingScenes.Array.data[3]
+      value: HammeringScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 6686736326461034896, guid: 91d1ba685e7a22644bb2f81e9b26835f,
+        type: 3}
+      propertyPath: craftingScenes.Array.data[4]
+      value: Decoration
+      objectReference: {fileID: 0}
+    - target: {fileID: 6686736326461034896, guid: 91d1ba685e7a22644bb2f81e9b26835f,
+        type: 3}
+      propertyPath: craftingScenes.Array.data[5]
+      value: AssemblyScene
+      objectReference: {fileID: 0}
     - target: {fileID: 8950554823686136299, guid: 91d1ba685e7a22644bb2f81e9b26835f,
         type: 3}
       propertyPath: m_LocalPosition.x

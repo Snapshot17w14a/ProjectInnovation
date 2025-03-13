@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -22,6 +23,7 @@ public abstract class Character : MonoBehaviour
 
     private static Transform damageNumberParent;
 
+    private List<Buff> buffs = new List<Buff>();
     public enum CharacterType
     {
         Pet,
@@ -65,6 +67,43 @@ public abstract class Character : MonoBehaviour
             isMarkedForDestruction = true;
         }
     }
+
+    private void Update()
+    {
+        for (int i = buffs.Count - 1; i >= 0; i--)
+        {
+            Buff buff = buffs[i];
+            if (buff.IsExpired)
+            {
+                buff.OnRemoved(this);
+                buffs.Remove(buff);
+            }
+        }
+    }
+    public void AddBuff(Buff buff)
+    {
+        buff.OnApplied(this);
+        buffs.Add(buff);
+    }
+
+    public virtual void Heal(int healAmount)
+    {
+        stats.Health = Mathf.Min(stats.MaxHealth, stats.Health + Mathf.Min(0, healAmount));
+        // TODO: add heal number prefab
+        healthDisplay.Percentage = stats.Health / (float)stats.MaxHealth;
+        // TODO: Animation for healing
+    }
+
+    public void AddDamageStat(int damage)
+    {
+        stats.Damage += Mathf.Min(0, damage);
+    }
+
+    public void RemoveDamageStat(int damage)
+    {
+        stats.Damage -= Mathf.Max(0, damage);
+    }
+
     public void AddIceEffectStack(int maxStacks)
     {
         stats.IceEffectStacks = Mathf.Min(maxStacks, stats.IceEffectStacks + 1);

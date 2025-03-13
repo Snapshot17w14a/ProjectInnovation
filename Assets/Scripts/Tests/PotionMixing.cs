@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -21,6 +22,7 @@ public class PotionMixing : MonoBehaviour
 
     private bool isAddingWater = false;
     private bool canShake = false;
+    private bool isShowingRecipes = false;
 
     private string buff;
     private string quality;
@@ -39,6 +41,7 @@ public class PotionMixing : MonoBehaviour
 
     [SerializeField] private RawImage shakeIndicator;
     [SerializeField] private RawImage bookImage;
+    [SerializeField] private RawImage recipeImage;
     void Start()
     {
         lastAcceleration = Input.acceleration;
@@ -73,6 +76,8 @@ public class PotionMixing : MonoBehaviour
             shakeCount++;
             lastAcceleration = currentAcceleration;
         }
+
+        ShowRecipe();
     }
 
     public void FinishPotion()
@@ -82,6 +87,20 @@ public class PotionMixing : MonoBehaviour
         Debug.Log($"Potion Created! - Buff: {buff}, Quality: {quality}, Duration: {duration}s, Effect Strength: {effectMultiplier * 100}%");
 
         effectText.text = buff;
+
+
+        switch (buff) {
+
+            case "Health":
+                
+                // inventoryManager.AddPotion(new HealthPotion(100));
+
+                break;
+
+            default:
+                throw new NotImplementedException(nameof(buff));
+        }
+
     }
 
     private (string quality, float multiplier) DeterminePotionQuality()
@@ -183,5 +202,17 @@ public class PotionMixing : MonoBehaviour
         completeButton.gameObject.SetActive(true);
     }
 
+    private void ShowRecipe()
+    {
+        if(isShowingRecipes)
+        {
+            recipeImage.gameObject.SetActive(true);
+        } else
+        {
+            recipeImage.gameObject.SetActive(false);
+        }
+    }
+
     public void ToggleWater() => isAddingWater = !isAddingWater;
+    public void ToggleRecipes() => isShowingRecipes = !isShowingRecipes;
 }
