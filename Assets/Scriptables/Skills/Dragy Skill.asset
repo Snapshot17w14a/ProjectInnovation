@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa2eb3408a1a4d4c990d607844bcf6b, type: 3}
   m_Name: Dragy Skill
   m_EditorClassIdentifier: 
-  SkillDamage: 5
+  SkillDamage: 25
   SkillCooldown: 6
   parent: {fileID: 0}
   effectPrefab: {fileID: 7968692383294788287, guid: 5d111f09af5d0c5448bba661b1453ab7,

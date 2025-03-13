@@ -45,8 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   craftingScenes:
+  - CraftingScene
   - MaterialSelection
   - MicrophoneScene
   - AssemblyScene
   - MeltingScene 2.0
+  - Decoration
   maxScorePerProcess: 5

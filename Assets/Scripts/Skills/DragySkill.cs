@@ -11,7 +11,7 @@ public class DragySkill : Skill
     {
         var enemies = battleManager.AllEnemies;
         foreach (var enemy in enemies) if (enemy != null) enemy.TakeDamage(SkillDamage);
-        var projectile = Instantiate(effectPrefab, parent.transform.position, effectPrefab.transform.rotation, parent.transform).AddComponent<DragyFireProjectile>();
+        var projectile = Instantiate(effectPrefab, parent.transform.position + new Vector3(0.2f, 0, 0), effectPrefab.transform.rotation, parent.transform).AddComponent<DragyFireProjectile>();
         projectile.UnitsPerSecond = unitsPerSecond;
         projectile.AliveTime = aliveTime;
     }

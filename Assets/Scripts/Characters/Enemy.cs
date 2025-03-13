@@ -30,9 +30,7 @@ public class Enemy : Character
         if (isMarkedForDestruction) 
         {
             CalculateDrops();
-            //var dropItem = Instantiate(dropItemPrefab, transform.position, Quaternion.identity, dropItemParent);
-            //dropItem.GetComponent<Rigidbody>().AddForce(new(Random.Range(-2f, 2f), 3f, 0), ForceMode.Impulse);
-            //Destroy(dropItem, 3f);
+            battleManager.RemoveEnemyFromBattle(this);
         }
     }
 

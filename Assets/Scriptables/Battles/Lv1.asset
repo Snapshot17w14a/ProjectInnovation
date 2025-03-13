@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Lv1
   m_EditorClassIdentifier: 
   enemyWaves:
-  - {fileID: 11400000, guid: 3087fec1db8c963459de03e188407b0f, type: 2}
-  - {fileID: 11400000, guid: e0416c164315bc440a8d388044f5248a, type: 2}
-  - {fileID: 11400000, guid: 5e07c293a6ef8554e8d0c95b2bdefcdb, type: 2}
+  - {fileID: 11400000, guid: f3ae325b808bc124ab317b211fe9a4fd, type: 2}
+  - {fileID: 11400000, guid: ab804e77538be104eaea99427ddef7ee, type: 2}
+  - {fileID: 11400000, guid: e9ea552c260a6cf4fba02b90db2a13a0, type: 2}
+  - {fileID: 11400000, guid: ea20caffa2dbe554f8ff0dc7f9ed6b25, type: 2}
+  - {fileID: 11400000, guid: b079ed4afc5f6824b9f423a69313859c, type: 2}

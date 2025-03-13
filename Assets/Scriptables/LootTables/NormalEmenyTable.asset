@@ -25,7 +25,7 @@ MonoBehaviour:
     materialDropRate: 5000000014000000
     materialRatePerLevel: 0000000003000000
     handles:
-    - {fileID: 11400000, guid: 77f981369b205014eb30974fa868a1c5, type: 2}
+    - {fileID: 11400000, guid: fd9ba6f5bdcb42743b7c9234770bffad, type: 2}
     handleDropRate: 03000000
     handleRatePerLevel:
     - 0
@@ -34,7 +34,7 @@ MonoBehaviour:
     materialDropRate: 500000003c000000
     materialRatePerLevel: 0000000001000000
     handles:
-    - {fileID: 11400000, guid: 77f981369b205014eb30974fa868a1c5, type: 2}
+    - {fileID: 11400000, guid: fd9ba6f5bdcb42743b7c9234770bffad, type: 2}
     handleDropRate: 05000000
     handleRatePerLevel:
     - 0.2
@@ -43,7 +43,7 @@ MonoBehaviour:
     materialDropRate: 460000004b000000
     materialRatePerLevel: 0000000001000000
     handles:
-    - {fileID: 11400000, guid: 77f981369b205014eb30974fa868a1c5, type: 2}
+    - {fileID: 11400000, guid: fd9ba6f5bdcb42743b7c9234770bffad, type: 2}
     handleDropRate: 64000000
     handleRatePerLevel:
     - 0

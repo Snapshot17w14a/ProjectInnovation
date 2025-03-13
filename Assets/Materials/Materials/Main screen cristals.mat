@@ -75,7 +75,7 @@ Material:
     m_Colors:
     - _Color: {r: 2.9960787, g: 2.9960787, b: 2.9960787, a: 0.01960784}
     - _Color_Bloom: {r: 0, g: 32.319077, b: 38.93715, a: 0}
-    - _Color_Line_Art_Bloom: {r: 5.5399194, g: 10.557156, b: 23.968628, a: 0.003921569}
+    - _Color_Line_Art_Bloom: {r: 0.3693485, g: 0.9433962, b: 0.90410745, a: 0.003921569}
     - _Color_gradient_high: {r: 0, g: 1.8535903, b: 2.1944344, a: 0}
     - _Color_gradient_low: {r: 3.9533498, g: 1.8088441, b: 3.7034457, a: 0}
   m_BuildTextureStacks: []

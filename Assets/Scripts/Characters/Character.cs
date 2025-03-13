@@ -24,6 +24,9 @@ public abstract class Character : MonoBehaviour
     private static Transform damageNumberParent;
 
     private List<Buff> buffs = new List<Buff>();
+
+    protected SoundEffectPlayer soundEffectPlayer;
+
     public enum CharacterType
     {
         Pet,
@@ -37,6 +40,8 @@ public abstract class Character : MonoBehaviour
         while (isBattling)
         {
             Attack();
+            soundEffectPlayer.SetVolume = 0.5f;
+            soundEffectPlayer.PlayAudioWithRange(0, 3);
             yield return new WaitForSeconds(stats.AttackCooldown);
         }
     }
@@ -53,17 +58,22 @@ public abstract class Character : MonoBehaviour
 
         if (damageNumberParent == null) damageNumberParent =  GameObject.Find("DamageNumbers").transform;
         if (damageNumberPrefab == null) damageNumberPrefab = Resources.Load<GameObject>("DamageNumber");
+
+        soundEffectPlayer = transform.GetComponentInChildren<SoundEffectPlayer>();
     }
 
     public virtual void TakeDamage(int damage)
     {
+        if (isMarkedForDestruction) return;
         stats.Health -= Mathf.Max(0, damage - stats.Defense);
-        Instantiate(damageNumberPrefab, transform.position, Quaternion.identity, damageNumberParent).GetComponent<DamageDisplay>().Damage = damage;
+        Instantiate(damageNumberPrefab, transform.position, Quaternion.identity, damageNumberParent).GetComponent<DamageDisplay>().Damage = damage - stats.Defense;
         healthDisplay.Percentage = stats.Health / (float)stats.MaxHealth;
         characterAnimator.SetTrigger("Hit");
         if (stats.Health <= 0)
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 1.5f);
+            StopAllCoroutines();
+            characterAnimator.SetTrigger("Death");
             isMarkedForDestruction = true;
         }
     }

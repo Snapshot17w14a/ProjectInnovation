@@ -45,10 +45,7 @@ public class InventoryManager : Service
         //SaveWeapons();
         LoadWeapons();
 
-        assemblyItemCount.Add("Insane Grip", 2);
-        assemblyItemCount.Add("Crazy Grip", 1);
-        assemblyItemCount.Add("Ultimate Grip", 64);
-        SaveAssemblyItems();
+        //SaveAssemblyItems();
         LoadAssemblyItems();
 
         var loadedpresets = Resources.LoadAll<CharacterPreset>("PetPresets");
