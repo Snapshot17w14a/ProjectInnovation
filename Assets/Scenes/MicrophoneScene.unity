@@ -1245,8 +1245,8 @@ MonoBehaviour:
   needle: {fileID: 376148990}
   correctSpot: {fileID: 946886000}
   volumeImage: {fileID: 638875536}
-  maxIntensity: 3
-  bigCrystalMaterial: {fileID: 2100000, guid: 8145cc5cd528782439659e920e0f1c1f, type: 2}
+  maxIntensity: 25
+  bigCrystalMaterial: {fileID: 2100000, guid: 2c5bf965c81ab9c44901c172e4dc0ae5, type: 2}
   lineartCrystalMaterial: {fileID: 2100000, guid: 1f8b94ca7714678478cb1155e5784f58,
     type: 2}
   crystalColorGradient:
@@ -1583,7 +1583,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: dde43f49ce8ba35428b474fb432eff31, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
