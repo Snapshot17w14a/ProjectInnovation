@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class HammeringTest : CraftingProcess, ICraftingProcess
 {
@@ -30,6 +31,10 @@ public class HammeringTest : CraftingProcess, ICraftingProcess
     private bool isProcessDone = false;
 
     private Weapon weapon;
+    [SerializeField] private Transform effectParent;
+    [SerializeField] private VisualEffect hammeringSparksVFX;
+
+    [SerializeField] private SoundEffectPlayer soundPlayer;
 
     void Start()
     {
@@ -49,6 +54,8 @@ public class HammeringTest : CraftingProcess, ICraftingProcess
 
     private void CheckHit(Vector2 mousePosition)
     {
+        soundPlayer.PlayAudio();
+
         float closestDistance = float.MaxValue;
         int closestEdgeIndex = -1;
 
@@ -66,6 +73,15 @@ public class HammeringTest : CraftingProcess, ICraftingProcess
                 closestEdgeIndex = (Vector2.Distance(closest, point1) < Vector2.Distance(closest, point2)) ? i : i + 1;
             }
         }
+
+
+        Vector3 worldPosition = new Vector3(mousePosition.x, mousePosition.y, 0f);
+
+        VisualEffect sparks = Instantiate(hammeringSparksVFX, new Vector2(worldPosition.x, worldPosition.y), Quaternion.identity, effectParent);
+        sparks.Play();
+
+
+        Destroy(sparks.gameObject, 1.5f);
 
         if (closestDistance <= successThreshold)
         {
@@ -166,5 +182,21 @@ public class HammeringTest : CraftingProcess, ICraftingProcess
     public void StartProcess(ref Weapon item)
     {
         weapon = item;
+    }
+
+        private void EnableVFX()
+    {
+        if (hammeringSparksVFX != null)
+        {
+            hammeringSparksVFX.Play();
+        }
+    }
+
+    private void DisableVFX()
+    {
+        if (hammeringSparksVFX != null)
+        {
+            hammeringSparksVFX.Stop();
+        }
     }
 }

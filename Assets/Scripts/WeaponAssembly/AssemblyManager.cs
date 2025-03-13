@@ -8,6 +8,8 @@ public class AssemblyManager : CraftingProcess, ICraftingProcess
     [SerializeField] private ScrollRect scrollView;
     [SerializeField][Range(1,5)] private int gridDimension;
 
+    [SerializeField] private SoundEffectPlayer soundPlayer;
+
     private Weapon assemblyItem;
 
     private bool isAssemblyDone;
@@ -46,6 +48,7 @@ public class AssemblyManager : CraftingProcess, ICraftingProcess
         icon.transform.SetParent(button.transform, false);
         icon.GetComponent<Image>().sprite = item.sprite;
         button.GetComponent<Button>().onClick.AddListener(() => AddItem(item));
+        button.GetComponent<Button>().onClick.AddListener(() => soundPlayer.PlayAudio());
     }
 
     public void AddItem(AssemblyItem item)

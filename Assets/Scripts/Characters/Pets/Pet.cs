@@ -38,6 +38,7 @@ public class Pet : Character
     protected override void Attack()
     {
         var target = battleManager.GetTargetCharacter(CharacterType.Pet);
+        if (target == null) return;
         target.TakeDamage(stats.Damage * (stats.Weapon != null ? (stats.Weapon.CritChance > Random.Range(0, 100) ? Mathf.RoundToInt(stats.Weapon.CriticalDamage / 100f) : 1) : 1));
         stats.Weapon?.weaponEffect?.ApplyEffect(target);
         characterAnimator.SetTrigger("Attack");

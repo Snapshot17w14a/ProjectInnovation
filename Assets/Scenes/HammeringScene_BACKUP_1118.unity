@@ -2702,7 +2702,13 @@ MonoBehaviour:
   goodTreshHold: 2
   averageTreshHold: 2
   maxAttempts: 20
+<<<<<<< HEAD
+  effectParent: {fileID: 1737680086}
+  hammeringSparksVFX: {fileID: 7199391335204198633, guid: 87b28f6299f41b94a9ac36b0b0391c2f,
+    type: 3}
+=======
   soundPlayer: {fileID: 1892825382}
+>>>>>>> origin/main
 --- !u!1 &1862349995 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3745755609364890822, guid: ce87c30fcd463074eab4aac1fd1452e1,

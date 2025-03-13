@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Decoration.unity
     guid: 557113d82abd1f442b3eebbcc29bc8cd
+  - enabled: 1
+    path: Assets/Scenes/HammeringScene.unity
+    guid: c6369289e32943e45965f641c3520307
   m_configObjects: {}

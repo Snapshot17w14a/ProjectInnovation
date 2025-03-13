@@ -99,6 +99,9 @@ public class BattleManager : MonoBehaviour
             //Debug.Log($"Battle ended, enemies dead");
 
             isBattleInProgress = false;
+
+            yield return new WaitForSeconds(1);
+
             currentWaveIndex++;
         }
 

@@ -20,6 +20,8 @@ public class ForgeHandler : CraftingProcess, ICraftingProcess
 
     [SerializeField] private ForgeProgressDisplay progressDisplay;
 
+    [SerializeField] private SoundEffectPlayer soundPlayer;
+
     private bool isTimerStarted = false;
     private float timer = 0;
 
@@ -54,6 +56,8 @@ public class ForgeHandler : CraftingProcess, ICraftingProcess
             //Increase item score when in the correct spot
             itemScore = Mathf.Clamp(itemScore + (((score >= minScoreThreshold && score <= maxScoreThreshold) ? increaseAmount : -decreaseAmount) * Time.deltaTime), 0, maxScore);
             //Debug.Log($"score: {score}, itemScore: {itemScore}");
+
+            soundPlayer.SetVolume = score;
 
             //Display values on UI
             progressDisplay.SetNeedleProgress(score);
