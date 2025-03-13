@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &99882333
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2702,7 +2702,11 @@ MonoBehaviour:
   goodTreshHold: 2
   averageTreshHold: 2
   maxAttempts: 20
+  effectParent: {fileID: 0}
+  hammeringSparksVFX: {fileID: 0}
   soundPlayer: {fileID: 1892825382}
+  sprites: []
+  swordImage: {fileID: 0}
 --- !u!1 &1862349995 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3745755609364890822, guid: ce87c30fcd463074eab4aac1fd1452e1,
