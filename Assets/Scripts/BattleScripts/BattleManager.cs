@@ -23,6 +23,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private GameObject[] objectsToHideInBattle;
 
     [SerializeField] private Button fightButton;
+    [SerializeField] private Button usePotionButton;
 
     public bool IsAttackingAllowed => isBattleInProgress;
     public Enemy[] AllEnemies => enemiesInBattle;
@@ -30,6 +31,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private DecorationManager decorationManager;
 
     [SerializeField] private SoundEffectPlayer[] soundPlayer;
+
+    private Potion potion;
 
     private int EnemiesAlive
     {
@@ -74,7 +77,16 @@ public class BattleManager : MonoBehaviour
         }
 
         Skill.battleManager = this;
+        usePotionButton.gameObject.SetActive(false);
+        usePotionButton.onClick.AddListener(OnUsePotionButtonClicked);
         fightButton.interactable = AreTherePetsInBattle;
+        fightButton.onClick.AddListener(OnFightButtonClicked);
+    }
+
+    private void OnDestroy()
+    {
+        usePotionButton.onClick.RemoveListener(OnUsePotionButtonClicked);
+        fightButton.onClick.RemoveListener(OnFightButtonClicked);
     }
 
     private IEnumerator StartWaves()
@@ -149,6 +161,11 @@ public class BattleManager : MonoBehaviour
         enemiesInBattle[slotIndex].StartBattle();
     }
 
+    public void SetPotion(Potion potion)
+    {
+        this.potion = potion;
+    }
+
     public void SetPetAtIndex(Pet pet, int index)
     {
         if (pet == null)
@@ -208,5 +225,24 @@ public class BattleManager : MonoBehaviour
     public void SetBattleContainer(Battle container)
     {
         battleContainer = container;
+    }
+
+    private void OnFightButtonClicked()
+    {
+        usePotionButton.gameObject.SetActive(true);
+    }
+
+    private void OnUsePotionButtonClicked()
+    {
+        //Use SetPotion Method found up to set the type of potion
+        //potion = new HealthPotion(100);
+        if (potion == null)
+        {
+            return;
+        }
+
+        potion.UsePotion(petsInBattle);
+        potion = null;
+        usePotionButton.interactable = false;
     }
 }

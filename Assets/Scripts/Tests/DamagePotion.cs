@@ -2,7 +2,6 @@
 
 public class DamagePotion : Potion
 {
-
     public DamagePotion(int damage, float duration)
     {
         Amount = Math.Max(0, damage);

@@ -99,7 +99,7 @@ public abstract class Character : MonoBehaviour
 
     public virtual void Heal(int healAmount)
     {
-        stats.Health = Mathf.Min(stats.MaxHealth, stats.Health + Mathf.Min(0, healAmount));
+        stats.Health = Mathf.Min(stats.MaxHealth, stats.Health + Mathf.Max(0, healAmount));
         // TODO: add heal number prefab
         healthDisplay.Percentage = stats.Health / (float)stats.MaxHealth;
         // TODO: Animation for healing
@@ -135,6 +135,28 @@ public abstract class Character : MonoBehaviour
     public void RemoveAttackSpeedStat(int attackSpeed)
     {
         stats.AttackCooldown += Mathf.Max(0, attackSpeed);
+    }
+
+    public void AddCriticalChanceStat(int criticalChance)
+    {
+        //character does not have crit chance 
+        Debug.LogError("Critical Chance not implemented");
+    }
+
+    public void RemoveCriticalChanceStat(int criticalChance)
+    {
+        Debug.LogError("Critical Chance not implemented");
+    }
+
+    public void AddArmourPenetrationStat(int criticalChance)
+    {
+        //character does not have crit chance 
+        Debug.LogError("Armour Penetration not implemented");
+    }
+
+    public void RemoveArmourPenetrationStat(int criticalChance)
+    {
+        Debug.LogError("Armour Penetration not implemented");
     }
 
     /*    public void AddIceEffectStack(int maxStacks)

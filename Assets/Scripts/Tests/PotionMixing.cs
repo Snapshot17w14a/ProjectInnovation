@@ -116,13 +116,13 @@ public class PotionMixing : MonoBehaviour
                 inventoryManager.AddPotion(new ArmourPotion((int)effectMultiplier, duration));
                 break;
             case "Attack Speed":
-                
+                inventoryManager.AddPotion(new AttackSpeedPotion((int)effectMultiplier, duration));
                 break;
             case "Critical Chance":
-
+                inventoryManager.AddPotion(new CricicalChancePotion((int)effectMultiplier, duration));
                 break;
             case "Armour Penetration":
-
+                inventoryManager.AddPotion(new ArmourPenetrationPotion((int)effectMultiplier, duration));
                 break;
             default:
                 throw new NotImplementedException(nameof(buff));

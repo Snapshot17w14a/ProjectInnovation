@@ -11,10 +11,10 @@ public abstract class Potion
         ArmourPenetration,
     }
 
-    public int Amount { get; set; }
-    public  float Duration { get; set; }
+    public int Amount { get; protected set; }
+    public  float Duration { get; protected set; }
 
-    public EPotion Type { get; set; }
+    public EPotion Type { get; protected set; }
 
     public abstract void UsePotion(Character[] characters);
 }

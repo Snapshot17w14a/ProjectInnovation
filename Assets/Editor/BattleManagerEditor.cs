@@ -30,6 +30,8 @@ public class BattleManagerEditor : Editor
 
         PropertyField(serializedObject.FindProperty("fightButton"));
 
+        PropertyField(serializedObject.FindProperty("usePotionButton"));
+
         PropertyField(serializedObject.FindProperty("soundPlayer"));
 
         serializedObject.ApplyModifiedProperties();
