@@ -1049,8 +1049,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 1828716544
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0.42745098}
+    rgba: 2348810240
+  m_fontColor: {r: 0, g: 0, b: 0, a: 0.54901963}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1317,8 +1317,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 1828716544
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0.42745098}
+    rgba: 2348810240
+  m_fontColor: {r: 0, g: 0, b: 0, a: 0.54901963}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7266,8 +7266,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 1828716544
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0.42745098}
+    rgba: 2348810240
+  m_fontColor: {r: 0, g: 0, b: 0, a: 0.54901963}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7455,7 +7455,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -85.053986, y: -43.73782, z: -178.18103, w: -31.795595}
+  m_margin: {x: -380.8236, y: -43.73782, z: -377.37302, w: -31.795595}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
