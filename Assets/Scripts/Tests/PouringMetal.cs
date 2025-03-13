@@ -66,43 +66,57 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
         Quaternion adjustedRotation = vial.rotation;
         adjustedRotation *= Quaternion.Euler(0, 0, angleOffset); // Rotate by angleOffset on the Z axis
         moltenMetalVFX = Instantiate(moltenMetalVFX, vial.position, adjustedRotation, vial);
-        moltenMetalVFX.Stop();
     }
 
-    private void Update()
+    void Update()
     {
         MoveAccelerometer();
+
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary)
+            {
+                isPouring = true;
+            }
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            {
+                isPouring = false;
+            }
+        }
+        else
+        {
+            isPouring = false;
+        }
+
         PourMetal();
     }
 
     private void PourMetal()
     {
-
         if (isPouring && currentLiquidAmount > 0)
         {
             currentPourSpeed = Mathf.Min(currentPourSpeed + pourAcceleration * Time.deltaTime, maxPourSpeed);
-            soundPlayer.SetVolume = 1;
-            EnableVFX();
+
         }
         else
         {
             currentPourSpeed = Mathf.Max(currentPourSpeed - pourDeceleration * Time.deltaTime, 0);
-            soundPlayer.SetVolume = 0;
-
-            if (currentPourSpeed == 0 || currentLiquidAmount == 0)
-            {
-                DisableVFX();
-            }
+            EnableVFX();
         }
 
         if (currentLiquidAmount > 0 && currentPourSpeed > 0)
         {
-            pouringAdjusted = (currentLiquidAmount < currentPourSpeed / 100f ? currentLiquidAmount : currentPourSpeed / 100f);
+            pouringAdjusted = Mathf.Min(currentLiquidAmount, currentPourSpeed / 100f);
             currentLiquidAmount = Mathf.Max(currentLiquidAmount - pouringAdjusted, 0);
             amountText.text = $"{currentLiquidAmount:F1}";
-            Instantiate(liquidCubes, new Vector3(transform.position.x, transform.position.y - yOffest, transform.position.z), Quaternion.identity, metalParent).AddComponent<LiquidDropContainer>().Amount = pouringAdjusted;
+
+            Instantiate(liquidCubes, new Vector3(transform.position.x, transform.position.y - yOffest, transform.position.z),
+                        Quaternion.identity, metalParent)
+                .AddComponent<LiquidDropContainer>().Amount = pouringAdjusted;
         }
-        else if (currentLiquidAmount <= 0)
+
+        if (currentLiquidAmount <= 0)
         {
             DisableVFX();
             IsPouringFinished(currentLiquidAmount);
@@ -115,7 +129,6 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
         if (totalLiquid <= 0 && !isFiniashed && metalParent.childCount == 0)
         {
             isFiniashed = true;
-            DisableVFX();
             gradingManager.ResetGrades();
             OnPouringFinished?.Invoke();
             gradingManager.DisplayGrade();
@@ -137,8 +150,6 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
 
     public float GetTotalLiquid() => totalLiquidAmount;
     public int ZoneCount() => pouringZones.Count;
-
-    public void isCasting() => isPouring = !isPouring;
 
     public void StartProcess(ref Weapon item)
     {
