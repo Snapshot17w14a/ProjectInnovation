@@ -671,12 +671,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handleVisual: {fileID: 108872291}
-  bladeVisual: {fileID: 0}
-  handleTilePrefab: {fileID: 7427148684186216530, guid: 8142b9ae75d43d94783f3f52afcb002e,
+  bladeVisual: {fileID: 1203917296}
+  handleTilePrefab: {fileID: 7427148684186216530, guid: 4daaa02d7ec4b2f43a30db97802b9769,
     type: 3}
   tileParent: {fileID: 1142597108}
   soundPlayer: {fileID: 170699615}
-  blades: []
+  blades:
+  - {fileID: 21300000, guid: 4af452fb937998249b2afb47cc227612, type: 3}
+  - {fileID: 21300000, guid: fc15fb7f5bbec5d4fa538f3cb0237512, type: 3}
 --- !u!114 &622661668
 MonoBehaviour:
   m_ObjectHideFlags: 0
