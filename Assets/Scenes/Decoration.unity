@@ -2555,7 +2555,7 @@ MonoBehaviour:
     type: 3}
   poisonVFXPrefab: {fileID: 1702927056960728755, guid: 6e8f074dc3e92414cbabb39b78d79656,
     type: 3}
-  soundPlayer: {fileID: 0}
+  soundPlayer: {fileID: 673869609}
   effectPoint: {fileID: 1872679808}
 --- !u!4 &1588494566
 Transform:

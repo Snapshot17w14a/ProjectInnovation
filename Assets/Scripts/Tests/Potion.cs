@@ -14,5 +14,7 @@ public abstract class Potion
     public int Amount { get; set; }
     public  float Duration { get; set; }
 
+    public EPotion Type { get; set; }
+
     public abstract void UsePotion(Character[] characters);
 }

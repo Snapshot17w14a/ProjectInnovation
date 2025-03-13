@@ -45,7 +45,10 @@ public class InventoryManager : Service
         //SaveWeapons();
         LoadWeapons();
 
-        //SaveAssemblyItems();
+        assemblyItemCount.Add(AssemblyItems[0].itemName, 10);
+        assemblyItemCount.Add(AssemblyItems[1].itemName, 10);
+
+        SaveAssemblyItems();
         LoadAssemblyItems();
 
         var loadedpresets = Resources.LoadAll<CharacterPreset>("PetPresets");
