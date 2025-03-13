@@ -2133,7 +2133,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -348}
+  m_AnchoredPosition: {x: 0, y: -348.0001}
   m_SizeDelta: {x: 1737.62, y: 2665.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1025395521
@@ -3587,6 +3587,7 @@ MonoBehaviour:
   successThreshold: 75
   failThreshold: 100
   maxWaterAmount: 5
+  intencity: 1
   ingredientButtons:
   - {fileID: 334293176}
   - {fileID: 1670752053}
@@ -3605,6 +3606,7 @@ MonoBehaviour:
   shakeIndicator: {fileID: 2074456994}
   bookImage: {fileID: 698943346}
   recipeImage: {fileID: 1668062148}
+  liquidMaterial: {fileID: 2100000, guid: 34e776cc60acc094ba82f21d4ef725d9, type: 2}
 --- !u!114 &1478907626
 MonoBehaviour:
   m_ObjectHideFlags: 0
