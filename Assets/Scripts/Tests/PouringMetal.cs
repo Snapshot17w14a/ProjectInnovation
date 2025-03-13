@@ -54,9 +54,13 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
 
     [SerializeField] private SoundEffectPlayer soundPlayer;
 
-    void Start()
+    void Awake()
     {
         amountText.text = $" {currentLiquidAmount.ToString("F1")}";
+    }
+
+    void Start()
+    {
         currentLiquidAmount = totalLiquidAmount;
 
         Quaternion adjustedRotation = vial.rotation;

@@ -2,7 +2,7 @@
 {
     public int Amount { get; set; }
     public float Duration { get; set; }
-    public Potion.Type Type { get; set; }
+    public Potion.EPotion Type { get; set; }
 
     //public SerializablePotion(Potion potion)
     //{
