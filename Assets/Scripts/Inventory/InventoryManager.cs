@@ -8,6 +8,7 @@ public class InventoryManager : Service
 {
     //Store created items, and store amout of each AssemblyItem
     private List<Weapon> weapons = new();
+    private List<Potion> potions = new();
     private Dictionary<string, int> assemblyItemCount = new();
 
     //All AssemblyItems loaded from Resources/Grips
@@ -65,7 +66,7 @@ public class InventoryManager : Service
         LoadMaterials();
     }
 
-    public void AddPotion(Potion potion)
+    public void SavePotion(Potion potion)
     {
 
     }

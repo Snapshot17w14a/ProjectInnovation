@@ -114,7 +114,17 @@ public abstract class Character : MonoBehaviour
         stats.Damage -= Mathf.Max(0, damage);
     }
 
-    public void AddIceEffectStack(int maxStacks)
+    public void AddArmourStat(int armour)
+    {
+        stats.Defense += Mathf.Min(0, armour);
+    }
+
+    public void RemoveArmourStat(int armour)
+    {
+        stats.Defense += Mathf.Max(0, armour);
+    }
+
+/*    public void AddIceEffectStack(int maxStacks)
     {
         stats.IceEffectStacks = Mathf.Min(maxStacks, stats.IceEffectStacks + 1);
     }
@@ -122,7 +132,7 @@ public abstract class Character : MonoBehaviour
     public void RemoveIceEffectStack()
     {
         stats.IceEffectStacks = Mathf.Max(0, stats.IceEffectStacks - 1);
-    }
+    }*/
 
     public void SetManager(BattleManager battleManager)
     {

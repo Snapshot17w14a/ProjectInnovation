@@ -33,7 +33,7 @@ public class IceEffect : IWeaponEffect
 
         if(targetEnemy != null)
         {
-            targetEnemy.AddIceEffectStack(maxStacks);
+            //targetEnemy.AddIceEffectStack(maxStacks);
         }
     }
 }
