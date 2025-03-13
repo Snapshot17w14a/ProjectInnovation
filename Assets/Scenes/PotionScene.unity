@@ -1768,7 +1768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 0ac93d13a1f4d0b4ea94be54a757d182, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -2207,7 +2207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &698943345
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4082,7 +4082,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -348.0001}
+  m_AnchoredPosition: {x: 0, y: -348.00015}
   m_SizeDelta: {x: 1737.62, y: 2665.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1025395521
@@ -4730,13 +4730,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 548271832}
+  - {fileID: 1988761303}
   - {fileID: 1025395519}
   - {fileID: 1478907624}
+  - {fileID: 698943345}
+  - {fileID: 548271832}
   - {fileID: 2113785103}
   - {fileID: 827359732}
-  - {fileID: 698943345}
-  - {fileID: 1988761303}
   - {fileID: 1456134404}
   - {fileID: 1876330764}
   - {fileID: 1286462103}
@@ -8955,7 +8955,7 @@ Camera:
   m_GameObject: {fileID: 1939133112}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -8980,7 +8980,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -9084,8 +9084,8 @@ Transform:
   m_GameObject: {fileID: 1946421560}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 159, z: 0}
-  m_LocalScale: {x: 50, y: 80, z: 1}
+  m_LocalPosition: {x: 0, y: 375, z: 44.999966}
+  m_LocalScale: {x: 80, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1988761303}
@@ -9129,7 +9129,7 @@ VFXRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -2
 --- !u!2083052967 &1946421563
 VisualEffect:
   m_ObjectHideFlags: 0
@@ -9175,10 +9175,10 @@ SortingGroup:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946421560}
-  m_Enabled: 1
+  m_Enabled: 0
   m_SortingLayerID: 843982017
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: -2
   m_SortAtRoot: 0
 --- !u!1 &1982152699
 GameObject:
