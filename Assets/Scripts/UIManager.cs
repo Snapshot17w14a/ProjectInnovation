@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> canvases = new();
+    [SerializeField] private GameObject craftingManagerPreab;
 
     public void OpenInventoryPanel()
     {
@@ -40,6 +41,6 @@ public class UIManager : MonoBehaviour
 
     public void StartCraftingProcess()
     {
-        SceneManager.LoadScene("CraftingScene");
+        Instantiate(craftingManagerPreab).GetComponent<CraftingManager>().StartCrafting();
     }
 }

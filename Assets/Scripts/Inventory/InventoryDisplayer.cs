@@ -19,7 +19,7 @@ public class InventoryDisplayer : MonoBehaviour
         var weapons = ServiceLocator.GetService<InventoryManager>().GetAllWeapons;
         foreach (var weapon in weapons)
         {
-            var tile = Instantiate(tilePrefab, Vector2.zero, Quaternion.identity, scrollContent.transform).GetComponent<WeaponTile>();
+            var tile = Instantiate(tilePrefab, Vector3.zero, Quaternion.identity, scrollContent.transform).GetComponent<WeaponTile>();
             tile.damageText.text = $"<b>Damage:</b> {weapon.Damage}";
             tile.critChanceText.text = $"<b>Crit Chance:</b> {weapon.CritChance}%";
             tile.critDamageText.text = $"<b>Crit Damage:</b> {weapon.CriticalDamage}%";

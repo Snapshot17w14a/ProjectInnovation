@@ -26,7 +26,7 @@ public class PetSelectorManager : MonoBehaviour
 
         foreach(var petName in namePetPair.Keys)
         {
-            var tile = Instantiate(tilePrefab, Vector2.zero, Quaternion.identity, transform);
+            var tile = Instantiate(tilePrefab, Vector3.zero, Quaternion.identity, transform);
             tile.transform.GetChild(0).GetComponent<Image>().sprite = namePetPair[petName].GetComponent<Image>().sprite;
             tile.GetComponent<Button>().onClick.AddListener(() => ReturnSelectedpPet(petName));
         }
