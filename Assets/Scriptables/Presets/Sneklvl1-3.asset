@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ac73df55292977438ac3b5b7b6949c1, type: 3}
-  m_Name: preset - (-115008)
+  m_Name: Sneklvl1-3
   m_EditorClassIdentifier: 
-  Health: 20
-  Damage: 10
+  Health: 24
+  Damage: 8
   AttackCooldown: 2
-  Defense: 2
+  Defense: 0
   Skill: {fileID: 0}
   SkillDamage: 0
   SkillCooldown: 0
-  HpPerLevel: 10
-  DmgPerLevel: 1
-  StartingLevel: 5
+  HpPerLevel: 2
+  DmgPerLevel: 0
+  StartingLevel: 2
