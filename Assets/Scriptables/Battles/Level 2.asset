@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8f6839ac1e8579489ebdd4682492801, type: 3}
-  m_Name: Lv3
+  m_Name: Level 2
   m_EditorClassIdentifier: 
   enemyWaves:
-  - {fileID: 11400000, guid: 239c8eda2809fbb4db5d9629394fb968, type: 2}
-  - {fileID: 11400000, guid: 60d423ddd4d475c4691d1d789c240d7d, type: 2}
-  - {fileID: 11400000, guid: 4432e7f83f1cd964f8b6065c0fcfb71b, type: 2}
-  - {fileID: 11400000, guid: 7925e98e61b0d0c4caf4229f7b48028e, type: 2}
-  - {fileID: 11400000, guid: 28a53ee7f24b525428407fb95727331f, type: 2}
+  - {fileID: 11400000, guid: 874dc694d33bfad45a8d7f5e8ac79182, type: 2}
+  - {fileID: 11400000, guid: 6d776e2b4e571c04d940bf2e219c6ff9, type: 2}
+  - {fileID: 11400000, guid: c5ec516bfa86dcc4786413a86248a96f, type: 2}
+  - {fileID: 11400000, guid: 5c5844999112c4447b17be27ab3e14d4, type: 2}
+  - {fileID: 11400000, guid: ab94e23ab02d074469eab511ce6d1896, type: 2}
