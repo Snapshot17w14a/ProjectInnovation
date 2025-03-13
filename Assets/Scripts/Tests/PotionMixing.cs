@@ -14,6 +14,7 @@ public class PotionMixing : MonoBehaviour
     [SerializeField] private int successThreshold = 900;
     [SerializeField] private int failThreshold = 300;
     [SerializeField] private float maxWaterAmount = 5f;
+    [SerializeField] private float intencity = 0.1f;
     private float waterIncreaseRate = 0.5f;
     private Vector3 lastAcceleration;
     private int shakeCount;
@@ -186,6 +187,7 @@ public class PotionMixing : MonoBehaviour
         effectText.text = $"";
         waterText.text = $"{waterAmount.ToString("F1")}";
 
+        bookImage.gameObject.SetActive(true);
         foreach (Button button in ingredientButtons)
         {
             button.gameObject.SetActive(true);
@@ -236,7 +238,7 @@ public class PotionMixing : MonoBehaviour
             targetColor = Color.red;
         }
 
-        liquidMaterial.SetColor("_Color_Gradient_Top", targetColor);
+        liquidMaterial.SetVector("_Color_Gradient_Top", new Vector4(targetColor.r * intencity, targetColor.g * intencity, targetColor.b * intencity, 1f));
     }
 
     private void ShowRecipe()

@@ -43,7 +43,7 @@ Material:
     - _QueueOffset: 0
     - _Transparency: 25.6
     m_Colors:
-    - _Color_Gradient_Top: {r: 0.09549897, g: 2.892253, b: 2.892253, a: 0}
+    - _Color_Gradient_Top: {r: 1, g: 0, b: 0, a: 1}
     - _Color_Gradient_bottom: {r: 0, g: 0.03269442, b: 0.4811321, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7344508733221660336
