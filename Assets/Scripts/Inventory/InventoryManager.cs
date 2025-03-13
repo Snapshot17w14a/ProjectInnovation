@@ -66,9 +66,21 @@ public class InventoryManager : Service
         LoadMaterials();
     }
 
-    public void SavePotion(Potion potion)
+    public void SavePotions()
     {
+        File.WriteAllText(Application.persistentDataPath + "/savedPotions.json", JsonSerializer.Serialize(potions, options));
+    }
 
+    public void LoadPotions()
+    {
+        var loadedPotions = JsonSerializer.Deserialize<SerializablePotion[]>(File.ReadAllText(Application.persistentDataPath + "/savedPotions.json"));
+        foreach(var potion in loadedPotions)
+        {
+            switch (potion.Type)
+            {
+
+            }
+        }
     }
 
     public void SaveWeapons()
@@ -158,4 +170,6 @@ public class InventoryManager : Service
     public void AddMaterial(Weapon.Material material, int count) => materialCountPair[material] += count;
 
     public int MaterialCount(Weapon.Material material) => materialCountPair[material];
+
+    public void AddPotion(Potion potion) => potions.Add(potion);
 }

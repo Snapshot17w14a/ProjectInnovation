@@ -1,4 +1,4 @@
-﻿public abstract class Potion
+public abstract class Potion
 {
     public enum EPotion
     {
