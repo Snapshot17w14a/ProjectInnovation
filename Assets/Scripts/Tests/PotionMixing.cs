@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class PotionMixing : MonoBehaviour
 {
@@ -45,8 +46,12 @@ public class PotionMixing : MonoBehaviour
     [SerializeField] private RawImage recipeImage;
 
     [SerializeField] private Material liquidMaterial;
+
+    [SerializeField] private Transform effectPosition;
+    [SerializeField] private VisualEffect waterVFX;
     void Start()
     {
+        DisableVFX();
         lastAcceleration = Input.acceleration;
 
         foreach (Button button in ingredientButtons)
@@ -68,7 +73,11 @@ public class PotionMixing : MonoBehaviour
         if (isAddingWater && waterAmount <= maxWaterAmount)
         {
             waterAmount += waterIncreaseRate * Time.deltaTime;
+            
             waterText.text = $" " + waterAmount.ToString("F1");
+        } else
+        {
+            EnableVFX();
         }
 
         Vector3 currentAcceleration = Input.acceleration;
@@ -250,6 +259,22 @@ public class PotionMixing : MonoBehaviour
         else
         {
             recipeImage.gameObject.SetActive(false);
+        }
+    }
+
+    private void EnableVFX()
+    {
+        if(waterVFX != null)
+        {
+            waterVFX.Play();
+        }
+    }
+
+    private void DisableVFX()
+    {
+        if(waterVFX != null)
+        {
+            waterVFX.Stop();
         }
     }
 
