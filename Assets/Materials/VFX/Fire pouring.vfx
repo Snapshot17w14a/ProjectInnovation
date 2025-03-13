@@ -166,7 +166,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: -8
+      m_SerializableObject: -10
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -4482,7 +4482,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Sphere, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":-7.5,"z":0.0},"radius":0.5}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":-7.5,"z":0.0},"radius":0.699999988079071}'
     m_Space: 0
   m_Property:
     name: Sphere
@@ -4753,7 +4753,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1
+      m_SerializableObject: 0.7
     m_Space: 2147483647
   m_Property:
     name: stickDistance
@@ -6656,7 +6656,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Sphere, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":-7.5,"z":0.0},"radius":0.5}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":-7.5,"z":0.0},"radius":0.699999988079071}'
     m_Space: 0
   m_Property:
     name: Sphere
@@ -6927,7 +6927,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1
+      m_SerializableObject: 0.7
     m_Space: 2147483647
   m_Property:
     name: stickDistance
@@ -7076,7 +7076,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: -8
+      m_SerializableObject: -10
     m_Space: 2147483647
   m_Property:
     name: o
