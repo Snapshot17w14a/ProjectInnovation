@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/BattleScene.unity
+    guid: 794d59fea4d90624eb1079c3b34dc24b
+  - enabled: 1
     path: Assets/Scenes/LocationTest.unity
     guid: 894efdae3d4153c4aa093e4cc597f12a
   - enabled: 1
@@ -21,9 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MaterialSelection.unity
     guid: 0af1cf51815de134bb2ca448acacc12b
   - enabled: 1
-    path: Assets/Scenes/BattleScene.unity
-    guid: 794d59fea4d90624eb1079c3b34dc24b
-  - enabled: 1
     path: Assets/Scenes/CraftingScene.unity
     guid: cafb93454ee020d48adce3d3a0e1debb
+  - enabled: 1
+    path: Assets/Scenes/Decoration.unity
+    guid: 557113d82abd1f442b3eebbcc29bc8cd
   m_configObjects: {}

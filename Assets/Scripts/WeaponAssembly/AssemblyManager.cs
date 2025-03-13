@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class AssemblyManager : CraftingProcess, ICraftingProcess
 {
-    private GameObject assemblySnapPoint;
-    private GameObject weapon;
+    [SerializeField] private GameObject assemblySnapPoint;
+    [SerializeField] private GameObject weapon;
     [SerializeField] private ScrollRect scrollView;
     [SerializeField][Range(1,5)] private int gridDimension;
 
@@ -17,10 +17,9 @@ public class AssemblyManager : CraftingProcess, ICraftingProcess
     void Start()
     {
         CalculateMaxCellSize();
-        weapon = transform.Find("Weapon").gameObject;
+        //weapon = transform.Find("Weapon").gameObject;
         var snapObject = weapon.transform.Find("Snappoints");
-        assemblySnapPoint = snapObject.GetChild(0).gameObject;
-        PopulateContent();
+        //assemblySnapPoint = snapObject.GetChild(0).gameObject;
     }
 
     public void StartProcess(ref Weapon item)
@@ -51,7 +50,7 @@ public class AssemblyManager : CraftingProcess, ICraftingProcess
 
     public void AddItem(AssemblyItem item)
     {
-        ServiceLocator.GetService<InventoryManager>().AddAssemblyItem(item, -1);
+        //ServiceLocator.GetService<InventoryManager>().AddAssemblyItem(item, -1);
         var itemObject = new GameObject(item.itemName, typeof(CanvasRenderer), typeof(Image));
         itemObject.GetComponent<Image>().sprite = item.sprite;
         itemObject.transform.position = assemblySnapPoint.transform.position;
