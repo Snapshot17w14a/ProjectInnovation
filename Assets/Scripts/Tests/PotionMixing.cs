@@ -98,7 +98,7 @@ public class PotionMixing : MonoBehaviour
         {
 
             case "Health":
-                inventoryManager.SavePotion(new HealthPotion((int)effectMultiplier));
+                inventoryManager.AddPotion(new HealthPotion((int)effectMultiplier));
                 break;
             case "Damage":
 
