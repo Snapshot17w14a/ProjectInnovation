@@ -24,6 +24,7 @@ public class Pet : Character
         while (isBattling)
         {
             stats.skill.UseSkill();
+            soundEffectPlayer.SetVolume = 1f;
             soundEffectPlayer.PlayAudioAtIndex(6);
             yield return new WaitForSeconds(stats.skill.SkillCooldown);
         }
@@ -60,10 +61,12 @@ public class Pet : Character
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
+        soundEffectPlayer.SetVolume = 1f;
         soundEffectPlayer.PlayAudioWithRange(3, 5);
         if (isMarkedForDestruction)
         {
             battleManager.RemovePetFromBattle(this);
+            soundEffectPlayer.SetVolume = 1f;
             soundEffectPlayer.PlayAudioAtIndex(5);
         }
     }

@@ -37,7 +37,6 @@ public class SoundEffectPlayer : MonoBehaviour
             audioSource.clip = audioClips[Random.Range(0, audioClips.Length)];
             audioSource.Play();
         }
-        audioSource.volume = 1;
     }
 
     public void PlayAudioAtIndex(int index)
@@ -45,7 +44,6 @@ public class SoundEffectPlayer : MonoBehaviour
         if (index >= audioClips.Length) return;
         audioSource.clip = audioClips[index];
         audioSource.Play();
-        audioSource.volume = 1;
     }
 
     public void PlayAudioWithRange(int minInclusive, int maxExclusive)
@@ -53,6 +51,5 @@ public class SoundEffectPlayer : MonoBehaviour
         if(minInclusive < 0 || maxExclusive >  audioClips.Length) return;
         audioSource.clip = audioClips[Random.Range(minInclusive, maxExclusive)];
         audioSource.Play();
-        audioSource.volume = 1;
     }
 }
