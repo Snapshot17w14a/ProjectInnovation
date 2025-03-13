@@ -42,6 +42,8 @@ public class PotionMixing : MonoBehaviour
     [SerializeField] private RawImage shakeIndicator;
     [SerializeField] private RawImage bookImage;
     [SerializeField] private RawImage recipeImage;
+
+    [SerializeField] private Material liquidMaterial;
     void Start()
     {
         lastAcceleration = Input.acceleration;
@@ -56,8 +58,8 @@ public class PotionMixing : MonoBehaviour
         potionEffects.Add(new HashSet<string> { "Shards", "Goo", "Wings" }, "Damage");
         potionEffects.Add(new HashSet<string> { "Scales", "Shards", "Silk" }, "Armour");
         potionEffects.Add(new HashSet<string> { "Berries", "Wings", "Feather" }, "Attack Speed");
-        potionEffects.Add(new HashSet<string> { "Feather", "Herbs", "Silk" }, "Crit Chance");
-        potionEffects.Add(new HashSet<string> { "Mushroom", "Goo", "Scales" }, "Armour Pen");
+        potionEffects.Add(new HashSet<string> { "Feather", "Herbs", "Silk" }, "Critical Chance");
+        potionEffects.Add(new HashSet<string> { "Mushroom", "Goo", "Scales" }, "Armour Penetration");
     }
 
     void Update()
@@ -74,6 +76,8 @@ public class PotionMixing : MonoBehaviour
         if (accelerationChange > hitThreshold && canShake)
         {
             shakeCount++;
+            Debug.Log(" " + shakeCount);
+            ChangeMaterial(shakeCount);
             lastAcceleration = currentAcceleration;
         }
 
@@ -87,16 +91,29 @@ public class PotionMixing : MonoBehaviour
         Debug.Log($"Potion Created! - Buff: {buff}, Quality: {quality}, Duration: {duration}s, Effect Strength: {effectMultiplier * 100}%");
 
         effectText.text = buff;
+        InventoryManager inventoryManager = ServiceLocator.GetService<InventoryManager>();
 
-
-        switch (buff) {
+        switch (buff)
+        {
 
             case "Health":
-                
-                // inventoryManager.AddPotion(new HealthPotion(100));
+                inventoryManager.SavePotion(new HealthPotion((int)effectMultiplier));
+                break;
+            case "Damage":
 
                 break;
+            case "Armour":
 
+                break;
+            case "Attack Speed":
+
+                break;
+            case "Critical Chance":
+
+                break;
+            case "Armour Penetration":
+
+                break;
             default:
                 throw new NotImplementedException(nameof(buff));
         }
@@ -142,11 +159,11 @@ public class PotionMixing : MonoBehaviour
 
             if (selectedIngredients.Count == 1)
             {
-                
+
             }
             else if (selectedIngredients.Count == 2)
             {
-                
+
             }
             else if (selectedIngredients.Count == 3)
             {
@@ -202,12 +219,33 @@ public class PotionMixing : MonoBehaviour
         completeButton.gameObject.SetActive(true);
     }
 
+    private void ChangeMaterial(int shakeCount)
+    {
+        Color targetColor = Color.white;
+
+        if (shakeCount >= averageThreshold)
+        {
+            targetColor = Color.green;
+        }
+        if (shakeCount >= successThreshold)
+        {
+            targetColor = Color.blue;
+        }
+        if(shakeCount >= failThreshold)
+        {
+            targetColor = Color.red;
+        }
+
+        liquidMaterial.SetColor("_Color_Gradient_Top", targetColor);
+    }
+
     private void ShowRecipe()
     {
-        if(isShowingRecipes)
+        if (isShowingRecipes)
         {
             recipeImage.gameObject.SetActive(true);
-        } else
+        }
+        else
         {
             recipeImage.gameObject.SetActive(false);
         }

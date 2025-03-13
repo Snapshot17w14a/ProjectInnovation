@@ -3584,8 +3584,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   averageThreshold: 50
-  successThreshold: 900
-  failThreshold: 300
+  successThreshold: 75
+  failThreshold: 100
   maxWaterAmount: 5
   ingredientButtons:
   - {fileID: 334293176}
