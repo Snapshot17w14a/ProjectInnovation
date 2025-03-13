@@ -29,7 +29,7 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private DecorationManager decorationManager;
 
-    [SerializeField] private SoundEffectPlayer soundPlayer;
+    [SerializeField] private SoundEffectPlayer[] soundPlayer;
 
     private int EnemiesAlive
     {
@@ -80,7 +80,7 @@ public class BattleManager : MonoBehaviour
     private IEnumerator StartWaves()
     {
         //Debug.Log("Coroutine started");
-        soundPlayer.PlayAudioAtIndex(1);
+        soundPlayer[0].PlayAudioAtIndex(1);
 
         while (currentWaveIndex < battleContainer.enemyWaves.Length)
         {
@@ -164,7 +164,8 @@ public class BattleManager : MonoBehaviour
 
     private void BattleEnd()
     {
-        soundPlayer.PlayAudioAtIndex(0);
+        soundPlayer[0].PlayAudioAtIndex(0);
+        soundPlayer[1].PlayAudioAtIndex(AreTherePetsInBattle ?  1 : 0);
         foreach (var obj in objectsToHideInBattle) obj.SetActive(true);
         currentWaveIndex = 0;
         StopAllCoroutines();
