@@ -3840,7 +3840,7 @@ MonoBehaviour:
     type: 3}
   tileParent: {fileID: 916499262}
   battleManager: {fileID: 166358556}
-  uiManager: {fileID: 0}
+  uiManager: {fileID: 1058626356}
 --- !u!114 &746709091
 MonoBehaviour:
   m_ObjectHideFlags: 0

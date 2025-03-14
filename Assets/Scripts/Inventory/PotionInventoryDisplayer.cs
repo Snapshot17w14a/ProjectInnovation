@@ -28,6 +28,8 @@ public class PotionInventoryDisplayer : MonoBehaviour
             tile.GetChild(2).GetComponent<TextMeshProUGUI>().text = potion.Description;
             tile.GetChild(3).GetComponent<Button>().onClick.AddListener(() => battleManager.SetPotion(potion));
             tile.GetChild(3).GetComponent<Button>().onClick.AddListener(() => uiManager.CloseAllOverlays());
+
+            createdTiles.Add(tile.gameObject);
         }
     }
 }

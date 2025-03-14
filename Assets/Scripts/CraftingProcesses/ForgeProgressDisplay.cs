@@ -21,7 +21,7 @@ public class ForgeProgressDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        width = bar.rectTransform.sizeDelta.x;
+        width = bar.rectTransform.sizeDelta.y;
         correctSpotWidth = correctSpot.rectTransform.sizeDelta.x;
         correctSpotX = correctSpot.rectTransform.anchoredPosition.x;
 
@@ -34,7 +34,7 @@ public class ForgeProgressDisplay : MonoBehaviour
     public void SetNeedleProgress(float progress)
     {
         progress = Mathf.Clamp01(progress);
-        needle.rectTransform.anchoredPosition = new(progress * width, 0);
+        needle.rectTransform.anchoredPosition = new(0, progress * width);
     }
 
     public bool IsNeedlePositionCorrect()
@@ -45,7 +45,7 @@ public class ForgeProgressDisplay : MonoBehaviour
 
     public void DisplayMicrophoneVolume(float microphoneVolume, float volumeThreshold)
     {
-        volumeImage.rectTransform.sizeDelta = new Vector2(volumeImage.rectTransform.sizeDelta.x, microphoneVolume * 100);
+        volumeImage.rectTransform.sizeDelta = new Vector2(volumeImage.rectTransform.sizeDelta.x, microphoneVolume * 300);
         volumeImage.color = microphoneVolume > volumeThreshold ? Color.red : Color.white;
     }
 
