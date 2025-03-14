@@ -62,6 +62,7 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
         Quaternion adjustedRotation = vial.rotation;
         adjustedRotation *= Quaternion.Euler(0, 0, angleOffset); // Rotate by angleOffset on the Z axis
         moltenMetalVFX = Instantiate(moltenMetalVFX, vial.position, adjustedRotation, vial);
+        DisableVFX();
     }
 
     void Update()
@@ -93,12 +94,16 @@ public class PouringMetal : CraftingProcess, ICraftingProcess
         if (isPouring && currentLiquidAmount > 0)
         {
             currentPourSpeed = Mathf.Min(currentPourSpeed + pourAcceleration * Time.deltaTime, maxPourSpeed);
-
+            EnableVFX();
         }
         else
         {
             currentPourSpeed = Mathf.Max(currentPourSpeed - pourDeceleration * Time.deltaTime, 0);
-            EnableVFX();
+
+            if (currentPourSpeed == 0)
+            {
+               DisableVFX();
+            }
         }
 
         if (currentLiquidAmount > 0 && currentPourSpeed > 0)
