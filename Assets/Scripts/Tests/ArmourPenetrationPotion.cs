@@ -9,6 +9,7 @@ public class ArmourPenetrationPotion : Potion
     {
         Amount = Math.Max(0, armourPenetration);
         Duration = Math.Max(0, duration);
+        Type = EPotion.ArmourPenetration;
     }
 
     public override void UsePotion(Character[] characters)
@@ -18,4 +19,6 @@ public class ArmourPenetrationPotion : Potion
             character.AddBuff(new ArmourPenetrationBuff(Amount, Duration));
         }
     }
+
+    public override string Description => $"Gives {Amount} armor penetration for {Duration} seconds";
 }

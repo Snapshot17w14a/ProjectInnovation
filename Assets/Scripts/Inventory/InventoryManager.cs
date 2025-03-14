@@ -3,6 +3,8 @@ using System.Text.Json;
 using UnityEngine;
 using System.Linq;
 using System.IO;
+using UnityEngine.SceneManagement;
+using System.Text;
 
 public class InventoryManager : Service
 {
@@ -41,14 +43,10 @@ public class InventoryManager : Service
         AssemblyItem[] loadedAssemblyItems = Resources.LoadAll<AssemblyItem>("Grips");
         AssemblyItems = new(loadedAssemblyItems);
 
-        //weapons.AddRange(new Weapon[] { new(damage: 10, critChance: 35, armorPenetration: 1), new(damage: 1, critChance: 95, critDamage: 10) });
-        //SaveWeapons();
+        var defaultCredit = PlayerPrefs.GetInt("DefaultMaterials", 0);
+        if (defaultCredit == 0) CreditStartingMaterials();
+
         LoadWeapons();
-
-        assemblyItemCount.Add(AssemblyItems[0].itemName, 10);
-        assemblyItemCount.Add(AssemblyItems[1].itemName, 10);
-
-        SaveAssemblyItems();
         LoadAssemblyItems();
 
         var loadedpresets = Resources.LoadAll<CharacterPreset>("PetPresets");
@@ -59,19 +57,16 @@ public class InventoryManager : Service
             if (!petPresets.ContainsKey(preset.name)) petPresets.Add(preset.name, preset);
         }
 
-        //SavePets();
         LoadPets();
-
-        materialCountPair.Add(Weapon.Material.Stone, 10);
-        materialCountPair.Add(Weapon.Material.Copper, 5);
-
-        SaveMaterials();
         LoadMaterials();
+        LoadPotions();
+
+        SceneManager.LoadScene("BattleScene");
     }
 
     public void SavePotions()
     {
-        File.WriteAllText(Application.persistentDataPath + "/savedPotions.json", JsonSerializer.Serialize(potions, options));
+        File.WriteAllText(Application.persistentDataPath + "/savedPotions.json", JsonSerializer.Serialize(potions.ConvertAll(potion => potion.GetSerializablePotion()), options));
     }
 
     public void LoadPotions()
@@ -81,16 +76,33 @@ public class InventoryManager : Service
         {
             switch (potion.Type)
             {
-
+                case Potion.EPotion.Health:
+                    AddPotion(new HealthPotion(potion.Amount));
+                    continue;
+                case Potion.EPotion.Damage:
+                    AddPotion(new DamagePotion(potion.Amount, potion.Duration));
+                    continue;
+                case Potion.EPotion.Armour:
+                    AddPotion(new ArmourPotion(potion.Amount, potion.Duration));
+                    continue;
+                case Potion.EPotion.AttackSpeed:
+                    AddPotion(new AttackSpeedPotion(potion.Amount, potion.Duration));
+                    continue;
+                case Potion.EPotion.CriticalChance:
+                    AddPotion(new CricicalChancePotion(potion.Amount, potion.Duration));
+                    continue;
+                case Potion.EPotion.ArmourPenetration:
+                    AddPotion(new ArmourPenetrationPotion(potion.Amount, potion.Duration));
+                    continue;
+                default:
+                    continue;
             }
         }
     }
 
     public void SaveWeapons()
     {
-        SerializableWeapon[] itemDatas = new SerializableWeapon[weapons.Count];
-        for(int i = 0; i < weapons.Count; i++) itemDatas[i] = new SerializableWeapon(weapons[i]);
-        File.WriteAllText(Application.persistentDataPath + "/savedItems.json", JsonSerializer.Serialize(itemDatas, options));
+        File.WriteAllText(Application.persistentDataPath + "/savedItems.json", JsonSerializer.Serialize(weapons.ConvertAll(weapon => new SerializableWeapon(weapon)), options));
     }
 
     public void LoadWeapons()
@@ -141,6 +153,46 @@ public class InventoryManager : Service
         materialCountPair = JsonSerializer.Deserialize<Dictionary<Weapon.Material, int>>(File.ReadAllText(Application.persistentDataPath + "/savedMaterials.json"));
     }
 
+    private void CreditStartingMaterials()
+    {
+        File.Create(Application.persistentDataPath + "/savedAssemblyItems.json").Close();
+        File.Create(Application.persistentDataPath + "/savedMaterials.json").Close();
+        File.Create(Application.persistentDataPath + "/savedPets.json").Close();
+        File.Create(Application.persistentDataPath + "/savedItems.json").Close();
+        File.Create(Application.persistentDataPath + "/savedPotions.json").Close();
+
+        assemblyItemCount.Add(AssemblyItems[0].itemName, 10);
+        assemblyItemCount.Add(AssemblyItems[1].itemName, 10);
+
+        SaveAssemblyItems();
+
+        materialCountPair.Add(Weapon.Material.Stone, 10);
+        materialCountPair.Add(Weapon.Material.Copper, 5);
+
+        SaveMaterials();
+
+        File.WriteAllText(Application.persistentDataPath + "/savedPets.json", "{}");
+        File.WriteAllText(Application.persistentDataPath + "/savedPotions.json", "[]");
+        File.WriteAllText(Application.persistentDataPath + "/savedItems.json", "[]");
+
+        PlayerPrefs.SetInt("DefaultMaterials", 1);
+        PlayerPrefs.Save();
+    }
+
+    public void EraseAllData()
+    {
+        File.WriteAllText(Application.persistentDataPath + "/savedMaterials.json", "");
+        File.WriteAllText(Application.persistentDataPath + "/savedPets.json", "");
+        File.WriteAllText(Application.persistentDataPath + "/savedAssemblyItems.json", "");
+        File.WriteAllText(Application.persistentDataPath + "/savedPotions.json", "");
+        File.WriteAllText(Application.persistentDataPath + "/savedItems.json", "");
+
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+
+        Application.Quit();
+    }
+
     public void AddItemToInventory(Weapon item) => weapons.Add(item);
     public void RemoveItemFromInventory(Weapon item) => weapons.Remove(item);
 
@@ -175,4 +227,6 @@ public class InventoryManager : Service
     public int MaterialCount(Weapon.Material material) => materialCountPair[material];
 
     public void AddPotion(Potion potion) => potions.Add(potion);
+
+    public Potion[] GetAllPotions => potions.ToArray();
 }

@@ -6,6 +6,7 @@ public class DamagePotion : Potion
     {
         Amount = Math.Max(0, damage);
         Duration = Math.Max(0, duration);
+        Type = EPotion.Damage;
     }
 
     public override void UsePotion(Character[] characters)
@@ -15,4 +16,6 @@ public class DamagePotion : Potion
             character.AddBuff(new DamageBuff(Amount, Duration));
         }
     }
+
+    public override string Description => $"Gives {Amount} damgage boost for {Duration} seconds.";
 }

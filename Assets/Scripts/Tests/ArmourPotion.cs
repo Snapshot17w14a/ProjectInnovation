@@ -10,6 +10,7 @@ public class ArmourPotion : Potion
     {
         Amount = Math.Max(0, armour);
         Duration = Math.Max(0, duration);
+        Type = EPotion.Armour;
     }
 
     public override void UsePotion(Character[] characters)
@@ -19,4 +20,6 @@ public class ArmourPotion : Potion
             character.AddBuff(new ArmourBuff(Amount, Duration));
         }
     }
+
+    public override string Description => $"Gives {Amount} of armor for {Duration} seconds";
 }

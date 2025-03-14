@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 5b5816e0f8b46cb4a9c2cf341051241d
+  - enabled: 1
     path: Assets/Scenes/BattleScene.unity
     guid: 794d59fea4d90624eb1079c3b34dc24b
   - enabled: 1
@@ -26,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CraftingScene.unity
     guid: cafb93454ee020d48adce3d3a0e1debb
+  - enabled: 1
+    path: Assets/Scenes/PotionScene.unity
+    guid: bbc934c3ee502354d9488b02dd70ba57
   - enabled: 1
     path: Assets/Scenes/Decoration.unity
     guid: 557113d82abd1f442b3eebbcc29bc8cd

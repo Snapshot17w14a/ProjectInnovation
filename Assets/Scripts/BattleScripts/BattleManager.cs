@@ -78,21 +78,15 @@ public class BattleManager : MonoBehaviour
 
         Skill.battleManager = this;
         usePotionButton.gameObject.SetActive(false);
-        usePotionButton.onClick.AddListener(OnUsePotionButtonClicked);
         fightButton.interactable = AreTherePetsInBattle;
-        fightButton.onClick.AddListener(OnFightButtonClicked);
-    }
-
-    private void OnDestroy()
-    {
-        usePotionButton.onClick.RemoveListener(OnUsePotionButtonClicked);
-        fightButton.onClick.RemoveListener(OnFightButtonClicked);
     }
 
     private IEnumerator StartWaves()
     {
         //Debug.Log("Coroutine started");
         soundPlayer[0].PlayAudioAtIndex(1);
+
+        usePotionButton.gameObject.SetActive(true);
 
         while (currentWaveIndex < battleContainer.enemyWaves.Length)
         {
@@ -164,6 +158,7 @@ public class BattleManager : MonoBehaviour
     public void SetPotion(Potion potion)
     {
         this.potion = potion;
+        usePotionButton.interactable = true;
     }
 
     public void SetPetAtIndex(Pet pet, int index)
@@ -201,6 +196,7 @@ public class BattleManager : MonoBehaviour
         }
         isBattleInProgress = false;
         fightButton.interactable = AreTherePetsInBattle;
+        usePotionButton.gameObject.SetActive(false);
         OnBattleEnd -= BattleEnd;
     }
 
@@ -227,19 +223,10 @@ public class BattleManager : MonoBehaviour
         battleContainer = container;
     }
 
-    private void OnFightButtonClicked()
-    {
-        usePotionButton.gameObject.SetActive(true);
-    }
-
-    private void OnUsePotionButtonClicked()
+    public void UsePotion()
     {
         //Use SetPotion Method found up to set the type of potion
-        //potion = new HealthPotion(100);
-        if (potion == null)
-        {
-            return;
-        }
+        if (potion == null) return;
 
         potion.UsePotion(petsInBattle);
         potion = null;

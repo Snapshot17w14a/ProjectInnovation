@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -184,21 +183,5 @@ public class HammeringTest : CraftingProcess, ICraftingProcess
     public void StartProcess(ref Weapon item)
     {
         weapon = item;
-    }
-
-        private void EnableVFX()
-    {
-        if (hammeringSparksVFX != null)
-        {
-            hammeringSparksVFX.Play();
-        }
-    }
-
-    private void DisableVFX()
-    {
-        if (hammeringSparksVFX != null)
-        {
-            hammeringSparksVFX.Stop();
-        }
     }
 }

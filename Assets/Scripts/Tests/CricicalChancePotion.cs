@@ -9,6 +9,7 @@ public class CricicalChancePotion : Potion
     {
         Amount = Math.Max(0, criticalChance);
         Duration = Math.Max(0, duration);
+        Type = EPotion.CriticalChance;
     }
 
     public override void UsePotion(Character[] characters)
@@ -18,4 +19,6 @@ public class CricicalChancePotion : Potion
             character.AddBuff(new CriticalChanceBuff(Amount, Duration));
         }
     }
+
+    public override string Description => $"Gives {Amount} critical chance for {Duration} seconds.";
 }

@@ -1,12 +1,10 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.VFX;
+using UnityEngine.UI;
+using UnityEngine;
+using System;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PotionMixing : MonoBehaviour
 {
@@ -56,7 +54,7 @@ public class PotionMixing : MonoBehaviour
 
         foreach (Button button in ingredientButtons)
         {
-            string ingredientName = button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text;
+            string ingredientName = button.GetComponentInChildren<TextMeshProUGUI>().text;
             button.onClick.AddListener(() => AddIngredient(ingredientName));
         }
 
@@ -75,7 +73,8 @@ public class PotionMixing : MonoBehaviour
             waterAmount += waterIncreaseRate * Time.deltaTime;
             
             waterText.text = $" " + waterAmount.ToString("F1");
-        } else
+        } 
+        else
         {
             EnableVFX();
         }
@@ -103,7 +102,9 @@ public class PotionMixing : MonoBehaviour
         effectText.text = buff;
         InventoryManager inventoryManager = ServiceLocator.GetService<InventoryManager>();
 
-        switch (buff)
+        potionEffects.TryGetValue(new HashSet<string>(selectedIngredients), out string switchString);
+
+        switch (switchString)
         {
 
             case "Health":
@@ -128,6 +129,7 @@ public class PotionMixing : MonoBehaviour
                 throw new NotImplementedException(nameof(buff));
         }
 
+        inventoryManager.SavePotions();
     }
 
     private (string quality, float multiplier) DeterminePotionQuality()
@@ -155,7 +157,7 @@ public class PotionMixing : MonoBehaviour
         var (quality, multiplier) = DeterminePotionQuality();
 
         var effectiveness = effectMultiplier * multiplier;
-        return potionEffects.TryGetValue(key, out string buff) ? $"Gives a +{effectiveness.ToString("F1")}% {buff} buff for {duration.ToString("F0")} seconds " : "Potion Fail: Ingredients incompatible";
+        return potionEffects.TryGetValue(key, out string buff) ? $"Gives a +{effectiveness:F1}% {buff} buff for {duration:F0} seconds " : "Potion Fail: Ingredients incompatible";
     }
 
     // shaking = effectiveness
@@ -280,4 +282,9 @@ public class PotionMixing : MonoBehaviour
 
     public void ToggleWater() => isAddingWater = !isAddingWater;
     public void ToggleRecipes() => isShowingRecipes = !isShowingRecipes;
+
+    public void LoadBattleScene()
+    {
+        SceneManager.LoadScene("BattleScene");
+    }
 }

@@ -35,6 +35,9 @@ public class UIManager : MonoBehaviour
                 gameobject.SetActive(true);
                 gameobject.TryGetComponent(out InventoryDisplayer inventoryDisplayer);
                 if(inventoryDisplayer != null) inventoryDisplayer.UpdateContent();
+
+                gameobject.TryGetComponent(out PotionInventoryDisplayer potionInventoryDisplayer);
+                if (potionInventoryDisplayer != null) potionInventoryDisplayer.UpdateContent();
             }
         }
     }
@@ -42,5 +45,15 @@ public class UIManager : MonoBehaviour
     public void StartCraftingProcess()
     {
         Instantiate(craftingManagerPreab).GetComponent<CraftingManager>().StartCrafting();
+    }
+
+    public void StartPotionCrafting()
+    {
+        SceneManager.LoadScene("PotionScene");
+    }
+
+    public void EraseAllData()
+    {
+        FindObjectOfType<InventoryManager>().EraseAllData();
     }
 }

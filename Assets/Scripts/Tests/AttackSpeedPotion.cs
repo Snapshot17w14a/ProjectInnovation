@@ -9,6 +9,7 @@ public class AttackSpeedPotion : Potion
     {
         Amount = Math.Max(0, attackSpeed);
         Duration = Math.Max(0, duration);
+        Type = EPotion.AttackSpeed;
     }
 
     public override void UsePotion(Character[] characters)
@@ -18,4 +19,6 @@ public class AttackSpeedPotion : Potion
             character.AddBuff(new AttackSpeedBuff(Amount, Duration));
         }
     }
+
+    public override string Description => $"Gives {Amount} attack speed buff for {Duration} seconds.";
 }
