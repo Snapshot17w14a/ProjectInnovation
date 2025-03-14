@@ -43,20 +43,19 @@ public class InventoryManager : Service
         AssemblyItem[] loadedAssemblyItems = Resources.LoadAll<AssemblyItem>("Grips");
         AssemblyItems = new(loadedAssemblyItems);
 
-        var defaultCredit = PlayerPrefs.GetInt("DefaultMaterials", 0);
-        if (defaultCredit == 0) CreditStartingMaterials();
-
-        LoadWeapons();
-        LoadAssemblyItems();
-
         var loadedpresets = Resources.LoadAll<CharacterPreset>("PetPresets");
 
-        foreach(var preset in loadedpresets)
+        foreach (var preset in loadedpresets)
         {
             if (!petStats.ContainsKey(preset.name)) petStats.Add(preset.name, new CharacterStats(preset));
             if (!petPresets.ContainsKey(preset.name)) petPresets.Add(preset.name, preset);
         }
 
+        var defaultCredit = PlayerPrefs.GetInt("DefaultMaterials", 0);
+        if (defaultCredit == 0) CreditStartingMaterials();
+
+        LoadWeapons();
+        LoadAssemblyItems();
         LoadPets();
         LoadMaterials();
         LoadPotions();
@@ -170,8 +169,8 @@ public class InventoryManager : Service
         materialCountPair.Add(Weapon.Material.Copper, 5);
 
         SaveMaterials();
-
-        File.WriteAllText(Application.persistentDataPath + "/savedPets.json", "{}");
+        SavePets();
+        
         File.WriteAllText(Application.persistentDataPath + "/savedPotions.json", "[]");
         File.WriteAllText(Application.persistentDataPath + "/savedItems.json", "[]");
 

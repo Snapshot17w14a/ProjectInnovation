@@ -106,7 +106,7 @@ public class BattleManager : MonoBehaviour
 
             isBattleInProgress = false;
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1.5f);
 
             currentWaveIndex++;
         }
