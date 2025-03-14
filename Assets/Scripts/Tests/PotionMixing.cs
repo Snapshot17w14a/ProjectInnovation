@@ -38,8 +38,6 @@ public class PotionMixing : MonoBehaviour
 
     [SerializeField] private TMP_Text effectText;
     [SerializeField] private TMP_Text waterText;
-
-    [SerializeField] private RawImage shakeIndicator;
     [SerializeField] private RawImage bookImage;
     [SerializeField] private RawImage recipeImage;
 
@@ -71,12 +69,12 @@ public class PotionMixing : MonoBehaviour
         if (isAddingWater && waterAmount <= maxWaterAmount)
         {
             waterAmount += waterIncreaseRate * Time.deltaTime;
-            
+            EnableVFX();
             waterText.text = $" " + waterAmount.ToString("F1");
-        } 
+        }
         else
         {
-            EnableVFX();
+            DisableVFX();
         }
 
         Vector3 currentAcceleration = Input.acceleration;
@@ -130,6 +128,7 @@ public class PotionMixing : MonoBehaviour
         }
 
         inventoryManager.SavePotions();
+        LoadBattleScene();
     }
 
     private (string quality, float multiplier) DeterminePotionQuality()
@@ -206,7 +205,6 @@ public class PotionMixing : MonoBehaviour
 
         waterButton.gameObject.SetActive(false);
         waterText.gameObject.SetActive(false);
-        shakeIndicator.gameObject.SetActive(false);
         shakeButton.gameObject.SetActive(false);
         completeButton.gameObject.SetActive(false);
         canShake = false;
@@ -228,7 +226,6 @@ public class PotionMixing : MonoBehaviour
         shakeButton.gameObject.SetActive(false);
         waterText.gameObject.SetActive(false);
         waterButton.gameObject.SetActive(false);
-        shakeIndicator.gameObject.SetActive(true);
         completeButton.gameObject.SetActive(true);
     }
 
